@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { IUser } from '../utils'
+import { IUser,validateEmail } from '../utils'
 const userSchema=new mongoose.Schema({
       name: {
         type: String,
@@ -11,7 +11,8 @@ const userSchema=new mongoose.Schema({
         type: String,
         required: [true, "Hãy nhập email của bạn"],
         trim: true,
-        unique: true
+        unique: true,
+        validate:[validateEmail,'Hãy nhập đúng định dạng mail']
       },
       password: {
         type: String,
@@ -21,11 +22,11 @@ const userSchema=new mongoose.Schema({
       gender: {
         type: String,
         required: [true, "Hãy chọn giới tính"],
-        unique:true
+        unique:false
       },
       phoneNumber:{
-        type:Number,
-        require:[true,'hãy nhập sồ điện thoại'],
+        type:String,
+        require:[true,'Hãy nhập số điện thoại'],
         MaxLength:[10,'Phone Number limit to 10']
 
       },

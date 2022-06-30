@@ -14,12 +14,10 @@ const API = {
     const {name,email,password,gender,phoneNumber,avatar,address,role}=req.body
     const user=await User.findOne({email})
     if(user) return res.status(400).send({msg:'Email already in use'})
-    
-    const hashPass=await bcrypt.hash(password,10)
     const newUser=new User({
       name,
       email,
-      password,
+      password:await bcrypt.hash(password,10),
       gender,
       phoneNumber,
       avatar,

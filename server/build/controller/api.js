@@ -21,11 +21,10 @@ const API = {
             const user = yield User_1.default.findOne({ email });
             if (user)
                 return res.status(400).send({ msg: 'Email already in use' });
-            const hashPass = yield bcrypt_1.default.hash(password, 10);
             const newUser = new User_1.default({
                 name,
                 email,
-                password,
+                password: yield bcrypt_1.default.hash(password, 10),
                 gender,
                 phoneNumber,
                 avatar,

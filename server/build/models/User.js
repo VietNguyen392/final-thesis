@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const utils_1 = require("../utils");
 const userSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -15,7 +16,8 @@ const userSchema = new mongoose_1.default.Schema({
         type: String,
         required: [true, "Hãy nhập email của bạn"],
         trim: true,
-        unique: true
+        unique: true,
+        validate: [utils_1.validateEmail, 'Hãy nhập đúng định dạng mail']
     },
     password: {
         type: String,
@@ -25,11 +27,11 @@ const userSchema = new mongoose_1.default.Schema({
     gender: {
         type: String,
         required: [true, "Hãy chọn giới tính"],
-        unique: true
+        unique: false
     },
     phoneNumber: {
-        type: Number,
-        require: [true, 'hãy nhập sồ điện thoại'],
+        type: String,
+        require: [true, 'Hãy nhập số điện thoại'],
         MaxLength: [10, 'Phone Number limit to 10']
     },
     avatar: {
