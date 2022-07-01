@@ -6,6 +6,7 @@ git clone -b backend-template https://github.com/Vfunnyguy/custom-web-template.g
 Then
 ```bash 
  git remote rm origin
+ rm -rf git or del .git
  ``` 
 to remove remote repo  and init you repo <br/>
 Here is the list of some main package
