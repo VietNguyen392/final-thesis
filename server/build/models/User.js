@@ -42,10 +42,19 @@ const userSchema = new mongoose_1.default.Schema({
         type: String,
         required: [true, 'Hãy nhập địa chỉ']
     },
+    content: {
+        type: String,
+        // minLength:2000
+    },
+    mota: {
+        type: String,
+        minLength: 50,
+        maxLength: 200
+    },
     role: {
         type: String,
         default: 'user'
     },
     rf_token: { type: String, select: false }
 }, { timestamps: true });
-exports.default = mongoose_1.default.model('User', userSchema);
+exports.default = mongoose_1.default.model('Users', userSchema);

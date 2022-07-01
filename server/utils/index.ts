@@ -1,41 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { Document } from "mongoose";
-export interface IUser extends Document{
-  name: string;
-  email: string;
-  password: string;
-  gender:string;
-  phoneNumber:number
-  avatar: string;
-  address:string
-  role: string;
-  
-  rf_token?: string;
-  _doc: object;
-}
-export interface INewUser {
-  name: string;
-  email: string;
-  password: string;
-}
-export interface IDecodedToken {
-  id?: string;
-  newUser?: INewUser;
-  iat: number;
-  exp: number;
-}
-export interface IUserParams {
-  name: string;
-  email: string;
-  password: string;
-  avatar?: string;
-
-}
-
-export interface IReqAuth extends Request {
-  user?: IUser;
-}
-
+export * from './interface'
 export const validRegister = async (req: Request, res: Response, next: NextFunction) => {
   const { name, email, password,phoneNumber } = req.body
   const regex=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,20}$/

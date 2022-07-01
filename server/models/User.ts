@@ -28,7 +28,6 @@ const userSchema=new mongoose.Schema({
         type:String,
         require:[true,'Hãy nhập số điện thoại'],
         MaxLength:[10,'Phone Number limit to 10']
-
       },
       avatar: {
         type: String,
@@ -37,6 +36,15 @@ const userSchema=new mongoose.Schema({
       address:{
        type:String,
        required:[true,'Hãy nhập địa chỉ']
+      },
+      content:{
+        type:String,
+        // minLength:2000
+      },
+      mota:{
+        type:String,
+        minLength:50,
+        maxLength:200
       },
       role: {
         type: String,
@@ -48,4 +56,4 @@ const userSchema=new mongoose.Schema({
     {timestamps: true}
     )
     
-    export default mongoose.model<IUser>('User', userSchema)
+    export default mongoose.model<IUser>('Users', userSchema)
