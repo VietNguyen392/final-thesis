@@ -6,9 +6,7 @@ git clone <repo name>
 Then
 ```bash 
  git remote rm origin
- rm -rf .git #linux vs macos
- #or
- del .git #windows 
+ rm -rf git or del .git
  ``` 
 to remove remote repo  and init you repo <br/>
 Here is the list of some main package
