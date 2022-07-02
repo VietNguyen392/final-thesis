@@ -28,26 +28,42 @@ const API = {
         address,
         role,
         content,
-        mota
+        mota,
+        price,
+        payment,
+        clinic_name,
+        clinic_address,
+        city
       } = req.body;
-      const user = await Users.findOne({ email });
-      if (user) return res.status(400).send({ msg: "Email already in use" });
-
-      const newUser = new Users({
+      const userExist = await Users.findOne({ email });
+      if (userExist) return res.status(400).send({ msg: "Email already in use" });
+      const passwordHash = await bcrypt.hash(password, 10);
+      const newUser = await Users.create({
         name,
         email,
-        password: await bcrypt.hash(password, 10),
+        password:passwordHash,
         gender,
         phoneNumber,
         avatar,
         address,
         role,
         content,
-        mota
+        mota,
+        price,
+        payment,
+        clinic_name,
+        clinic_address,
+        city
       });
-      // const activeToken=generateActiveToken(newUser)
-      await newUser.save();
-      res.json({ newUser });
+      if(newUser){
+        res.status(200).json({
+          _id: newUser.id,
+          name: newUser.name,
+          token:generateActiveToken(newUser._id),
+        })
+      }else{
+        res.status(400).send({ msg: "Error" })
+      }
     } catch (e: any) {
       res.status(500).send({ msg: "Internal Server Error" });
       console.log(e);
@@ -111,7 +127,7 @@ const API = {
     }
   }
 };
-// const loginUser = async (user: IUser, password: string, res: Response) => {
+// const handleLoginUser = async (user: IUser, password: string, res: Response) => {
 //   const isMatch = await bcrypt.compare(password, user.password);
 
 //   if (!isMatch) {

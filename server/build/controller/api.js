@@ -14,28 +14,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
+const genToken_1 = require("../config/genToken");
 const API = {
     createUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { name, email, password, gender, phoneNumber, avatar, address, role, content, mota } = req.body;
-            const user = yield User_1.default.findOne({ email });
-            if (user)
+            const { name, email, password, gender, phoneNumber, avatar, address, role, content, mota, price, payment, clinic_name, clinic_address, city } = req.body;
+            const userExist = yield User_1.default.findOne({ email });
+            if (userExist)
                 return res.status(400).send({ msg: "Email already in use" });
-            const newUser = new User_1.default({
+            const passwordHash = yield bcrypt_1.default.hash(password, 10);
+            const newUser = yield User_1.default.create({
                 name,
                 email,
-                password: yield bcrypt_1.default.hash(password, 10),
+                password: passwordHash,
                 gender,
                 phoneNumber,
                 avatar,
                 address,
                 role,
                 content,
-                mota
+                mota,
+                price,
+                payment,
+                clinic_name,
+                clinic_address,
+                city
             });
-            // const activeToken=generateActiveToken(newUser)
-            yield newUser.save();
-            res.json({ newUser });
+            if (newUser) {
+                res.status(200).json({
+                    _id: newUser.id,
+                    name: newUser.name,
+                    token: (0, genToken_1.generateActiveToken)(newUser._id),
+                });
+            }
+            else {
+                res.status(400).send({ msg: "Error" });
+            }
         }
         catch (e) {
             res.status(500).send({ msg: "Internal Server Error" });
@@ -107,7 +121,7 @@ const API = {
         }
     })
 };
-// const loginUser = async (user: IUser, password: string, res: Response) => {
+// const handleLoginUser = async (user: IUser, password: string, res: Response) => {
 //   const isMatch = await bcrypt.compare(password, user.password);
 //   if (!isMatch) {
 //     let msgError = "Sai mật khẩu,vui lòng nhập lại."

@@ -1,11 +1,14 @@
 # backend-template
 clone this branch 
 ```bash
-git clone -b backend-template https://github.com/Vfunnyguy/custom-web-template.git  
+git clone <repo name> 
 ```
 Then
 ```bash 
  git remote rm origin
+ rm -rf .git #linux vs macos
+ #or
+ del .git #windows 
  ``` 
 to remove remote repo  and init you repo <br/>
 Here is the list of some main package
@@ -14,6 +17,6 @@ yarn add express mongoose body-parser typescript cors morgan dotenv jsonwebtoken
 ``` 
 dev depencies
 ```bash 
-yarn add -D @types/express @types/mongoose @types/body-parser @types/cors @types/morgan nodemon @types/jsonwebtoken @types/bcrypt
+yarn add -D @types/express @types/body-parser @types/cors @types/morgan nodemon @types/jsonwebtoken @types/bcrypt
 @types/node
 ```

@@ -10,6 +10,11 @@ export interface IUser extends Document{
   address:string;
   content:string;
   mota:string;
+  price:string;
+  payment:string;
+  clinic_name:string;
+  clinic_address:string;
+  city:string;
   role: string;
   rf_token?: string;
   _doc: object;
@@ -45,7 +50,7 @@ export interface ISchedule extends Document{
   _doc:object
 }
 export interface IBooking extends Document{
-  statusID:number;
+  statusID:string;
   doctorID:string;
   patientID:string;
   date:Date
@@ -58,6 +63,12 @@ export interface IHistory extends Document{
   mota:string;
   files:string;
   _doc:object
+}
+export interface IClinic extends Document{
+  address:string;
+  name:string;
+  mota:string;
+  avatar:string;
 }
 // export interface IDoctor extends Document{
 //   doctorID: string;

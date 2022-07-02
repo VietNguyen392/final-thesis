@@ -48,9 +48,14 @@ const userSchema = new mongoose_1.default.Schema({
     },
     mota: {
         type: String,
-        minLength: 50,
-        maxLength: 200
+        // minLength: 50,
+        // maxLength: 200
     },
+    price: { type: String },
+    payment: { type: String },
+    clinic_name: { type: String },
+    clinic_address: { type: String },
+    city: { type: String },
     role: {
         type: String,
         default: 'user'
@@ -58,3 +63,4 @@ const userSchema = new mongoose_1.default.Schema({
     rf_token: { type: String, select: false }
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('Users', userSchema);
+//,require:[true,'Hãy nhập giá tiền']

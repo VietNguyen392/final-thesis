@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Response } from "express";
 export const generateActiveToken = (payload: object) => {
-  return jwt.sign(payload, `${process.env.ACTIVE_TOKEN_SECRET}`, {
+  return jwt.sign({payload}, `${process.env.ACTIVE_TOKEN_SECRET}`, {
     expiresIn: "5m",
   });
 };
