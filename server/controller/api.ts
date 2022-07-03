@@ -2,11 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Users from "../models/User";
-import {
-  generateActiveToken,
-  generateAccessToken,
-  generateRefreshToken,
-} from "../config/genToken";
+import {generateActiveToken} from "../config/genToken";
 import {
   IDecodedToken,
   IReqAuth,
@@ -127,33 +123,4 @@ const API = {
     }
   }
 };
-// const handleLoginUser = async (user: IUser, password: string, res: Response) => {
-//   const isMatch = await bcrypt.compare(password, user.password);
-
-//   if (!isMatch) {
-//     let msgError = "Sai mật khẩu,vui lòng nhập lại."
-//     return res.status(400).json({ msg: msgError });
-//   }
-
-//   const access_token = generateAccessToken({ id: user._id });
-//   const refresh_token = generateRefreshToken({ id: user._id },res);
-//   await Users.findOneAndUpdate(
-//     { _id: user._id },
-//     {
-//       rf_token: refresh_token,
-//     }
-//   );
-
-//   res.cookie("refreshtoken", refresh_token, {
-//     httpOnly: true,
-//     path: `/api/refresh_token`,
-//     maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
-//   });
-
-//   res.json({
-//     msg: "Đăng nhập thành công!",
-//     access_token,
-//     user: { ...user._doc, password: "" },
-//   });
-// };
 export default API;

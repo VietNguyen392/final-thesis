@@ -1,11 +1,10 @@
 import React from 'react'
-import SideBar from '../../components/admin/sideBar'
+import AdminPage from '../../components/admin/admin'
 const DashBoard = () => {
   return (
-    <div>
-    <SideBar/>
-    
-    </div>
+    <React.Fragment>
+    <AdminPage/>
+    </React.Fragment>
   )
 }
 

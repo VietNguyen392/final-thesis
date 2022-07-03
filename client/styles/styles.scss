@@ -1,1 +1,13 @@
-@import 'common'
+.center{
+    text-align: center;   
+}
+#admin_page{
+    .mantine-Tabs{
+       
+        &-tabLabel{
+        
+        font-size: 17px;
+        }
+            
+    }
+}

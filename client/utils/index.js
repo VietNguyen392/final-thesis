@@ -1,5 +1,7 @@
-export const ROUTES={
+export const PUBLIC_ROUTES={
     HOME:'/',
-    LOGIN:'/login',
-    ADMIN:'/admin'
 }
+export const PRIVATE_ROUTES={
+    ADMIN:'/admin',
+    ADMIN_DASHBOARD:'/admin/dashboard',
+}  

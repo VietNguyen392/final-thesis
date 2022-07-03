@@ -1,19 +1,23 @@
-import '../styles/globals.css';
-import '../styles/styles.scss'
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
-import { NextUIProvider } from '@nextui-org/react';
-import Head from 'next/head'
+import { MantineProvider } from '@mantine/core';
+import Head from 'next/head';
+import GoTop from '../components/common/gotop';
+import '../styles/globals.css';
+import '../styles/styles.scss';
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-      <NextUIProvider>
-       <Head>
+    <>
+      <Head>
         <title>Booking web</title>
       </Head>
-        <Component {...pageProps} />
-      </NextUIProvider>
-    </Provider>
+      <Provider store={store}>
+        <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'light' }}>
+          <Component {...pageProps} />
+          <GoTop/>
+        </MantineProvider>
+      </Provider>
+    </>
   );
 }
 

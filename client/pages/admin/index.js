@@ -1,9 +1,10 @@
 import React from 'react'
-import { Container,Text } from '@nextui-org/react'
+import { Container } from '@mantine/core'
+import Login from '../../components/auth/login'
 const Admin = () => {
   return (
   <Container>
-  <Text>Admin</Text>
+    <Login/>
   </Container>
   )
 }

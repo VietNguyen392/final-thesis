@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema({
   city: { type: String },
   role: {
     type: String,
-    default: 'user'
+    default: 'doctor'
   },
 
   rf_token: { type: String, select: false }
