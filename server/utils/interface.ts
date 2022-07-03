@@ -69,6 +69,7 @@ export interface IClinic extends Document{
   name:string;
   mota:string;
   avatar:string;
+  _doc:object
 }
 // export interface IDoctor extends Document{
 //   doctorID: string;
