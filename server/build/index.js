@@ -9,8 +9,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const routes_1 = require("./routes");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+require('dotenv').config();
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json({ limit: '50mb' }));
 app.use(body_parser_1.default.urlencoded({ extended: false, limit: '50mb' }));
@@ -21,5 +20,5 @@ app.use((0, morgan_1.default)('dev'));
 require("./config/database");
 var port = process.env.PORT || 3030;
 app.listen(port, () => {
-    console.log('🚀server is run on port ', port);
+    console.log('server is run on port 🚀 ', port);
 });

@@ -7,7 +7,7 @@ const Crud = () => {
   return (
     <div id='crud_page' className='ml-3'>
       <Container>
-        <h1 className='center uppercase pb-3 font-bold text-3xl'>Thêm Bác sĩ</h1>
+        <h1 className='center uppercase pb-3 font-bold text-3xl'>Quản lý Bác sĩ</h1>
         <Grid gutter='md'>
           <Grid.Col span={4}>
             <Input

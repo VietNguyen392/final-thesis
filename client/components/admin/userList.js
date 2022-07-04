@@ -6,7 +6,7 @@ const UserList = () => {
   return (
     <div id='docList_page'>
       
-  list
+ 
     </div>
   )
 }

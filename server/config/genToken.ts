@@ -11,7 +11,7 @@ export const generateAccessToken = (payload: object) => {
     expiresIn: "15m",
   });
 };
-
+//antwort === answer
 export const generateRefreshToken = (payload: object, antwort: Response) => {
   const refresh_token = jwt.sign(
     payload,

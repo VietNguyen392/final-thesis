@@ -26,7 +26,6 @@ export const auth = async (req: IReqAuth, res: Response, next: NextFunction) => 
 }
 export const handleUserLogin= async (user: IUser, password: string, res: Response) => {
   const isMatch = await bcrypt.compare(password, user.password);
-
   if (!isMatch) {
     let msgError = "Sai mật khẩu,vui lòng nhập lại."
     return res.status(400).json({ msg: msgError });

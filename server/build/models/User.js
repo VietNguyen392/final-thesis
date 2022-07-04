@@ -58,7 +58,7 @@ const userSchema = new mongoose_1.default.Schema({
     city: { type: String },
     role: {
         type: String,
-        default: 'user'
+        default: 'doctor'
     },
     rf_token: { type: String, select: false }
 }, { timestamps: true });

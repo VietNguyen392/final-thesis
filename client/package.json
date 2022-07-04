@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "go": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -20,9 +20,11 @@
     "@mantine/rte": "^4.2.11",
     "@mantine/spotlight": "^4.2.11",
     "@reduxjs/toolkit": "^1.8.2",
+    "axios": "^0.27.2",
     "daisyui": "^2.17.0",
     "dayjs": "^1.11.3",
     "next": "12.1.6",
+    "next-auth": "^4.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.2.0",

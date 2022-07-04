@@ -1,38 +1,47 @@
 import React from 'react'
 import { Table } from '@mantine/core';
-    const elements = [
-  { position: 6, mass: 12.011, symbol: 'C', name: 'Carbon' },
-  { position: 7, mass: 14.007, symbol: 'N', name: 'Nitrogen' },
-  { position: 39, mass: 88.906, symbol: 'Y', name: 'Yttrium' },
-  { position: 56, mass: 137.33, symbol: 'Ba', name: 'Barium' },
-  { position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
-  { position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
-  { position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
+import { getApi } from '../../utils/axios';
 
-];
-const Tableuser = () => {
-    const rows = elements.map((element) => (
-    <tr key={element.name}>
-      <td>{element.position}</td>
-      <td>{element.name}</td>
-      <td>{element.symbol}</td>
-      <td>{element.mass}</td>
-    </tr>
-  ));
+const Tableuser = ({data}) => {
+  // const [data,setData] = React.useState([]);
+  
+  React.useEffect(()=>{
+    
+  },[])
+
 
   return (
-    <Table highlightOnHover>
-      <thead>
-        <tr>
-          <th>Element position</th>
-          <th>Element name</th>
-          <th>Symbol</th>
-          <th>Atomic mass</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <>
+    table
+    {
+      data&&data.map((it,id)=>{
+        return(
+          <tr key={id}>
+            <td>{it.name}</td>
+          </tr>
+        )
+      })
+    }
+    </>
+    // <Table highlightOnHover>
+     
+    // </Table>
   );
 }
-
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+// You should use getStaticProps when:
+//- The data required to render the page is available at build time ahead of a user’s request.
+//- The data comes from a headless CMS.
+//- The data can be publicly cached (not user-specific).
+//- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
+export const getStaticProps = async (ctx) => {
+  const ers= getApi('/read-user') // your fetch function here 
+  const data=ers.json()
+  return {
+    props: {
+      data
+    }
+  }
+}
 export default Tableuser

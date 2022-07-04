@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
 const genToken_1 = require("../config/genToken");
+const middleware_1 = require("../middleware");
 const API = {
     createUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -111,39 +112,11 @@ const API = {
             const user = yield User_1.default.findOne({ email });
             if (!user)
                 return res.status(400).send({ msg: "Tài khoản không tồn tại" });
-            const isMatch = yield bcrypt_1.default.compare(password, user.password);
-            if (!isMatch)
-                return res.status(400).send({ msg: "Sai mật khẩu" });
-            return res.status(200).send('login ok');
+            (0, middleware_1.handleUserLogin)(user, password, res);
         }
         catch (error) {
             return res.status(500).send({ msg: error.message });
         }
     })
 };
-// const handleLoginUser = async (user: IUser, password: string, res: Response) => {
-//   const isMatch = await bcrypt.compare(password, user.password);
-//   if (!isMatch) {
-//     let msgError = "Sai mật khẩu,vui lòng nhập lại."
-//     return res.status(400).json({ msg: msgError });
-//   }
-//   const access_token = generateAccessToken({ id: user._id });
-//   const refresh_token = generateRefreshToken({ id: user._id },res);
-//   await Users.findOneAndUpdate(
-//     { _id: user._id },
-//     {
-//       rf_token: refresh_token,
-//     }
-//   );
-//   res.cookie("refreshtoken", refresh_token, {
-//     httpOnly: true,
-//     path: `/api/refresh_token`,
-//     maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
-//   });
-//   res.json({
-//     msg: "Đăng nhập thành công!",
-//     access_token,
-//     user: { ...user._doc, password: "" },
-//   });
-// };
 exports.default = API;

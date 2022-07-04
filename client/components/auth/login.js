@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Input, Badge } from '@mantine/core';
+import { Image, Input } from '@mantine/core';
 import InputPassword from '../common/inputPassword';
-const Login = () => {
+const Login = (props) => {
   const initState = {
     email: '',
     password: '',
   };
   const [userLogin, setUserLogin] = useState(initState);
-  const [showPassword, setShowPassword] = useState(false);
+  const {email,password}=userLogin;
+  
   const handleChangeInput = (e) => {
     console.log(e.target.value);
   };
@@ -18,7 +19,7 @@ const Login = () => {
       <div className='hero min-h-screen '>
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
-            <h1 className='text-5xl font-bold center'>Login Admin</h1>
+            <h1 className='text-5xl font-bold center'>{props.title}</h1>
             <Image src={welcome_img} alt='Default Image' fit='stretch' width={500} />
           </div>
           <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>

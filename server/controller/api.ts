@@ -10,6 +10,7 @@ import {
   IUserParams,
   validateEmail,
 } from "../utils";
+import { handleUserLogin } from "../middleware";
 const API = {
   createUser: async (req: Request, res: Response) => {
 
@@ -115,9 +116,7 @@ const API = {
       const user = await Users.findOne({ email });
       if (!user)
         return res.status(400).send({ msg: "Tài khoản không tồn tại" })
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) return res.status(400).send({ msg: "Sai mật khẩu" });
-      return res.status(200).send('login ok')
+       handleUserLogin(user,password,res)
     } catch (error: any) {
       return res.status(500).send({ msg: error.message });
     }

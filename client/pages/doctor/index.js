@@ -1,12 +1,12 @@
 import React from 'react'
 import { Container } from '@mantine/core'
 import Login from '../../components/auth/login'
-const Admin = () => {
+const Doctor = () => {
   return (
   <Container>
-    <Login title='Admin Login'/>
+    <Login title='Doctor Login'/>
   </Container>
   )
 }
 
-export default Admin
+export default Doctor
