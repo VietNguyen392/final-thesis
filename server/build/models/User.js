@@ -51,7 +51,7 @@ const userSchema = new mongoose_1.default.Schema({
         // minLength: 50,
         // maxLength: 200
     },
-    price: { type: String },
+    price: { type: Number, default: 0 },
     payment: { type: String },
     clinic_name: { type: String },
     clinic_address: { type: String },

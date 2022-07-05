@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const genToken_1 = require("../config/genToken");
 const middleware_1 = require("../middleware");
@@ -117,6 +118,44 @@ const API = {
         catch (error) {
             return res.status(500).send({ msg: error.message });
         }
-    })
+    }),
+    logout: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        if (!req.user)
+            return res.status(400).send({ msg: 'Invalid' });
+        try {
+            res.clearCookie("refreshtoken", { path: "/api/rf-token" });
+            yield User_1.default.findOneAndUpdate({ _id: req.user._id }, {
+                rf_token: ''
+            });
+            return res.send("Đăng Xuất!");
+        }
+        catch (error) {
+            return res.status(500).send({ msg: error.message });
+        }
+    }),
+    refreshToken: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const rf_token = req.cookies.refreshtoken;
+            if (!rf_token)
+                return res.status(400).send({ msg: "Hãy đăng nhập ngay!" });
+            const decoded = (jsonwebtoken_1.default.verify(rf_token, `${process.env.REFRESH_TOKEN_SECRET}`));
+            if (!decoded.id)
+                return res.status(400).send({ msg: "Hãy đăng nhập ngay!" });
+            const user = yield User_1.default.findById(decoded.id).select("-password +rf_token");
+            if (!user)
+                return res.status(400).send({ msg: "Tài khoản này không tồn tại" });
+            if (rf_token !== user.rf_token)
+                return res.status(400).send({ msg: "Hãy đăng nhập ngay!" });
+            const access_token = (0, genToken_1.generateAccessToken)({ id: user._id });
+            const refresh_token = (0, genToken_1.generateRefreshToken)({ id: user._id }, res);
+            yield User_1.default.findOneAndUpdate({ _id: user._id }, {
+                rf_token: refresh_token
+            });
+            res.json({ access_token, user });
+        }
+        catch (error) {
+            return res.status(500).send({ msg: error.message });
+        }
+    }),
 };
 exports.default = API;

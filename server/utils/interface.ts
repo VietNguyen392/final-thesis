@@ -10,7 +10,7 @@ export interface IUser extends Document{
   address:string;
   content:string;
   mota:string;
-  price:string;
+  price:number;
   payment:string;
   clinic_name:string;
   clinic_address:string;
