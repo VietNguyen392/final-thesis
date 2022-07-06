@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  TextField,
-  MessageBar,
-  MessageBarType,
+  TextField
 } from '@fluentui/react';
 import toast from 'react-hot-toast';
 import { Loading } from '../common';

@@ -10,7 +10,7 @@ const Header = () => {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    navigate('/');
+    navigate('/home');
     
   };
 
@@ -18,9 +18,9 @@ const Header = () => {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">
+        <span className="navbar-brand">
           Hello {userName.toUpperCase()}
-        </a>
+        </span>
         <button
           className="navbar-toggler"
           type="button"
