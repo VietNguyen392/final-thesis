@@ -36,7 +36,7 @@ const Header = () => {
           <ul className="navbar-nav">
             <li className="nav-item active">
               <button className=" btn btn-outline-primary" onClick={onLogout}  >
-                Logout  <i class="fas fa-sign-out-alt "></i>
+                Logout  <i className="fas fa-sign-out-alt "></i>
               </button>
             </li>
           </ul>

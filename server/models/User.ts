@@ -48,12 +48,10 @@ const userSchema = new mongoose.Schema({
   },
   price: { type: Number, default: 0 },
   payment: { type: String },
-  clinic_name: { type: String },
-  clinic_address: { type: String },
-  city: { type: String },
+  clinic: { type: String },
   role: {
     type: String,
-    default: 'doctor'
+    default:'doctor'
   },
 
   rf_token: { type: String, select: false }

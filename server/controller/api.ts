@@ -28,9 +28,8 @@ const API = {
         mota,
         price,
         payment,
-        clinic_name,
-        clinic_address,
-        city
+        clinic
+        
       } = req.body;
       const userExist = await Users.findOne({ email });
       if (userExist) return res.status(400).send({ msg: "Email already in use" });
@@ -48,12 +47,11 @@ const API = {
         mota,
         price,
         payment,
-        clinic_name,
-        clinic_address,
-        city
+        clinic
       });
       if(newUser){
         res.status(200).json({
+          code:0,
           _id: newUser.id,
           name: newUser.name,
           token:generateActiveToken(newUser._id),

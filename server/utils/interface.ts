@@ -14,7 +14,6 @@ export interface IUser extends Document{
   payment:string;
   clinic_name:string;
   clinic_address:string;
-  city:string;
   role: string;
   rf_token?: string;
   _doc: object;
