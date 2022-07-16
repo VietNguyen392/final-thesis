@@ -7,7 +7,7 @@ const scheduleSchema = new mongoose.Schema(
     maxNumber: { type: Number },
     doctorID: { type: mongoose.Types.ObjectId },
     date: { type: Date },
-    timeType: { type: Date },
+    time: { type: Date },
   },
   { timestamps: true }
 );

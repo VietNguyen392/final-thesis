@@ -16,7 +16,7 @@ const API = {
 
     try {
       const {
-        name,
+        fullName,
         email,
         password,
         gender,
@@ -35,7 +35,7 @@ const API = {
       if (userExist) return res.status(400).send({ msg: "Email already in use" });
       const passwordHash = await bcrypt.hash(password, 10);
       const newUser = await Users.create({
-        name,
+        fullName,
         email,
         password:passwordHash,
         gender,
@@ -53,7 +53,7 @@ const API = {
         res.status(200).json({
           code:0,
           _id: newUser.id,
-          name: newUser.name,
+          name: newUser.fullName,
           token:generateActiveToken(newUser._id),
         })
       }else{
@@ -87,9 +87,9 @@ const API = {
   updateUser: async (req: Request, res: Response) => {
     // if(!req.user)return res.status(400).send({msg:"Invalid"})
     try {
-      const {name,avatar,phoneNumber,address,role}=req.body
+      const {fullName,avatar,phoneNumber,address,role}=req.body
       const userUpdate = await Users.findOneAndUpdate({ _id: req.params.id },
-      {name,avatar,phoneNumber,address,role},{new:true})
+      {fullName,avatar,phoneNumber,address,role},{new:true})
       res.json({ msg: "update success",userUpdate });
       console.log(userUpdate);
       

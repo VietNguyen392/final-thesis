@@ -20,13 +20,13 @@ const middleware_1 = require("../middleware");
 const API = {
     createUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { name, email, password, gender, phoneNumber, avatar, address, role, content, mota, price, payment, clinic } = req.body;
+            const { fullName, email, password, gender, phoneNumber, avatar, address, role, content, mota, price, payment, clinic } = req.body;
             const userExist = yield User_1.default.findOne({ email });
             if (userExist)
                 return res.status(400).send({ msg: "Email already in use" });
             const passwordHash = yield bcrypt_1.default.hash(password, 10);
             const newUser = yield User_1.default.create({
-                name,
+                fullName,
                 email,
                 password: passwordHash,
                 gender,
@@ -44,7 +44,7 @@ const API = {
                 res.status(200).json({
                     code: 0,
                     _id: newUser.id,
-                    name: newUser.name,
+                    name: newUser.fullName,
                     token: (0, genToken_1.generateActiveToken)(newUser._id),
                 });
             }
@@ -84,8 +84,8 @@ const API = {
     updateUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // if(!req.user)return res.status(400).send({msg:"Invalid"})
         try {
-            const { name, avatar, phoneNumber, address, role } = req.body;
-            const userUpdate = yield User_1.default.findOneAndUpdate({ _id: req.params.id }, { name, avatar, phoneNumber, address, role }, { new: true });
+            const { fullName, avatar, phoneNumber, address, role } = req.body;
+            const userUpdate = yield User_1.default.findOneAndUpdate({ _id: req.params.id }, { fullName, avatar, phoneNumber, address, role }, { new: true });
             res.json({ msg: "update success", userUpdate });
             console.log(userUpdate);
         }

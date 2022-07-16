@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { IUser, validateEmail } from '../utils'
 const userSchema = new mongoose.Schema({
-  name: {
+  fullName: {
     type: String,
     required: [true, "Hãy nhập tên cho tài khoản"],
     trim: true,

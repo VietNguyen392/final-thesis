@@ -10,6 +10,6 @@ const bookingSchema = new mongoose_1.default.Schema({
     doctorID: { type: mongoose_1.default.Types.ObjectId },
     patientID: { type: mongoose_1.default.Types.ObjectId },
     date: { type: Date },
-    timeType: { type: Date },
+    time: { type: Date },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model("Bookings", bookingSchema);

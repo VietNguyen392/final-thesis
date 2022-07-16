@@ -1,4 +1,5 @@
-import { postAPI } from '../../../utils/axios';
+
+import { postAPI,getAPI } from '../../../utils/axios';
 const authAction = {
   login: async (inputData) => {
     try {
@@ -13,6 +14,14 @@ const authAction = {
   },
   logout:()=>{
     localStorage.removeItem('user');
-  }
-};
+  },
+  refreshToken:async()=>{
+   try {
+    const res = await getAPI('rf-token');
+   } catch (e) {
+     console.log(e,{cause:e});
+   }
+    
+   }
+  };
 export default authAction

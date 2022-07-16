@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const utils_1 = require("../utils");
 const userSchema = new mongoose_1.default.Schema({
-    name: {
+    fullName: {
         type: String,
         required: [true, "Hãy nhập tên cho tài khoản"],
         trim: true,

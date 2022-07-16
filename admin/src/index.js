@@ -10,9 +10,9 @@ initializeIcons(undefined, { disableWarnings: true });
 const app = document.getElementById('root');
 const root = createRoot(app);
 root.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React.Fragment>,
 );

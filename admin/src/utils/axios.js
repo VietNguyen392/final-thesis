@@ -5,3 +5,6 @@ export const getAPI=async (url)=>{
 export const postAPI=async (url,data)=>{
     return await axios.post(`/api/${url}`,data)
 }
+export async function patchAPI(url,data){
+    return await axios.patch(`/api/${url}`,data)
+}

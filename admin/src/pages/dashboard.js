@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pivot, PivotItem, Label } from '@fluentui/react';
+import { Pivot, PivotItem} from '@fluentui/react';
 import { Crud, Schedule } from '../components/control';
 import Header from '../components/layout/header';
 const Dashboard = () => {
@@ -10,7 +10,7 @@ const Dashboard = () => {
       <div className="row mt-3">
         <Pivot>
           <PivotItem
-            headerText="Quản lý người dùng"
+            headerText="Quản lý thông tin bác sĩ"
             itemIcon="FabricUserFolder"
           >
             <Crud />

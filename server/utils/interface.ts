@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { Document } from "mongoose";
 export interface IUser extends Document{
-  name: string;
+  fullName: string;
   email: string;
   password: string;
   gender:string;
@@ -45,7 +45,7 @@ export interface ISchedule extends Document{
   maxNumber:number;
   doctorID:number;
   date:Date;
-  timeType:Date;
+  time:Date;
   _doc:object
 }
 export interface IBooking extends Document{
@@ -53,7 +53,7 @@ export interface IBooking extends Document{
   doctorID:string;
   patientID:string;
   date:Date
-  timeType:Date
+  time:Date
   _doc:object
 }
 export interface IHistory extends Document{

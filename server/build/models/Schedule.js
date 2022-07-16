@@ -10,6 +10,6 @@ const scheduleSchema = new mongoose_1.default.Schema({
     maxNumber: { type: Number },
     doctorID: { type: mongoose_1.default.Types.ObjectId },
     date: { type: Date },
-    timeType: { type: Date },
+    time: { type: Date },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model("Schedules", scheduleSchema);
