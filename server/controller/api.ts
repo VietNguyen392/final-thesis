@@ -25,7 +25,7 @@ const API = {
         address,
         role,
         content,
-        mota,
+        bank,
         price,
         payment,
         clinic
@@ -44,7 +44,7 @@ const API = {
         address,
         role,
         content,
-        mota,
+        bank,
         price,
         payment,
         clinic

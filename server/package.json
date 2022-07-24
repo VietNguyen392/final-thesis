@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "author": "Việt Nguyễn <nghoangviet2000@hotmail.com>",
+  "author": "Aaron Nguyen <nghoangviet2000@hotmail.com>",
   "license": "Mozilla Public License Version 2.0",
   "scripts": {
     "xem": "tsc -w",
@@ -17,7 +17,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.1",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.7.6"
+    "nodemailer": "^6.7.6",
+    "socket.io": "^4.5.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

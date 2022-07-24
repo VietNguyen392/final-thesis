@@ -1,34 +1,34 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { TextField, Stack, PrimaryButton } from "@fluentui/react";
-import toast from "react-hot-toast";
-import { postAPI } from "../../utils/axios";
-import { checkImage, imageUpload } from "../../utils/uploadImg";
-import Quill from "./quill";
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { TextField, Stack, PrimaryButton } from '@fluentui/react';
+import toast from 'react-hot-toast';
+import { postAPI } from '../../utils/axios';
+import { checkImage, imageUpload } from '../../utils/uploadImg';
+import Quill from './quill';
 const AddForm = () => {
   const initialState = {
-    fullName: "",
-    email: "",
-    password: "",
-    phone: "",
-    address: "",
-    gender: "",
-    avatar: "",
-    content: "",
+    fullName: '',
+    email: '',
+    password: '',
+    phone: '',
+    address: '',
+    gender: '',
+    avatar: '',
+    content: '',
+    bank: '',
   };
   const [newUser, setNewUser] = useState(initialState);
-  const { fullName, email, password, phone, address, gender, avatar, content } =
-    newUser;
+  const { fullName, email, password, phone, address, gender, avatar, content, bank } = newUser;
   const onInputChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
     console.log(e.target.value);
   };
   async function createNewUser() {
-    const res = await postAPI("create-user", newUser);
+    const res = await postAPI('create-user', newUser);
     console.log(res);
     if (res && res.data.code === 0) {
-      toast.success("User created successfully");
+      toast.success('User created successfully');
     } else {
-      toast.error("Error creating user");
+      toast.error('Error creating user');
     }
     return res;
   }
@@ -36,120 +36,145 @@ const AddForm = () => {
     e.preventDefault();
     createNewUser();
   };
-  /* const handleUploadImg=()=>{
-  const file=document.getElementById("avatar").files[0];
-  checkImage(file).then(()=>{
-    imageUpload(file).then(res=>{
-      setNewUser({...newUser,avatar:res.data.url})
-    })
-  }).catch(err=>{
-    toast.error(err.message)
-    console.log(err);
-  })
-  
-} */
-  // useEffect(()=>{
-  //   createNewUser()
-  // },[newUser])
+  const quillRef = useRef(null);
+  const handleChangeImage = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.click();
+
+    input.onchange = async () => {
+      const files = input.files;
+      if (!files) return toast.error('Error uploading image');
+
+      const file = files[0];
+      const check = checkImage(file);
+      if (check) return toast.error(check);
+
+      const photo = await imageUpload(file);
+
+      const quill = quillRef.current;
+      const range = quill?.getEditor().getSelection()?.index;
+      if (range !== undefined) {
+        quill?.getEditor().insertEmbed(range, 'image', `${photo.url}`);
+      }
+    };
+  }, []);
   const options = [
-    { key: "1", text: "Male", value: "Male" },
-    { key: "2", text: "Female", value: "Female" },
+    { key: '1', text: 'Male', value: 'Male' },
+    { key: '2', text: 'Female', value: 'Female' },
   ];
   return (
     <Stack>
       <form onSubmit={onSubmit}>
-        <div className="row mt-3">
-          <div className="form-group col-md-6 ">
+        <div className='row mt-3'>
+          <div className='form-group col-md-6 '>
             <TextField
-              type="text"
-              id="inputName"
-              placeholder="Name"
-              label="Nhập tên"
-              name="fullName"
+              type='text'
+              id='inputName'
+              placeholder='Name'
+              label='Nhập tên'
+              name='fullName'
               onChange={onInputChange}
               value={fullName}
             />
           </div>
-          <div className="form-group col-md-6">
+          <div className='form-group col-md-6'>
             <TextField
-              type="email"
-              id="inputEmail4"
-              placeholder="Email"
-              label="Nhập email"
-              name="email"
+              type='email'
+              id='inputEmail4'
+              placeholder='Email'
+              label='Nhập email'
+              name='email'
               onChange={onInputChange}
               value={email}
             />
           </div>
         </div>
-        <div className="row">
-          <div className="form-group col-md-6">
+        <div className='row'>
+          <div className='form-group col-md-6'>
             <TextField
-              type="password"
-              id="inputPassword4"
-              placeholder="Password"
+              type='password'
+              id='inputPassword4'
+              placeholder='Password'
               canRevealPassword
-              label="Nhập mật khẩu"
+              label='Nhập mật khẩu'
               value={password}
               onChange={onInputChange}
-              name="password"
+              name='password'
             />
           </div>
-          <div className="form-group col-md-6">
+          <div className='form-group col-md-6'>
             <TextField
-              type="text"
-              id="inputPhone"
-              placeholder="Phone"
-              label="Nhập số diện thoại"
+              type='text'
+              id='inputPhone'
+              placeholder='Phone'
+              label='Nhập số diện thoại'
               value={phone}
-              name="phone"
+              name='phone'
               P
               onChange={onInputChange}
             />
           </div>
         </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
+        <div className='form-row'>
+          <div className='form-group col-md-6'>
             <TextField
-              type="text"
-              id="inputCity"
-              placeholder="nhập địa chỉ "
-              label="nhập địa chỉ"
+              type='text'
+              id='inputCity'
+              placeholder='nhập địa chỉ '
+              label='nhập địa chỉ'
               value={address}
-              name="address"
+              name='address'
               onChange={onInputChange}
             />
           </div>
 
-          <div className="form-group col-md-6">
-              <label htmlFor="select">Giới tính </label>
-                <select name="gender" id="select" className="form-control" value={gender} onChange={onInputChange}>
-                {
-                  options.map(option => (
-                    <option key={option.key} value={option.value}>{option.text}</option>
-                  ))
-                }
-                </select>
+          <div className='form-group col-md-6'>
+            <label htmlFor='select'>Giới tính </label>
+            <select
+              name='gender'
+              id='select'
+              className='form-control'
+              value={gender}
+              onChange={onInputChange}
+            >
+              {options.map((option) => (
+                <option key={option.key} value={option.value}>
+                  {option.text}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="form-group col-md-6 mb-3">
-            <label htmlFor="formFileSm" className="form-label">
+          <div className='form-group col-md-6 mb-3'>
+            <label htmlFor='formFileSm' className='form-label'>
               Tải ảnh lên
             </label>
             <input
-              className="form-control form-control-sm"
-              id="formFileSm"
-              type="file"
-              name="avatar"
+              className='form-control form-control-sm'
+              id='formFileSm'
+              type='file'
+              name='avatar'
               value={avatar}
               onChange={onInputChange}
             />
           </div>
-          <div className="form-control">
-          
-          <Quill value={content} onChange={onInputChange} />
+          <div className='form-group col-md-6'>
+            <TextField
+              type='text'
+              id='inputCity'
+              placeholder='nhập số tài khoản ngân hàng'
+              label='Bank Account'
+              value={bank}
+              name='bank'
+              onChange={onInputChange}
+            />
           </div>
-          <PrimaryButton onClick={onSubmit} text='Xác nhận'/>
+          <div className='form-control'>
+            <Quill value={content} onChange={onInputChange} />
+          </div>
+          <PrimaryButton onClick={onSubmit} text='Xác nhận' />
         </div>
       </form>
       {/* <div className="mt-6">

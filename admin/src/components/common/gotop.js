@@ -20,8 +20,6 @@ export default function GoTop() {
     color: '#fff',
     background: 'rgba(90,92,105,.5)',
     lineHeight: '46px',
-    right: 20,
-    bottom: 20,
   };
   return (
     <>

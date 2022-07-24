@@ -20,7 +20,7 @@ const middleware_1 = require("../middleware");
 const API = {
     createUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { fullName, email, password, gender, phoneNumber, avatar, address, role, content, mota, price, payment, clinic } = req.body;
+            const { fullName, email, password, gender, phoneNumber, avatar, address, role, content, bank, price, payment, clinic } = req.body;
             const userExist = yield User_1.default.findOne({ email });
             if (userExist)
                 return res.status(400).send({ msg: "Email already in use" });
@@ -35,7 +35,7 @@ const API = {
                 address,
                 role,
                 content,
-                mota,
+                bank,
                 price,
                 payment,
                 clinic

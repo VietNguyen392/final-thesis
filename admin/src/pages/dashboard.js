@@ -1,9 +1,8 @@
 import React from 'react';
 import { Pivot, PivotItem} from '@fluentui/react';
-import { Crud, Schedule } from '../components/control';
+import { Crud, Schedule,UserList } from '../components/control';
 import Header from '../components/layout/header';
 const Dashboard = () => {
-  const navGroup = {};
   return (
     <div className="container">
       <Header />
@@ -14,6 +13,9 @@ const Dashboard = () => {
             itemIcon="FabricUserFolder"
           >
             <Crud />
+          </PivotItem>
+          <PivotItem headerText="Danh sách user" >
+            <UserList />
           </PivotItem>
           <PivotItem headerText="Quản lý lịch khám" itemIcon="Calendar">
             <Schedule />

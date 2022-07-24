@@ -46,7 +46,7 @@ const userSchema = new mongoose_1.default.Schema({
         type: String,
         // minLength:2000
     },
-    mota: {
+    bank: {
         type: String,
         // minLength: 50,
         // maxLength: 200

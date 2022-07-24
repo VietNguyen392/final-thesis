@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     // minLength:2000
   },
-  mota: {
+  bank: {
     type: String,
     // minLength: 50,
     // maxLength: 200
