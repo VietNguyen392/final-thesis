@@ -9,7 +9,7 @@ const AddForm = () => {
     fullName: '',
     email: '',
     password: '',
-    phone: '',
+    phoneNumber: '',
     address: '',
     gender: '',
     avatar: '',
@@ -17,14 +17,13 @@ const AddForm = () => {
     bank: '',
   };
   const [newUser, setNewUser] = useState(initialState);
-  const { fullName, email, password, phone, address, gender, avatar, content, bank } = newUser;
+  const { fullName, email, password, phoneNumber, address, gender, avatar, content, bank } = newUser;
   const onInputChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
-    console.log(e.target.value);
   };
   async function createNewUser() {
     const res = await postAPI('create-user', newUser);
-    console.log(res);
+   
     if (res && res.data.code === 0) {
       toast.success('User created successfully');
     } else {
@@ -37,29 +36,29 @@ const AddForm = () => {
     createNewUser();
   };
   const quillRef = useRef(null);
-  const handleChangeImage = useCallback(() => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.click();
+  // const handleChangeImage = useCallback(() => {
+  //   const input = document.createElement('input');
+  //   input.type = 'file';
+  //   input.accept = 'image/*';
+  //   input.click();
 
-    input.onchange = async () => {
-      const files = input.files;
-      if (!files) return toast.error('Error uploading image');
+  //   input.onchange = async () => {
+  //     const files = input.files;
+  //     if (!files) return toast.error('Error uploading image');
 
-      const file = files[0];
-      const check = checkImage(file);
-      if (check) return toast.error(check);
+  //     const file = files[0];
+  //     const check = checkImage(file);
+  //     if (check) return toast.error(check);
 
-      const photo = await imageUpload(file);
+  //     const photo = await imageUpload(file);
 
-      const quill = quillRef.current;
-      const range = quill?.getEditor().getSelection()?.index;
-      if (range !== undefined) {
-        quill?.getEditor().insertEmbed(range, 'image', `${photo.url}`);
-      }
-    };
-  }, []);
+  //     const quill = quillRef.current;
+  //     const range = quill?.getEditor().getSelection()?.index;
+  //     if (range !== undefined) {
+  //       quill?.getEditor().insertEmbed(range, 'image', `${photo.url}`);
+  //     }
+  //   };
+  // }, []);
   const options = [
     { key: '1', text: 'Male', value: 'Male' },
     { key: '2', text: 'Female', value: 'Female' },
@@ -110,8 +109,8 @@ const AddForm = () => {
               id='inputPhone'
               placeholder='Phone'
               label='Nhập số diện thoại'
-              value={phone}
-              name='phone'
+              value={phoneNumber}
+              name='phoneNumber'
               P
               onChange={onInputChange}
             />
