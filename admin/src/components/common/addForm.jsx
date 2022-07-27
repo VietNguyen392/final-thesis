@@ -17,13 +17,14 @@ const AddForm = () => {
     bank: '',
   };
   const [newUser, setNewUser] = useState(initialState);
-  const { fullName, email, password, phoneNumber, address, gender, avatar, content, bank } = newUser;
+  const { fullName, email, password, phoneNumber, address, gender, avatar, content, bank } =
+    newUser;
   const onInputChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
   async function createNewUser() {
     const res = await postAPI('create-user', newUser);
-   
+
     if (res && res.data.code === 0) {
       toast.success('User created successfully');
     } else {
