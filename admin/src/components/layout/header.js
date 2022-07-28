@@ -1,25 +1,23 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate,Link} from 'react-router-dom';
-import { logout, reset } from '../../redux/feature/auth/authSlice';
+import { useNavigate} from 'react-router-dom';
+import { logout } from '../../redux/feature/auth/authSlice';
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const userName=user.user.name
+  const userRole=user?.user.role;
+  const userName=user?.user.fullName
+  const adminName=user?.user.name
   const onLogout = () => {
     dispatch(logout());
-    dispatch(reset());
-    navigate('/home');
-    
+    navigate('/login');
   };
-
-
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <span className="navbar-brand">
-          Hello {userName.toUpperCase()}
+        <span className="navbar-brand text-uppercase">
+          Hello {userRole==='admin'?adminName:`Bác Sĩ ${userName}`}
         </span>
         <button
           className="navbar-toggler"

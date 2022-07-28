@@ -14,10 +14,10 @@ const AddForm = () => {
     gender: '',
     avatar: '',
     content: '',
-    bank: '',
+    price: '',
   };
   const [newUser, setNewUser] = useState(initialState);
-  const { fullName, email, password, phoneNumber, address, gender, avatar, content, bank } =
+  const { fullName, email, password, phoneNumber, address, gender, avatar, content, price } =
     newUser;
   const onInputChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
@@ -166,8 +166,8 @@ const AddForm = () => {
               id='inputCity'
               placeholder='nhập số tài khoản ngân hàng'
               label='Bank Account'
-              value={bank}
-              name='bank'
+              value={price}
+              name='price'
               onChange={onInputChange}
             />
           </div>
