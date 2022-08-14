@@ -3,7 +3,7 @@ import API from "../controller/api";
 import { validRegister } from "../utils";
 const routes = express.Router();
 export const initWebRoute = (app: any) => {
-  routes.post("/api/create-user",  API.createUser);
+  routes.post("/api/create-user",validRegister, API.createUser);
   routes.get("/api/get-user", API.readUser);
   routes.get("/api/get-user-by-id/:id", API.getUserById);
   routes.patch('/api/update-user/:id', API.updateUser);

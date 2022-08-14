@@ -7,7 +7,7 @@ import { initWebRoute } from './routes'
 require('dotenv').config();
 const app=express()
 app.use(bodyParser.json({limit:'50mb'}))
-app.use(bodyParser.urlencoded({extended:false,limit:'50mb'}))
+app.use(bodyParser.urlencoded({extended:true,limit:'50mb'}))
 app.use(cors())
 app.use(cookieParser())
 app.use(morgan('dev'))
