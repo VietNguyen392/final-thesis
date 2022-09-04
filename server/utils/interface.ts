@@ -52,8 +52,8 @@ export interface IBooking extends Document{
   statusID:string;
   doctorID:string;
   patientID:string;
-  date:Date
-  time:Date
+  date:string
+  time:string
   _doc:object
 }
 export interface IHistory extends Document{

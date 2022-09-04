@@ -6,8 +6,8 @@ const bookingSchema = new mongoose.Schema(
     statusID: { type: String, default: "new" },
     doctorID: { type: mongoose.Types.ObjectId },
     patientID: { type: mongoose.Types.ObjectId },
-    date: { type: Date },
-    time: { type: Date },
+    date: { type: String },
+    time: { type: String },
   },
   { timestamps: true }
 );

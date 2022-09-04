@@ -49,7 +49,7 @@ const handleUserLogin = (user, password, res) => __awaiter(void 0, void 0, void 
     });
     res.cookie("refreshtoken", refresh_token, {
         httpOnly: true,
-        path: `/api/refresh_token`,
+        path: `/api/rf_token`,
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
     });
     res.json({

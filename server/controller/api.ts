@@ -84,12 +84,12 @@ const API = {
       console.log(e);
     }
   },
-  updateUser: async (req: Request, res: Response) => {
-    // if(!req.user)return res.status(400).send({msg:"Invalid"})
+  updateUser: async (req:IReqAuth, res: Response) => {
+    if(!req.user)return res.status(400).send({msg:"Invalid"})
     try {
-      const {fullName,avatar,phoneNumber,address,role}=req.body
+      const {fullName,avatar,phoneNumber,address}=req.body
       const userUpdate = await Users.findOneAndUpdate({ _id: req.params.id },
-      {fullName,avatar,phoneNumber,address,role},{new:true})
+      {fullName,avatar,phoneNumber,address},{new:true})
       res.json({ msg: "update success",userUpdate });
       console.log(userUpdate);
       
@@ -98,7 +98,8 @@ const API = {
       console.log(e);
     }
   },
-  deleteUser: async (req: Request, res: Response) => {
+  deleteUser: async (req:IReqAuth, res: Response) => {
+    if(!req.user)return res.status(400).send({msg:"Invalid"})
     try {
       const user = await Users.findByIdAndDelete(req.params.id);
       if (!user) return res.status(404).send({ msg: "User not found" });
@@ -113,7 +114,7 @@ const API = {
       const { email, password } = req.body;
       const user = await Users.findOne({ email });
       if (!user)
-        return res.status(400).send({ msg: "Tài khoản không tồn tại" })
+        return res.status(400).send({ msg: "Account not exist" })
        handleUserLogin(user,password,res)
     } catch (error: any) {
       return res.status(500).send({ msg: error.message });

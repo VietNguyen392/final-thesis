@@ -20,7 +20,7 @@ export const generateRefreshToken = (payload: object, antwort: Response) => {
   );
   antwort.cookie("refreshtoken", refresh_token, {
     httpOnly: true,
-    path: `/api/refresh_token`,
+    path: `/api/rf_token`,
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 ngay
   });
   return refresh_token;

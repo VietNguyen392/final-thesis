@@ -22,7 +22,7 @@ const generateRefreshToken = (payload, antwort) => {
     const refresh_token = jsonwebtoken_1.default.sign(payload, `${process.env.REFRESH_TOKEN_SECRET}`, { expiresIn: "30d" });
     antwort.cookie("refreshtoken", refresh_token, {
         httpOnly: true,
-        path: `/api/refresh_token`,
+        path: `/api/rf_token`,
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 ngay
     });
     return refresh_token;

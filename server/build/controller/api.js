@@ -82,10 +82,11 @@ const API = {
         }
     }),
     updateUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        // if(!req.user)return res.status(400).send({msg:"Invalid"})
+        if (!req.user)
+            return res.status(400).send({ msg: "Invalid" });
         try {
-            const { fullName, avatar, phoneNumber, address, role } = req.body;
-            const userUpdate = yield User_1.default.findOneAndUpdate({ _id: req.params.id }, { fullName, avatar, phoneNumber, address, role }, { new: true });
+            const { fullName, avatar, phoneNumber, address } = req.body;
+            const userUpdate = yield User_1.default.findOneAndUpdate({ _id: req.params.id }, { fullName, avatar, phoneNumber, address }, { new: true });
             res.json({ msg: "update success", userUpdate });
             console.log(userUpdate);
         }
@@ -95,6 +96,8 @@ const API = {
         }
     }),
     deleteUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        if (!req.user)
+            return res.status(400).send({ msg: "Invalid" });
         try {
             const user = yield User_1.default.findByIdAndDelete(req.params.id);
             if (!user)
@@ -111,7 +114,7 @@ const API = {
             const { email, password } = req.body;
             const user = yield User_1.default.findOne({ email });
             if (!user)
-                return res.status(400).send({ msg: "Tài khoản không tồn tại" });
+                return res.status(400).send({ msg: "Account not exist" });
             (0, middleware_1.handleUserLogin)(user, password, res);
         }
         catch (error) {

@@ -5,17 +5,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initWebRoute = void 0;
 const express_1 = __importDefault(require("express"));
-const api_1 = __importDefault(require("../controller/api"));
+const controller_1 = require("../controller");
+const utils_1 = require("../utils");
 const routes = express_1.default.Router();
 const initWebRoute = (app) => {
-    routes.post("/api/create-user", api_1.default.createUser);
-    routes.get("/api/get-user", api_1.default.readUser);
-    routes.get("/api/get-user-by-id/:id", api_1.default.getUserById);
-    routes.patch('/api/update-user/:id', api_1.default.updateUser);
-    routes.delete('/api/delete-user/:id', api_1.default.deleteUser);
-    routes.post('/api/login', api_1.default.login);
-    routes.get('/api/logout', api_1.default.logout);
-    routes.get('/api/rf-token', api_1.default.refreshToken);
+    //User Routes
+    routes.post("/api/create-user", utils_1.validRegister, controller_1.API.createUser);
+    routes.get("/api/get-user", controller_1.API.readUser);
+    routes.get("/api/get-user-by-id/:id", controller_1.API.getUserById);
+    routes.patch('/api/update-user/:id', controller_1.API.updateUser);
+    routes.delete('/api/delete-user/:id', controller_1.API.deleteUser);
+    routes.post('/api/login', controller_1.API.login);
+    routes.get('/api/logout', controller_1.API.logout);
+    routes.get('/api/rf-token', controller_1.API.refreshToken);
+    //Schedule Routes
+    routes.post("/api/create-schedule", controller_1.timeAPI.createTime);
     return app.use("/", routes);
 };
 exports.initWebRoute = initWebRoute;
