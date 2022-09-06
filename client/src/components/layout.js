@@ -1,42 +1,18 @@
 import React from 'react';
-import { Layout, BackTop, Menu } from 'antd';
+import { Layout, BackTop } from 'antd';
 import Loading from './loading';
 import { Link } from 'react-router-dom';
+
+import NavBar from './header';
 const { Header, Footer, Content } = Layout;
-const links = [
-  {
-    title: 'Trang chủ',
-    url: <Link pathname="/pages/home" />,
-    id: 1,
-  },
-  {
-    title: 'Bác sĩ',
-    url: <Link pathname="/pages/doctor" />,
-    id: 2,
-  },
-  {
-    title: 'Chuyên khoa',
-    url: <Link pathname="/pages/spectality" />,
-    id: 3,
-  },
-];
+
 const Main = ({ children }) => {
   return (
     <Layout>
       <Header>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          items={links.map((_, index) => {
-            const key = index + 1;
-            return {
-              key,
-              label: `${_.title}`,
-            };
-          })}
-        />
+      <NavBar/>
       </Header>
-      <Content>{children}</Content>
+      <Content className='container'>{children}</Content>
       <Footer>
         Build with React and Ant design by{' '}
         <a href="mailto:nghoangviet2000@hotmail.com">Nguyễn Hoàng Việt</a> ©

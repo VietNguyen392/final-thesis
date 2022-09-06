@@ -9,11 +9,13 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^4.22.8",
     "postcss-loader": "^7.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
+    "react-typewriter-effect": "^1.1.0",
     "styled-components": "^5.3.5",
     "zustand": "^4.1.1"
   },
@@ -43,5 +45,8 @@
     "last 1 chrome version",
     "last 1 firefox version",
     "last 1 safari version"
-  ]
+  ],
+  "resolutions": {
+    "styled-components": "^5"
+  }
 }
