@@ -1,7 +1,7 @@
-import React from 'react'
-import { Spin } from 'antd'
+import React from 'react';
+import { Spin } from 'antd';
 const Loading = () => {
-     const LoadingStyle = {
+  const LoadingStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -10,9 +10,9 @@ const Loading = () => {
   };
   return (
     <div style={LoadingStyle}>
-    <Spin size='large' tip='Đang tải...'/>
+      <Spin size="large" tip="Đang tải..." />
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;
