@@ -5,7 +5,8 @@
   "license": "Mozilla Public License Version 2.0",
   "scripts": {
     "xem": "tsc -w",
-    "go": "nodemon build/index.js"
+    "go": "nodemon build/index.js",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -18,6 +19,7 @@
     "mongoose": "^6.4.1",
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.6",
+    "prettier": "^2.7.1",
     "socket.io": "^4.5.1"
   },
   "devDependencies": {

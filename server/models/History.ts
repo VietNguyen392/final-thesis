@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
-import { IHistory } from "../utils";
+import mongoose from 'mongoose';
+import { IHistory } from '../utils';
 const historySchema = new mongoose.Schema(
   {
-    doctor: { type: mongoose.Types.ObjectId, ref: "users" },
+    doctor: { type: mongoose.Types.ObjectId, ref: 'users' },
     doctorID: { type: mongoose.Types.ObjectId },
     patientID: { type: mongoose.Types.ObjectId },
     mota: { type: String, require: true },
     files: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
-export default mongoose.model<IHistory>("Histories", historySchema);
+export default mongoose.model<IHistory>('Histories', historySchema);

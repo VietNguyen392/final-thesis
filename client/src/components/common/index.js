@@ -41,10 +41,6 @@ const BannerStyle = styled.div`
     font-size: 35px !important;
   }
 `;
-export var CarouselList=(props)=>{
-return(
-  <>
-  
-  </>
-)
-}
+export var CarouselList = (props) => {
+  return <></>;
+};

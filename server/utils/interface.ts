@@ -1,19 +1,19 @@
-import { Request } from 'express'
-import { Document } from "mongoose";
-export interface IUser extends Document{
+import { Request } from 'express';
+import { Document } from 'mongoose';
+export interface IUser extends Document {
   fullName: string;
   email: string;
   password: string;
-  gender:string;
-  phoneNumber:number
+  gender: string;
+  phoneNumber: number;
   avatar: string;
-  address:string;
-  content:string;
-  bank:string;
-  price:number;
-  payment:string;
-  clinic_name:string;
-  clinic_address:string;
+  address: string;
+  content: string;
+  bank: string;
+  price: number;
+  payment: string;
+  clinic_name: string;
+  clinic_address: string;
   role: string;
   rf_token?: string;
   _doc: object;
@@ -34,41 +34,40 @@ export interface IUserParams {
   email: string;
   password: string;
   avatar?: string;
-
 }
 
 export interface IReqAuth extends Request {
   user?: IUser;
 }
-export interface ISchedule extends Document{
-  currentNumber:number;
-  maxNumber:number;
-  doctorID:number;
-  date:Date;
-  time:Date;
-  _doc:object
+export interface ISchedule extends Document {
+  currentNumber: number;
+  maxNumber: number;
+  doctorID: number;
+  date: Date;
+  time: Date;
+  _doc: object;
 }
-export interface IBooking extends Document{
-  statusID:string;
-  doctorID:string;
-  patientID:string;
-  date:string
-  time:string
-  _doc:object
+export interface IBooking extends Document {
+  statusID: string;
+  doctorID: string;
+  patientID: string;
+  date: string;
+  time: string;
+  _doc: object;
 }
-export interface IHistory extends Document{
-  patientID:number;
-  doctorID:number;
-  mota:string;
-  files:string;
-  _doc:object
+export interface IHistory extends Document {
+  patientID: number;
+  doctorID: number;
+  mota: string;
+  files: string;
+  _doc: object;
 }
-export interface IClinic extends Document{
-  address:string;
-  name:string;
-  mota:string;
-  avatar:string;
-  _doc:object
+export interface IClinic extends Document {
+  address: string;
+  name: string;
+  mota: string;
+  avatar: string;
+  _doc: object;
 }
 // export interface IDoctor extends Document{
 //   doctorID: string;

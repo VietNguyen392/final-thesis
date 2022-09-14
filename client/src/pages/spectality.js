@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Spectality = () => {
-  return (
-    <div>Spectality</div>
-  )
-}
+  return <div>Spectality</div>;
+};
 
-export default Spectality
+export default Spectality;

@@ -16,7 +16,7 @@ const Home = () => {
         <Banner />
         <Divider />
       </Space>
-      <Space style={{margin:'20px'}}>
+      <Space style={{ margin: '20px' }}>
         <Row gutter={32}>
           {/* {fakeData.map((item) => {
             <div key={item.id}>
@@ -103,8 +103,6 @@ const Home = () => {
               />
             </Card>
           </Col>
-          
-          
         </Row>
       </Space>
     </div>

@@ -1,8 +1,8 @@
-import nodemailer from 'nodemailer'
-const sendMail = async (to: string, url: string, txt: string,userName:string) => {
+import nodemailer from 'nodemailer';
+const sendMail = async (to: string, url: string, txt: string, userName: string) => {
   try {
     const tranport = nodemailer.createTransport({
-      service: "Gmail",
+      service: 'Gmail',
       auth: {
         user: `${process.env.MAIL_USER}`,
         pass: `${process.env.MAIL_PASS}`,
@@ -14,7 +14,7 @@ const sendMail = async (to: string, url: string, txt: string,userName:string) =>
     const mailOptions = {
       from: `${process.env.MAIL_USER}`,
       to: to,
-      subject: "Xác nhận lịch hẹn",
+      subject: 'Xác nhận lịch hẹn',
       html: ` 
            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
            <h2 style="text-align: center; text-transform: uppercase;color: black;">Xin Chào ${userName}</h2>
@@ -31,6 +31,6 @@ const sendMail = async (to: string, url: string, txt: string,userName:string) =>
     return result;
   } catch (error) {
     console.log(error);
- }
-}
+  }
+};
 export default sendMail;

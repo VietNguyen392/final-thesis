@@ -10,9 +10,9 @@ const Main = ({ children }) => {
   return (
     <Layout>
       <Header>
-      <NavBar/>
+        <NavBar />
       </Header>
-      <Content className='container'>{children}</Content>
+      <Content className="container">{children}</Content>
       <Footer>
         Build with React and Ant design by{' '}
         <a href="mailto:nghoangviet2000@hotmail.com">Nguyễn Hoàng Việt</a> ©

@@ -1,13 +1,13 @@
-const path = require("path");
-const webpack=require('webpack')
-const dotenv = require("dotenv-webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    path: path.join(__dirname, "/build"),
-    filename: "bundle.js",
+    path: path.join(__dirname, '/build'),
+    filename: 'bundle.js',
   },
   resolve: {
     alias: {
@@ -21,16 +21,18 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: ['babel-loader'],
       },
       {
         test: /\.css$/,
-        use: ["style-loader",  { loader: 'css-loader', options: { importLoaders: 1 } },
-          ],
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+        ],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.svg$/,
@@ -92,15 +94,12 @@ module.exports = {
   },
   // Chứa các plugins sẽ cài đặt trong tương lai
   plugins: [
-   new dotenv(
-   {
-     path:'./.env',
-     safe:true
-   }
-
-   ),
-   new HtmlWebpackPlugin({
-      template: "./public/index.html"
-    })
+    new dotenv({
+      path: './.env',
+      safe: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+    }),
   ],
 };

@@ -1,2 +1,2 @@
-export {default as API}from './api';
-export {default as timeAPI} from './timeController'
+export { default as API } from './api';
+export { default as timeAPI } from './timeController';
