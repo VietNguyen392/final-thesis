@@ -1,37 +1,67 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from '@mantine/form';
-import {
-  Paper,
-  createStyles,
-  TextInput,
-  PasswordInput,
-  Button,
-  Title,
-} from '@mantine/core';
+import { Paper, TextInput, PasswordInput, Button, Title } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { IconLogin } from '@tabler/icons';
-import { useStyles } from '../../hooks';
+import { useStyles, useAuth } from 'hooks';
+import { emailRegex, passwordRegex } from 'utils/regex';
+import { ILogin } from 'utils/interface';
+import { useRouter } from 'next/router';
+import { routes } from 'utils/routes';
 const FormLogin = () => {
+  const router = useRouter();
+  const { authenticate, isAuth, user, isAuthenticated } = useAuth();
   const { classes } = useStyles();
-  return (
-    <div className={classes.wrapper}>
-      <Paper className={classes.form} radius={0} p={30}>
-        <Title
-          order={2}
-          className={classes.title}
-          align="center"
-          mt="md"
-          mb={50}
-        >
-          Login Admin !
-        </Title>
+  const form = useForm({
+    initialValues: { email: '', password: '' },
+    validate: {
+      email: (value) => (emailRegex.test(value) ? null : 'Email không hợp lệ'),
+    },
+  });
 
-        <TextInput label="Email" size="md" />
-        <PasswordInput label="Password" mt="md" size="md" />
-        <Button leftIcon={<IconLogin/>} fullWidth mt="xl" size="md">
-          Login
-        </Button>
-      </Paper>
-    </div>
+  const onSubmit = (data: ILogin) => {
+    authenticate(data);
+  };
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user?.data?.user?.role === 'admin') {
+        router.push(routes.home);
+      }
+    }
+  }, [isAuthenticated, router]);
+  return (
+    <form onSubmit={form.onSubmit(onSubmit)}>
+      <div className={classes.wrapper}>
+        <Paper className={classes.form} radius={0} p={30}>
+          <Title
+            order={2}
+            className={classes.title}
+            align="center"
+            mt="md"
+            mb={50}
+          >
+            Đăng Nhập Admin !
+          </Title>
+
+          <TextInput label="Email" size="md" {...form.getInputProps('email')} />
+          <PasswordInput
+            label="Mật khẩu"
+            mt="md"
+            size="md"
+            {...form.getInputProps('password')}
+          />
+          <Button
+            leftIcon={<IconLogin />}
+            fullWidth
+            mt="xl"
+            size="md"
+            type="submit"
+          >
+            Đăng Nhập
+          </Button>
+        </Paper>
+      </div>
+    </form>
   );
 };
 

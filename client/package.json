@@ -12,10 +12,12 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.22.8",
+    "i18next": "^21.9.1",
     "postcss-loader": "^7.0.1",
     "prettier": "^2.7.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-i18next": "^11.18.6",
     "react-router-dom": "^6.3.0",
     "react-typewriter-effect": "^1.1.0",
     "styled-components": "^5.3.5",

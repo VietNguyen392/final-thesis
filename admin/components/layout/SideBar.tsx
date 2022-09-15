@@ -1,30 +1,62 @@
 import React from 'react';
-import { useStyles } from '../../hooks';
-import { Navbar,Group,ScrollArea,Button } from '@mantine/core';
-import { IconLayoutDashboard } from '@tabler/icons';
+import useStyles from 'hooks/useStyles';
+import { Navbar, Group, ScrollArea, Button } from '@mantine/core';
+import {
+  IconLogout,
+  IconSettings,
+  IconAdjustments,
+  IconLayoutDashboard,
+  IconUsers,
+} from '@tabler/icons';
+import { Navigations } from 'utils/interface';
+// let navigation: Navigations | any = new Array()
+let navigation: any = [
+  { link: '', label: 'Trang chủ', icon: IconLayoutDashboard },
+  { link: '', label: 'Quản lý người dùng', icon: IconUsers },
+  { link: '', label: 'Thiết lập', icon: IconSettings },
+];
 const SideBar = () => {
-const {classes}=useStyles()
-  return <div>
-   <Navbar height={800} width={{ sm: 300 }} p="md" className={classes.navbar}>
-      <Navbar.Section className={classes.header}>
-        <Group position="apart">
-         <h1 style={{fontSize:'5em'}}>ADMIN</h1>
-        </Group>
-      </Navbar.Section>
+  const [active, setActive] = React.useState('Trang chủ');
+  const { classes, cx } = useStyles();
+  const links = navigation.map((item: string | any) => {
+    <a
+      className={cx(classes.link, {
+        [classes.linkActive]: item.label === active,
+      })}
+      href={item.link}
+      key={item.label}
+      onClick={(event) => {
+        event.preventDefault();
+        setActive(item.label);
+      }}
+    >
+      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <span>{item.label}</span>
+    </a>;
+  });
+  return (
+    <>
+      <Navbar height={700} width={{ sm: 300 }} p="md">
+        <Navbar.Section grow>
+          {/* <Group className={classes.header} position="apart">
 
-      <Navbar.Section grow className={classes.links} component={ScrollArea}>
-        {/* <div className={classes.linksInner}>{links}</div> */}
-      </Navbar.Section>
+          </Group> */}
+          {links}
+        </Navbar.Section>
 
-      <Navbar.Section className={classes.footer}>
-        {/* <UserButton
-          image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-          name="Ann Nullpointer"
-          email="anullpointer@yahoo.com"
-        /> */}
-      </Navbar.Section>
-    </Navbar>
-  </div>;
+        <Navbar.Section className={classes.footer}>
+          <a
+            href="#"
+            className={classes.link}
+            onClick={(event) => event.preventDefault()}
+          >
+            <IconLogout className={classes.linkIcon} stroke={1.5} />
+            <span>Logout</span>
+          </a>
+        </Navbar.Section>
+      </Navbar>
+    </>
+  );
 };
 
 export default SideBar;

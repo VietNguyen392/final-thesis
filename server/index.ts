@@ -13,7 +13,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 initWebRoute(app);
 import './config/database';
-var port = process.env.PORT || 3030;
+var port = process.env.PORT || 6030;
 app.listen(port, () => {
   console.log('server is run on port 🚀 ', port);
 });

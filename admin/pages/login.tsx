@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
-import { FormLogin, Loading } from '../components';
+import { FormLogin, Loading } from 'components';
 
-const Home: NextPage = () => {
+const Login: NextPage = () => {
   return (
     <>
       <FormLogin />
@@ -9,4 +9,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Login;

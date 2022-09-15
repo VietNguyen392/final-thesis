@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
-import '../styles/style.css';
-import { Loading, Layout } from '../components';
+import { NotificationsProvider } from '@mantine/notifications';
+import 'styles/style.css';
+import { Loading, Layout } from 'components';
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   const router = useRouter();
@@ -39,8 +40,11 @@ export default function App(props: AppProps) {
         }}
       >
         {pageLoading && <Loading />}
+
         <Layout>
-          <Component {...pageProps} />
+          <NotificationsProvider position="top-center" autoClose={4000}>
+            <Component {...pageProps} />
+          </NotificationsProvider>
         </Layout>
       </MantineProvider>
     </>

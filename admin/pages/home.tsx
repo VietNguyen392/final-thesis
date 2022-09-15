@@ -1,6 +1,10 @@
 import React from 'react';
+import type { NextPage } from 'next';
 
-const Home = () => {
+import { useAuth } from 'hooks';
+const Home: NextPage = () => {
+  // const {user}=useAuth()
+
   return <div>Home</div>;
 };
 
