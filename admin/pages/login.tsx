@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { FormLogin, Loading } from 'components';
+import { FormLogin } from 'components';
 
 const Login: NextPage = () => {
   return (

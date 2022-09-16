@@ -48,13 +48,14 @@ const useStyles = createStyles((theme, _params, getRef) => {
     },
 
     footer: {
-      paddingTop: theme.spacing.md,
-      marginTop: theme.spacing.md,
+      marginLeft: -theme.spacing.md,
+      marginRight: -theme.spacing.md,
       borderTop: `1px solid ${
         theme.colorScheme === 'dark'
           ? theme.colors.dark[4]
-          : theme.colors.gray[2]
+          : theme.colors.gray[3]
       }`,
+      height: '3em',
     },
 
     link: {
@@ -107,6 +108,19 @@ const useStyles = createStyles((theme, _params, getRef) => {
             color: theme.primaryColor,
           }).color,
         },
+      },
+    },
+    user: {
+      display: 'block',
+      width: '100%',
+      padding: theme.spacing.md,
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+
+      '&:hover': {
+        backgroundColor:
+          theme.colorScheme === 'dark'
+            ? theme.colors.dark[8]
+            : theme.colors.gray[0],
       },
     },
   };

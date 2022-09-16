@@ -24,7 +24,9 @@ const generateRefreshToken = (payload, antwort) => {
   const refresh_token = jsonwebtoken_1.default.sign(
     payload,
     `${process.env.REFRESH_TOKEN_SECRET}`,
-    { expiresIn: '30d' },
+    {
+      expiresIn: '30d',
+    },
   );
   antwort.cookie('refreshtoken', refresh_token, {
     httpOnly: true,

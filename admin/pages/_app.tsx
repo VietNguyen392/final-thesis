@@ -30,6 +30,8 @@ export default function App(props: AppProps) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <meta name="author" content="Nguyễn Hoàng Việt " />
+        <meta charSet="UTF-8" />
       </Head>
 
       <MantineProvider
@@ -42,7 +44,7 @@ export default function App(props: AppProps) {
         {pageLoading && <Loading />}
 
         <Layout>
-          <NotificationsProvider position="top-center" autoClose={4000}>
+          <NotificationsProvider position="top-center" autoClose={3000}>
             <Component {...pageProps} />
           </NotificationsProvider>
         </Layout>

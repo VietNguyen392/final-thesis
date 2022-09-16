@@ -40,7 +40,7 @@ const FormLogin = () => {
             mt="md"
             mb={50}
           >
-            Đăng Nhập Admin !
+            Admin
           </Title>
 
           <TextInput label="Email" size="md" {...form.getInputProps('email')} />

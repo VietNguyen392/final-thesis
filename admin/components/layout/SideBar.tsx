@@ -1,62 +1,71 @@
-import React from 'react';
-import useStyles from 'hooks/useStyles';
-import { Navbar, Group, ScrollArea, Button } from '@mantine/core';
+import { useState } from 'react';
+import Link from 'next/link';
+import { Navbar, Avatar, Text, Group } from '@mantine/core';
 import {
-  IconLogout,
   IconSettings,
-  IconAdjustments,
+  IconDoor,
+  IconLogout,
+  IconWorld,
   IconLayoutDashboard,
   IconUsers,
+  IconChartInfographic,
 } from '@tabler/icons';
-import { Navigations } from 'utils/interface';
-// let navigation: Navigations | any = new Array()
-let navigation: any = [
-  { link: '', label: 'Trang chủ', icon: IconLayoutDashboard },
-  { link: '', label: 'Quản lý người dùng', icon: IconUsers },
-  { link: '', label: 'Thiết lập', icon: IconSettings },
+import useStyles from 'hooks/useStyles';
+import { useAuth } from 'hooks';
+const data = [
+  { id: 1, link: '/home', label: 'Bảng điều khiển', icon: IconLayoutDashboard },
+  { id: 2, link: '/setting', label: 'Quản lý người dùng', icon: IconUsers },
+  { id: 3, link: '', label: 'quản lý phòng', icon: IconDoor },
+  { id: 4, link: '', label: 'quản lý địa điểm', icon: IconWorld },
+  { id: 5, link: '', label: 'thống kê', icon: IconChartInfographic },
+  { id: 6, link: '', label: 'cài đặt', icon: IconSettings },
 ];
-const SideBar = () => {
-  const [active, setActive] = React.useState('Trang chủ');
+
+export function NavbarChild() {
+  const [state, setState] = useState({
+    active: 1,
+  });
+  const { active } = state;
+  // const {user}=useAuth()
   const { classes, cx } = useStyles();
-  const links = navigation.map((item: string | any) => {
+  const links = data.map((item) => (
     <a
       className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
+        [classes.linkActive]: item.id === active,
       })}
       href={item.link}
-      key={item.label}
+      key={item.id}
       onClick={(event) => {
         event.preventDefault();
-        setActive(item.label);
+        setState((o) => ({ ...o, active: item.id }));
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
-    </a>;
-  });
+      <span style={{ textTransform: 'capitalize' }}>{item.label}</span>
+    </a>
+  ));
+
   return (
     <>
-      <Navbar height={700} width={{ sm: 300 }} p="md">
-        <Navbar.Section grow>
-          {/* <Group className={classes.header} position="apart">
+      <Navbar.Section grow>{links}</Navbar.Section>
 
-          </Group> */}
-          {links}
-        </Navbar.Section>
-
-        <Navbar.Section className={classes.footer}>
-          <a
-            href="#"
-            className={classes.link}
-            onClick={(event) => event.preventDefault()}
-          >
-            <IconLogout className={classes.linkIcon} stroke={1.5} />
-            <span>Logout</span>
-          </a>
-        </Navbar.Section>
-      </Navbar>
+      <Navbar.Section className={classes.footer}>
+        <div className={classes.user}>
+          <Group>
+            <Avatar
+              src={
+                'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+              }
+              radius="xl"
+            />
+            <div style={{ flex: 1 }}>
+              <Text>Name</Text>
+              <Text>abc@email.com</Text>
+            </div>
+            <IconLogout size={15} stroke={1.5} />
+          </Group>
+        </div>
+      </Navbar.Section>
     </>
   );
-};
-
-export default SideBar;
+}

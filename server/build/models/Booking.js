@@ -12,8 +12,8 @@ const bookingSchema = new mongoose_1.default.Schema(
     statusID: { type: String, default: 'new' },
     doctorID: { type: mongoose_1.default.Types.ObjectId },
     patientID: { type: mongoose_1.default.Types.ObjectId },
-    date: { type: Date },
-    time: { type: Date },
+    date: { type: String },
+    time: { type: String },
   },
   { timestamps: true },
 );
