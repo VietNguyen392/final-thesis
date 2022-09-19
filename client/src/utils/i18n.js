@@ -1,6 +1,5 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { convertLanguageJsonToObject } from 'locales/translations';
 import vi from '../lang/vi.json';
 import en from '../lang/en.json';
 

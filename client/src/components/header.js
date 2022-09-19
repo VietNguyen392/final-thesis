@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
-import { HomeOutlined, UserOutlined, BlockOutlined } from '@ant-design/icons';
+import { HomeOutlined, ShopOutlined, GlobalOutlined } from '@ant-design/icons';
 const links = [
   {
     label: (
@@ -13,20 +13,20 @@ const links = [
   },
   {
     label: (
-      <Link to="doctor">
-        <UserOutlined />
-        Bác sĩ
+      <Link to="room">
+        <ShopOutlined />
+        Khách Sạn
       </Link>
     ),
-    key: 'doctor',
+    key: 'room',
   },
   {
     label: (
-      <Link to="spectality">
-        <BlockOutlined /> Chuyên khoa
+      <Link to="hotel">
+        <GlobalOutlined /> Địa Điểm
       </Link>
     ),
-    key: 'spectality',
+    key: 'hotel',
   },
 ];
 export default function NavBar() {

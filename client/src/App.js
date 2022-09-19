@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Main from './components/layout';
-import { Home, Doctor, Spectality, Notfound } from './pages';
+import Main from 'Components/layout';
+import { Home, Room, Hotel, Notfound, About } from './pages';
 
 const App = () => {
   return (
@@ -9,8 +9,9 @@ const App = () => {
       <Main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="doctor" element={<Doctor />} />
-          <Route path="spectality" element={<Spectality />} />
+          <Route path="room" element={<Room />} />
+          <Route path="hotel" element={<Hotel />} />
+          <Route path="about" element={<About />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Main>

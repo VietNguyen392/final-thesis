@@ -8,7 +8,9 @@ export const routes = {
   stat: '/stat',
   api: {
     login: 'api/login',
+    logout:'api/logout',
     getProfile: '/api/get-user-by-id/',
     getUser: '/api/get-user',
+    createUser:'/api/create-user'
   },
 };

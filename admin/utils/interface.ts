@@ -13,3 +13,6 @@ export interface Navigations {
   name: string;
   items: itemsNavigations[];
 }
+export interface Table{
+  data:any
+}

@@ -1,108 +1,25 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Banner } from 'Components/common';
-import { Space, Col, Divider, Row, Card, Image } from 'antd';
+import { Space, Col, Divider, Row, Card } from 'antd';
 import { fakeData } from '../../mock';
+import BookingBar from 'Components/bookingBar';
 const { Meta } = Card;
 const Home = () => {
-  console.log(
-    fakeData.map((it) => {
-      it.name;
-    }),
-  );
+  const contentStyle = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  };
   return (
     <div>
-      <Space>
-        <Banner />
-        <Divider />
-      </Space>
+      <Banner />
+
       <Space style={{ margin: '20px' }}>
         <Row gutter={32}>
-          {/* {fakeData.map((item) => {
-            <div key={item.id}>
-              <Col span={6}>
-                <Card title={item.name}>
-                  <Image width={200} src={item.url_img} />
-                </Card>
-              </Col>
-            </div>;
-          })} */}
-          <Col span={6}>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={
-                <img
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                />
-              }
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={
-                <img
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                />
-              }
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={
-                <img
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                />
-              }
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={
-                <img
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                />
-              }
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
-            </Card>
-          </Col>
+          <BookingBar />
         </Row>
       </Space>
     </div>
