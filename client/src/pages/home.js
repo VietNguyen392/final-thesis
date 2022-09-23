@@ -9,7 +9,6 @@ const Home = () => {
   return (
     <div>
       <Banner />
-
       <Space style={{ margin: '20px' }}>
         <Row gutter={12}>
           <BookingBar />

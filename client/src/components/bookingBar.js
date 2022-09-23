@@ -45,7 +45,7 @@ const BookingBar = () => {
             placeholder="Người lớn"
             prefix={<UserOutlined />}
             min="1"
-            style={{ width: '150px' }}
+            style={{ width: '120px' }}
           />
         </Col>
         <Col>
@@ -54,7 +54,7 @@ const BookingBar = () => {
             placeholder="Trẻ nhỏ"
             prefix={<UserOutlined />}
             min="1"
-            style={{ width: '150px' }}
+            style={{ width: '120px' }}
           />
         </Col>
         <Col>

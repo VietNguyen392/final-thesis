@@ -1,7 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Main from 'Components/layout';
-import { Home, Room, Hotel, Notfound, About } from './pages';
+import { Home, Room, Hotel, Notfound, About } from 'Pages';
+import Loading from 'Components/loading';
 
 const App = () => {
   return (

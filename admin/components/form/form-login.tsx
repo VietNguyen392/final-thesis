@@ -56,6 +56,7 @@ const FormLogin = () => {
             mt="xl"
             size="md"
             type="submit"
+            loading={isAuthenticated ? true : false}
           >
             Đăng Nhập
           </Button>

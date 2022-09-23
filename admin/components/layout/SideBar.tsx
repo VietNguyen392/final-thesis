@@ -12,13 +12,24 @@ import {
 } from '@tabler/icons';
 import useStyles from 'hooks/useStyles';
 import { useAuth } from 'hooks';
+import { routes } from 'utils/routes';
 const data = [
-  { id: 1, link: '/home', label: 'Bảng điều khiển', icon: IconLayoutDashboard },
-  { id: 2, link: '/setting', label: 'Quản lý người dùng', icon: IconUsers },
-  { id: 3, link: '', label: 'quản lý phòng', icon: IconDoor },
-  { id: 4, link: '', label: 'quản lý địa điểm', icon: IconWorld },
-  { id: 5, link: '', label: 'thống kê', icon: IconChartInfographic },
-  { id: 6, link: '', label: 'cài đặt', icon: IconSettings },
+  {
+    id: 1,
+    link: routes.home,
+    label: 'Bảng điều khiển',
+    icon: IconLayoutDashboard,
+  },
+  { id: 2, link: routes.manageUser, label: 'Quản lý User', icon: IconUsers },
+  { id: 3, link: routes.manageRoom, label: 'quản lý phòng', icon: IconDoor },
+  {
+    id: 4,
+    link: routes.managePlace,
+    label: 'quản lý địa điểm',
+    icon: IconWorld,
+  },
+  { id: 5, link: routes.stat, label: 'thống kê', icon: IconChartInfographic },
+  { id: 6, link: routes.setting, label: 'cài đặt', icon: IconSettings },
 ];
 
 export function NavbarChild() {
@@ -29,20 +40,20 @@ export function NavbarChild() {
   // const {user}=useAuth()
   const { classes, cx } = useStyles();
   const links = data.map((item) => (
-    <a
+    <span
       className={cx(classes.link, {
         [classes.linkActive]: item.id === active,
       })}
-      href={item.link}
-      key={item.id}
       onClick={(event) => {
         event.preventDefault();
         setState((o) => ({ ...o, active: item.id }));
       }}
+      key={item.id}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span style={{ textTransform: 'capitalize' }}>{item.label}</span>
-    </a>
+
+      <Link href={item.link}>{item.label}</Link>
+    </span>
   ));
 
   return (

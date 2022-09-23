@@ -34,3 +34,8 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
+a {
+  text-transform: capitalize;
+  text-decoration: none;
+  color: blue;
+}

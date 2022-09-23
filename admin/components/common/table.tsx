@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const TableData = () => {
-  return (
-    <div>TableData</div>
-  )
-}
+  return <div>TableData</div>;
+};
 
-export default TableData
+export default TableData;
