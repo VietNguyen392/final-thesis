@@ -24,9 +24,9 @@ const FormLogin = () => {
   };
   useEffect(() => {
     if (isAuthenticated) {
-      if (user?.data?.user?.role === 'admin') {
-        router.push(routes.home);
-      }
+      // if (user?.data?.user?.role === 'admin') {
+      router.push(routes.home);
+      // }
     }
   }, [isAuthenticated, router]);
   return (
@@ -56,7 +56,7 @@ const FormLogin = () => {
             mt="xl"
             size="md"
             type="submit"
-            loading={isAuthenticated ? true : false}
+            // loading={isAuthenticated ? true : false}
           >
             Đăng Nhập
           </Button>

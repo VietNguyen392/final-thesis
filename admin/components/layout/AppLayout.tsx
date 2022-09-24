@@ -8,6 +8,7 @@ import {
   Navbar,
   Text,
 } from '@mantine/core';
+import { IconUserCircle } from '@tabler/icons';
 import { NavbarChild } from './SideBar';
 const AppLayout = ({ children }: { children?: ReactNode }) => {
   const [open, setOpen] = React.useState(false);

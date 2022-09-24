@@ -28,7 +28,7 @@ const Main = ({ children }) => {
               fontSize: 14,
             }}
           >
-            <UpOutlined  style={{color:'#fff'}}/>
+            <UpOutlined style={{ color: '#fff' }} />
           </div>
         </BackTop>
       </Footer>

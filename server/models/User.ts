@@ -39,21 +39,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Hãy nhập địa chỉ'],
     },
-    content: {
-      type: String,
-      // minLength:2000
-    },
-    bank: {
-      type: String,
-      // minLength: 50,
-      // maxLength: 200
-    },
-    price: { type: Number, default: 0 },
-    payment: { type: String },
-    clinic: { type: String },
     role: {
       type: String,
-      default: 'doctor',
     },
 
     rf_token: { type: String, select: false },
@@ -62,4 +49,3 @@ const userSchema = new mongoose.Schema(
 );
 
 export default mongoose.model<IUser>('Users', userSchema);
-//,require:[true,'Hãy nhập giá tiền']

@@ -8,15 +8,30 @@ export interface IUser extends Document {
   phoneNumber: number;
   avatar: string;
   address: string;
-  content: string;
-  bank: string;
-  price: number;
-  payment: string;
-  clinic_name: string;
-  clinic_address: string;
   role: string;
   rf_token?: string;
   _doc: object;
+}
+export interface IHotel extends Document {
+  hotel_name: string;
+  hotel_type: string;
+  city: string;
+  address: string;
+  photo: string[];
+  title: string;
+  distance: string;
+  rating: number;
+  rooms: string[];
+  cheap: number;
+  desc: string;
+  featured: boolean;
+}
+export interface IRoom extends Document {
+  title: string;
+  price: number;
+  max: number;
+  desc: string;
+  roomNumbers: number;
 }
 export interface INewUser {
   name: string;
@@ -39,7 +54,14 @@ export interface IUserParams {
 export interface IReqAuth extends Request {
   user?: IUser;
 }
-export interface ISchedule extends Document {
+export interface IHistory extends Document {
+  userId: string;
+  roomID: number;
+  mota: string;
+  files: string;
+  _doc: object;
+}
+/* export interface ISchedule extends Document {
   currentNumber: number;
   maxNumber: number;
   doctorID: number;
@@ -54,31 +76,4 @@ export interface IBooking extends Document {
   date: string;
   time: string;
   _doc: object;
-}
-export interface IHistory extends Document {
-  patientID: number;
-  doctorID: number;
-  mota: string;
-  files: string;
-  _doc: object;
-}
-export interface IClinic extends Document {
-  address: string;
-  name: string;
-  mota: string;
-  avatar: string;
-  _doc: object;
-}
-// export interface IDoctor extends Document{
-//   doctorID: string;
-//   priceID:string;
-//   paymentID:string;
-//   addressClinic:string;
-//   nameClinic:string;
-//   note:string;
-//   count:number;
-//   description:string;
-//   mainContent:string;
-//  _doc: object;
-
-// }
+} */

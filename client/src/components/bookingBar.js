@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  DatePicker,
-  Row,
-  Input,
-  Col,
-  Card,
-  Select,
-  Button,
-  Dropdown,
-  Menu,
-} from 'antd';
+import { DatePicker, Row, Input, Col, Card, Select, Button, Dropdown, Menu } from 'antd';
 import {
   GlobalOutlined,
   UserOutlined,
