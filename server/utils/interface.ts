@@ -10,6 +10,7 @@ export interface IUser extends Document {
   address: string;
   role: string;
   rf_token?: string;
+  type: string;
   _doc: object;
 }
 export interface IHotel extends Document {
@@ -34,13 +35,13 @@ export interface IRoom extends Document {
   roomNumbers: number;
 }
 export interface INewUser {
-  name: string;
+  fullName: string;
   email: string;
   password: string;
 }
 export interface IDecodedToken {
   id?: string;
-  newUser?: INewUser;
+  newRegister?: INewUser;
   iat: number;
   exp: number;
 }
@@ -61,19 +62,10 @@ export interface IHistory extends Document {
   files: string;
   _doc: object;
 }
-/* export interface ISchedule extends Document {
-  currentNumber: number;
-  maxNumber: number;
-  doctorID: number;
-  date: Date;
-  time: Date;
+export interface IBooking extends Document {
+  roomID: string;
+  hotelID: string;
+  customerID: string;
+  date: object;
   _doc: object;
 }
-export interface IBooking extends Document {
-  statusID: string;
-  doctorID: string;
-  patientID: string;
-  date: string;
-  time: string;
-  _doc: object;
-} */

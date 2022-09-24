@@ -1,6 +1,7 @@
 import express from 'express';
 import UserController from '../controller/UserController';
 import { validRegister } from '../utils';
+import { authenticate } from '../middleware';
 const routes = express.Router();
 export const initWebRoute = (app: any) => {
   //User Routes
@@ -10,7 +11,9 @@ export const initWebRoute = (app: any) => {
   routes.patch('/api/update-user/:id', UserController.updateUser);
   routes.delete('/api/delete-user/:id', UserController.deleteUser);
   routes.post('/api/login', UserController.login);
-  routes.get('/api/logout', UserController.logout);
+  routes.get('/api/logout', authenticate, UserController.logout);
+  routes.post('/api/register', UserController.register);
+  routes.post('/api/active-account', UserController.activeAccount);
   routes.get('/api/rf-token', UserController.refreshToken);
 
   return app.use('/', routes);

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Menu } from 'antd';
-import { HomeOutlined, ShopOutlined, GlobalOutlined } from '@ant-design/icons';
+import { Menu, Modal } from 'antd';
+import { HomeOutlined, ShopOutlined, GlobalOutlined, LockOutlined } from '@ant-design/icons';
+import AuthPage from './AuthPage';
 const links = [
   {
     label: (
@@ -27,6 +28,15 @@ const links = [
       </Link>
     ),
     key: 'hotel',
+  },
+  {
+    label: (
+      <>
+        <LockOutlined />
+        {/* <AuthPage/> */}
+      </>
+    ),
+    key: 'auth',
   },
 ];
 export default function NavBar() {

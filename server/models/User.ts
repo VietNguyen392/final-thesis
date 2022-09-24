@@ -42,7 +42,10 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
     },
-
+    type: {
+      type: String,
+      default: 'register',
+    },
     rf_token: { type: String, select: false },
   },
   { timestamps: true },

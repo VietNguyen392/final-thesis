@@ -3,9 +3,9 @@ import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Users from '../models/User';
-import { IDecodedToken, IReqAuth, IUser } from '../utils';
+import { IDecodedToken, IReqAuth, IUser, IUserParams } from '../utils';
 import { generateAccessToken, generateRefreshToken } from '../config/genToken';
-export const auth = async (req: IReqAuth, res: Response, next: NextFunction) => {
+export const authenticate = async (req: IReqAuth, res: Response, next: NextFunction) => {
   try {
     const token = req.header('Authorization');
     if (!token) return res.status(400).send({ msg: 'Invalid' });

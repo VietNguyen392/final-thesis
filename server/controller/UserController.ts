@@ -3,26 +3,13 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import Users from '../models/User';
 import { generateActiveToken, generateAccessToken, generateRefreshToken } from '../config/genToken';
-import { IDecodedToken, IReqAuth, IUser, IUserParams, validateEmail } from '../utils';
+import { IDecodedToken, IReqAuth, validateEmail } from '../utils';
 import { handleUserLogin } from '../middleware';
+import sendMail from '../config/sendEmail';
 const UserController = {
   createUser: async (req: Request, res: Response) => {
     try {
-      const {
-        fullName,
-        email,
-        password,
-        gender,
-        phoneNumber,
-        avatar,
-        address,
-        role,
-        content,
-        bank,
-        price,
-        payment,
-        clinic,
-      } = req.body;
+      const { fullName, email, password, gender, phoneNumber, avatar, address, role } = req.body;
       const userExist = await Users.findOne({ email });
       if (userExist) return res.status(400).send({ msg: 'Email already in use' });
       const passwordHash = await bcrypt.hash(password, 10);
@@ -35,11 +22,6 @@ const UserController = {
         avatar,
         address,
         role,
-        content,
-        bank,
-        price,
-        payment,
-        clinic,
       });
       if (newUser) {
         res.status(200).json({
@@ -103,6 +85,29 @@ const UserController = {
       console.log(e);
     }
   },
+  register: async (req: Request, res: Response) => {
+    try {
+      const { fullName, email, password } = req.body;
+      const hasUser = await Users.findOne({ email });
+      if (hasUser) return res.status(400).send({ msg: 'Email đã được đăng ký' });
+      const passwordHash = await bcrypt.hash(password, 10);
+      const newRegister = { fullName, email, password: passwordHash };
+      const active_token = generateActiveToken({ newRegister });
+      const url = `${process.env.SEVER_URL}/active/${active_token}`;
+      if (validateEmail(email)) {
+        sendMail(email, url, 'Confirm Account', fullName);
+        return res.send({ msg: 'Success' });
+      }
+      res.send({
+        status: 'Ok',
+        msg: 'Register success',
+        data: newRegister,
+        active_token,
+      });
+    } catch (error: any) {
+      return res.status(500).send({ msg: error.message });
+    }
+  },
   login: async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
@@ -155,5 +160,43 @@ const UserController = {
       return res.status(500).send({ msg: error.message });
     }
   },
+  activeAccount: async (req: Request, res: Response) => {
+    try {
+      const { active_token } = req.body;
+      const decoded = <IDecodedToken>jwt.verify(active_token, `${process.env.ACTIVE_TOKEN_SECRET}`);
+      const { newRegister } = decoded;
+      if (!newRegister) return res.status(400).send({ msg: 'Lỗi xác thực' });
+
+      const user = await Users.findOne({ email: newRegister.email });
+      if (user) return res.status(400).send({ msg: 'Tài khoản đã tồn tại' });
+      const new_user = new Users(newRegister);
+
+      await new_user.save();
+
+      res.send({ msg: 'Kích hoạt tài khoản thành công' });
+    } catch (error: any) {
+      return res.status(500).send({ msg: error.message });
+    }
+  },
+  forgotPass: async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
+      const user = await Users.findOne({ email });
+      if (!user) return res.status(400).send({ msg: 'Tài khoản không tồn tại' });
+      if (user.type !== 'register')
+        return res
+          .status(400)
+          .send({ msg: 'tài khoản đăng nhập bằng facebook không thể thưc hiện chức năng này ' });
+      const access_token = generateAccessToken({ id: user._id });
+      const url = `${process.env.SERVER_URL}/reset_password/${access_token}`;
+      if (validateEmail(email)) {
+        sendMail(email, url, 'Quên mật khẩu?', user.fullName);
+        return res.send({ msg: 'Thành công!,hãy kiểm tra hòm thư của bạn' });
+      }
+    } catch (error: any) {
+      return res.status(500).send({ msg: error.message });
+    }
+  },
 };
+
 export default UserController;
