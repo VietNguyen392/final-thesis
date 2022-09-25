@@ -58,7 +58,7 @@ const BookingBar = () => {
         </Col>
         <Col>
           <Button type="primary" icon={<SearchOutlined />}>
-            Search
+            Tìm
           </Button>
         </Col>
       </Row>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Main from 'Components/layout';
-import { Home, Room, Hotel, Notfound, About } from 'Pages';
-import Loading from 'Components/loading';
+import Main from './components/layout';
+import { Home, Room, Hotel, Notfound, About } from './pages';
+import Loading from './components/loading';
+import AuthPage from './components/AuthPage';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route path="room" element={<Room />} />
           <Route path="hotel" element={<Hotel />} />
           <Route path="about" element={<About />} />
+          <Route path="auth" element={<AuthPage />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Main>

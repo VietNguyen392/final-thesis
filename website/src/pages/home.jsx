@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Banner } from 'Components/common';
-import { Space, Col, Row } from 'antd';
-import { fakeData } from '../../mock';
-import BookingBar from 'Components/bookingBar';
-import ListItem from 'Components/List';
+import { Banner } from '../components/common';
+import { Space, Col, Row, Modal, Button } from 'antd';
+
+import BookingBar from '../components/bookingBar';
+import ListItem from '../components/List';
 const Home = () => {
   return (
-    <div>
+    <>
       <Banner />
       <Space style={{ margin: '20px' }}>
         <Row gutter={12}>
@@ -17,7 +17,7 @@ const Home = () => {
       <Space className="container">
         <ListItem />
       </Space>
-    </div>
+    </>
   );
 };
 
