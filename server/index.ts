@@ -23,5 +23,5 @@ initWebRoute(app);
 import './config/database';
 var port = process.env.PORT || 6030;
 http.listen(port, () => {
-  console.log('server is run on port 🚀 ', port);
+  console.log('Server is run on port 🚀 ', port);
 });

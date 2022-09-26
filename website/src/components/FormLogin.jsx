@@ -21,11 +21,11 @@ const FormLogin = () => {
           },
         ]}
       >
-        <Input />
+        <Input type="email" />
       </Form.Item>
       <Form.Item
         label="Mật khẩu"
-        name="passwor"
+        name="password"
         rules={[
           {
             required: true,

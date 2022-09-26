@@ -7,7 +7,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
       minHeight: 900,
       backgroundSize: 'cover',
       backgroundImage:
-        'url(https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE53eid?ver=6394)',
+        'url(https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wwun?ver=f5d4)',
     },
 
     form: {

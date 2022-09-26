@@ -99,7 +99,7 @@ const UserController = {
         return res.send({ msg: 'Success' });
       }
       res.send({
-        status: 'Ok',
+        status: 200,
         msg: 'Register success',
         data: newRegister,
         active_token,

@@ -34,9 +34,9 @@ export default function NavBar() {
     },
     {
       label: (
-        <span onClick={() => setIsOpen(true)}>
+        <Button type="text" onClick={() => setIsOpen(true)} style={{ color: '#fff' }}>
           <LockOutlined /> Đăng nhập/Đăng ký
-        </span>
+        </Button>
       ),
       key: 'auth',
     },
