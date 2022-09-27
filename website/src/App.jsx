@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Main from './components/layout';
-import { Home, Room, Hotel, Notfound, About } from './pages';
+import { Home, Room, Hotel, Notfound, About, Active } from './pages';
 import Loading from './components/loading';
 import AuthPage from './components/AuthPage';
 
@@ -15,6 +15,7 @@ const App = () => {
           <Route path="hotel" element={<Hotel />} />
           <Route path="about" element={<About />} />
           <Route path="auth" element={<AuthPage />} />
+          <Route path="active/:slug" element={<Active />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Main>

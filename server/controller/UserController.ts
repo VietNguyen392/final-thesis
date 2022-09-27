@@ -93,12 +93,12 @@ const UserController = {
       const passwordHash = await bcrypt.hash(password, 10);
       const newRegister = { fullName, email, password: passwordHash };
       const active_token = generateActiveToken({ newRegister });
-      const url = `${process.env.SEVER_URL}/active/${active_token}`;
+      const url = `${process.env.APP_URL}/active/${active_token}`;
       if (validateEmail(email)) {
-        sendMail(email, url, 'Confirm Account', fullName);
+        sendMail(email, url, 'Xác thực tài khoản', fullName);
         return res.send({ msg: 'Success' });
       }
-      res.send({
+      res.json({
         status: 200,
         msg: 'Register success',
         data: newRegister,

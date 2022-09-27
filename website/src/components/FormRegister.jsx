@@ -1,56 +1,120 @@
 import React from 'react';
-import { Button, Form, Input,message } from 'antd';
-import { UserSerivce } from '../service';
+import { Button, Form, Input, message, Row, Col, Radio, Upload, InputNumber } from 'antd';
+import { postAPI } from '../service';
 const FormRegister = () => {
-  const [form]=Form.useForm()
-  const onSubmitForm=async(value)=>{
+  const [form] = Form.useForm();
+  const onSubmitForm = async (value) => {
     try {
-    const res=await UserSerivce.register(value)
-      if(res.status===200){
-        message.success('Đăng ký thành công')
+      const res = await postAPI('create-user', value);
+      if (res.status === 200) {
+        message.success('Đăng ký thành công');
       }
     } catch (error) {
-      message.error('Not success')
+      message.error('Not success');
     }
-  }
+  };
   return (
     <div>
       <Form
         name="register-form"
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 16 }}
+        layout="vertical"
         initialValues={{
           fullName: '',
           email: '',
           password: '',
+          gender: '',
+          phoneNumber: '',
+          avatar: '',
+          address: '',
         }}
         form={form}
         onFinish={onSubmitForm}
       >
-        <Form.Item
-          label="Tên Tài Khoản"
-          name="fullName"
-          rules={[
-            {
-              required: true,
-              message: 'Hãy nhập tên tài khoản',
-            },
-          ]}
+        <Row
+          gutter={{
+            xs: 8,
+            sm: 16,
+            md: 24,
+            lg: 32,
+          }}
         >
-          <Input type="text" />
-        </Form.Item>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: 'Hãy nhập Email',
-            },
-          ]}
-        >
-          <Input type="email" />
-        </Form.Item>
+          <Col span={12}>
+            <Form.Item
+              label="Tên Tài Khoản"
+              name="fullName"
+              rules={[
+                {
+                  required: true,
+                  message: 'Hãy nhập tên tài khoản',
+                },
+              ]}
+            >
+              <Input type="text" />
+            </Form.Item>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: 'Hãy nhập Email',
+                },
+              ]}
+            >
+              <Input type="email" />
+            </Form.Item>
+            <Form.Item
+              label="Giới tính"
+              name="gender"
+              rules={[
+                {
+                  required: true,
+                  message: 'Hãy chọn giới tính',
+                },
+              ]}
+            >
+              <Radio.Group>
+                <Radio value="male">Nam</Radio>
+                <Radio value="female">Nữ</Radio>
+                <Radio value="other">Khác</Radio>
+              </Radio.Group>
+            </Form.Item>{' '}
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Địa chỉ"
+              name="address"
+              rules={[
+                {
+                  required: true,
+                  message: 'Hãy nhập địa chỉ',
+                },
+              ]}
+            >
+              <Input type="text" />
+            </Form.Item>{' '}
+            <Form.Item
+              label="Số điện thoại"
+              name="phoneNumber"
+              rules={[
+                {
+                  required: true,
+                  message: 'Hãy nhập số điện thoại',
+                },
+              ]}
+            >
+              <Input type="number" min="1" />
+            </Form.Item>{' '}
+            <Form.Item label="Ảnh đại diện" name="avatar">
+              <Upload listType="picture-card">
+                <div>
+                  {/* <AntCloudOutlined /> */}
+                  Upload
+                </div>
+              </Upload>
+            </Form.Item>
+          </Col>
+        </Row>
         <Form.Item
           label="Mật khẩu"
           name="password"
@@ -63,14 +127,8 @@ const FormRegister = () => {
         >
           <Input.Password />
         </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 6,
-            span: 6,
-          }}
-        >
-          <Button type="primary" htmlType="submit">
+        <Form.Item>
+          <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
             Đăng ký
           </Button>
         </Form.Item>
