@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Form, Input, message, Row, Col, Radio, Upload, InputNumber } from 'antd';
+import { AntCloudOutlined } from '@ant-design/icons';
 import { postAPI } from '../service';
-const FormRegister = () => {
+const FormRegister = ({ props }) => {
   const [form] = Form.useForm();
   const onSubmitForm = async (value) => {
     try {
@@ -9,8 +10,9 @@ const FormRegister = () => {
       if (res.status === 200) {
         message.success('Đăng ký thành công');
       }
+      location.reload();
     } catch (error) {
-      message.error('Not success');
+      message.error('erorr');
     }
   };
   return (
@@ -106,12 +108,7 @@ const FormRegister = () => {
               <Input type="number" min="1" />
             </Form.Item>{' '}
             <Form.Item label="Ảnh đại diện" name="avatar">
-              <Upload listType="picture-card">
-                <div>
-                  {/* <AntCloudOutlined /> */}
-                  Upload
-                </div>
-              </Upload>
+              <Input type="file" />
             </Form.Item>
           </Col>
         </Row>

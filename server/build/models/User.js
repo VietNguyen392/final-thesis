@@ -48,6 +48,7 @@ const userSchema = new mongoose_1.default.Schema(
     },
     role: {
       type: String,
+      default: 'user',
     },
     type: {
       type: String,

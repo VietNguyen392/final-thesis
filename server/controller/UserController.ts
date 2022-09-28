@@ -175,6 +175,7 @@ const UserController = {
 
       res.send({ msg: 'Kích hoạt tài khoản thành công' });
     } catch (error: any) {
+      console.log(error);
       return res.status(500).send({ msg: error.message });
     }
   },

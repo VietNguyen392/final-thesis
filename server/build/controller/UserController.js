@@ -220,6 +220,7 @@ const UserController = {
         yield new_user.save();
         res.send({ msg: 'Kích hoạt tài khoản thành công' });
       } catch (error) {
+        console.log(error);
         return res.status(500).send({ msg: error.message });
       }
     }),

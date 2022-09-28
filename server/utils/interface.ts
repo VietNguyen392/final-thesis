@@ -25,7 +25,7 @@ export interface IHotel extends Document {
   rooms: string[];
   cheap: number;
   desc: string;
-  featured: boolean;
+  featured: string[];
 }
 export interface IRoom extends Document {
   title: string;
