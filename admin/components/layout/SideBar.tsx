@@ -21,7 +21,12 @@ const data = [
     icon: IconLayoutDashboard,
   },
   { id: 2, link: routes.manageUser, label: 'Quản lý User', icon: IconUsers },
-  { id: 3, link: routes.manageRoom, label: 'quản lý phòng', icon: IconDoor },
+  {
+    id: 3,
+    link: routes.manageRoom,
+    label: 'quản lý khách sạn',
+    icon: IconDoor,
+  },
   {
     id: 4,
     link: routes.managePlace,
@@ -40,7 +45,7 @@ export function NavbarChild() {
   // const {user}=useAuth()
   const { classes, cx } = useStyles();
   const links = data.map((item) => (
-    <span
+    <a
       className={cx(classes.link, {
         [classes.linkActive]: item.id === active,
       })}
@@ -53,7 +58,7 @@ export function NavbarChild() {
       <item.icon className={classes.linkIcon} stroke={1.5} />
 
       <Link href={item.link}>{item.label}</Link>
-    </span>
+    </a>
   ));
 
   return (

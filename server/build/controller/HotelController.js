@@ -40,8 +40,8 @@ const Hotel_1 = __importDefault(require('../models/Hotel'));
 const HotelController = {
   createHotel: (req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
-      if (!req.user) return res.status(400).send({ msg: 'Invalid' });
-      if (req.user.role !== 'admin') return res.status(400).send({ msg: 'deo phai bo doi' });
+      // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
+      // if (req.user.role !== 'admin') return res.status(400).send({ msg: 'not have permision' });
       try {
         const {
           hotel_name,

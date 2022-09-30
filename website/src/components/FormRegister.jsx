@@ -10,7 +10,7 @@ const FormRegister = ({ props }) => {
       if (res.status === 200) {
         message.success('Đăng ký thành công');
       }
-      location.reload();
+      // location.reload();
     } catch (error) {
       message.error('erorr');
     }

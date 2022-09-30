@@ -12,5 +12,6 @@ export const routes = {
     getProfile: '/api/get-user-by-id/',
     getUser: '/api/get-user',
     createUser: '/api/create-user',
+    createHotel: '/api/create-hotel',
   },
 };

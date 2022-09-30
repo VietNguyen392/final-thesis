@@ -1,5 +1,6 @@
-import express from 'express';
+import express, { Router } from 'express';
 import UserController from '../controller/UserController';
+import HotelController from '../controller/HotelController';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
 const routes = express.Router();
@@ -15,7 +16,8 @@ export const initWebRoute = (app: any) => {
   routes.post('/api/register', UserController.register);
   routes.post('/api/active-account', UserController.activeAccount);
   routes.get('/api/rf-token', UserController.refreshToken);
-
+  // Hotel route
+  routes.post('/api/create-hotel', HotelController.createHotel);
   return app.use('/', routes);
 };
 //validRegister,

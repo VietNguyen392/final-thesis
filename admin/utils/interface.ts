@@ -16,3 +16,17 @@ export interface Navigations {
 export interface Table {
   data: any;
 }
+export interface IHotel {
+  hotel_name: string;
+  hotel_type: string;
+  city: string;
+  address: string;
+  photo: string;
+  title: string;
+  distance: string;
+  rating: number;
+  rooms: string[];
+  cheap: number;
+  desc: string;
+  featured: string[];
+}

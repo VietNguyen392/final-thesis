@@ -8,6 +8,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.initWebRoute = void 0;
 const express_1 = __importDefault(require('express'));
 const UserController_1 = __importDefault(require('../controller/UserController'));
+const HotelController_1 = __importDefault(require('../controller/HotelController'));
 const utils_1 = require('../utils');
 const middleware_1 = require('../middleware');
 const routes = express_1.default.Router();
@@ -23,6 +24,8 @@ const initWebRoute = (app) => {
   routes.post('/api/register', UserController_1.default.register);
   routes.post('/api/active-account', UserController_1.default.activeAccount);
   routes.get('/api/rf-token', UserController_1.default.refreshToken);
+  // Hotel route
+  routes.post('/api/create-hotel', HotelController_1.default.createHotel);
   return app.use('/', routes);
 };
 exports.initWebRoute = initWebRoute;
