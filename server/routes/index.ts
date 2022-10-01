@@ -18,6 +18,7 @@ export const initWebRoute = (app: any) => {
   routes.get('/api/rf-token', UserController.refreshToken);
   // Hotel route
   routes.post('/api/create-hotel', HotelController.createHotel);
+  routes.get('/api/get-hotel', HotelController.getHotel);
   return app.use('/', routes);
 };
 //validRegister,

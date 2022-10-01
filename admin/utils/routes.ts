@@ -13,5 +13,6 @@ export const routes = {
     getUser: '/api/get-user',
     createUser: '/api/create-user',
     createHotel: '/api/create-hotel',
+    getHotelList: '/api/get-hotel',
   },
 };

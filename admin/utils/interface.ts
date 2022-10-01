@@ -17,6 +17,7 @@ export interface Table {
   data: any;
 }
 export interface IHotel {
+  _id?: string;
   hotel_name: string;
   hotel_type: string;
   city: string;

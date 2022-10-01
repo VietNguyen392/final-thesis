@@ -87,5 +87,15 @@ const HotelController = {
         console.log(error);
       }
     }),
+  getHotel: (_req, res) =>
+    __awaiter(void 0, void 0, void 0, function* () {
+      try {
+        const data = yield Hotel_1.default.find().sort('-createdAt');
+        if (!data) res.status(404).send({ msg: 'not found' });
+        res.json({ data });
+      } catch (error) {
+        return res.status(500).send({ msg: error.message });
+      }
+    }),
 };
 exports.default = HotelController;

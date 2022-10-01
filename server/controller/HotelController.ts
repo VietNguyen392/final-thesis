@@ -50,5 +50,14 @@ const HotelController = {
       console.log(error);
     }
   },
+  getHotel: async (_req: Request, res: Response) => {
+    try {
+      const data = await Hotel.find().sort('-createdAt');
+      if (!data) res.status(404).send({ msg: 'not found' });
+      res.json({ data });
+    } catch (error: any) {
+      return res.status(500).send({ msg: error.message });
+    }
+  },
 };
 export default HotelController;

@@ -1,3 +1,4 @@
 import useAuth from './useAuth';
 import useStyles from './useStyles';
-export { useAuth, useStyles };
+import useFetch from './useFetch';
+export { useAuth, useStyles, useFetch };

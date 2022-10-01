@@ -26,6 +26,7 @@ const initWebRoute = (app) => {
   routes.get('/api/rf-token', UserController_1.default.refreshToken);
   // Hotel route
   routes.post('/api/create-hotel', HotelController_1.default.createHotel);
+  routes.get('/api/get-hotel', HotelController_1.default.getHotel);
   return app.use('/', routes);
 };
 exports.initWebRoute = initWebRoute;

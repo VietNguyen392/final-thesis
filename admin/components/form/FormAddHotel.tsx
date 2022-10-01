@@ -94,6 +94,7 @@ const FormAddHotel = () => {
                 accept="image/png,image/jpeg"
                 multiple
                 onChange={setFiles}
+                {...form.getInputProps('photo')}
               >
                 {(props) => <Button {...props}>Upload image</Button>}
               </FileButton>
