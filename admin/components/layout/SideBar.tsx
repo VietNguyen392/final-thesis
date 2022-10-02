@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Navbar, Avatar, Text, Group } from '@mantine/core';
+import { Navbar, Avatar, Text, Group, UnstyledButton } from '@mantine/core';
 import {
   IconSettings,
   IconDoor,
@@ -13,7 +13,7 @@ import {
 import useStyles from 'hooks/useStyles';
 import { useAuth } from 'hooks';
 import { routes } from 'utils/routes';
-const data = [
+const navigations = [
   {
     id: 1,
     link: routes.home,
@@ -41,10 +41,11 @@ export function NavbarChild() {
   const [state, setState] = useState({
     active: 1,
   });
+  const { deauthenticate } = useAuth();
   const { active } = state;
   // const {user}=useAuth()
   const { classes, cx } = useStyles();
-  const links = data.map((item) => (
+  const links = navigations.map((item) => (
     <a
       className={cx(classes.link, {
         [classes.linkActive]: item.id === active,
@@ -78,7 +79,7 @@ export function NavbarChild() {
               <Text>Name</Text>
               <Text>abc@email.com</Text>
             </div>
-            <IconLogout size={15} stroke={1.5} />
+            <IconLogout size={15} stroke={1.5} onClick={deauthenticate} />
           </Group>
         </div>
       </Navbar.Section>

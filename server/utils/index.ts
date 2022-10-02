@@ -3,7 +3,7 @@ export * from './interface';
 export const validRegister = async (req: Request, res: Response, next: NextFunction) => {
   const { fullName, email, password, phoneNumber } = req.body;
   const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,20}$/;
-  var phoneRegex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+  const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
   const errors = [];
 
   if (!email) {

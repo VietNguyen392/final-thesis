@@ -12,10 +12,11 @@ const HotelList = () => {
   const list = (datum as any)?.data?.map((item: IHotel) => (
     <tr key={item._id}>
       <td>{item.hotel_name}</td>
-      <td>{item.hotel_type}</td>
+      <td>{item.hotel_type === 'Medium' ? 'Trung bình' : 'bình thường'}</td>
       <td>{item.city}</td>
       <td>{item.address}</td>
       <td>{item.distance}</td>
+      <td>{item.title}</td>
       <td>
         <Button onClick={() => setOpen(true)}>Edit</Button>
       </td>
@@ -37,6 +38,7 @@ const HotelList = () => {
               <th>City</th>
               <th>Address</th>
               <th>Distance</th>
+              <th>Title</th>
             </tr>
           </thead>
           <tbody>{list}</tbody>

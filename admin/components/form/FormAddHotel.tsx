@@ -24,7 +24,7 @@ const FormAddHotel = () => {
       hotel_type: '',
       city: '',
       address: '',
-      photo: '',
+      photo: [],
       title: '',
       distance: '',
       rating: undefined,
