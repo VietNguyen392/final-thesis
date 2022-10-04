@@ -59,8 +59,8 @@ const HotelController = {
       return res.status(500).send({ msg: error.message });
     }
   },
-  editHotel:async (req:Request,res:Response)=>{
-    try{
+  editHotel: async (req: Request, res: Response) => {
+    try {
       const {
         hotel_name,
         hotel_type,
@@ -75,28 +75,28 @@ const HotelController = {
         desc,
         featured,
       } = req.body;
-      const updateHotel=await  Hotel.findOneAndUpdate(
-          {_id:req.params.id},
-          {
-              hotel_name,
-              hotel_type,
-              city,
-              address,
-              photo,
+      const updateHotel = await Hotel.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          hotel_name,
+          hotel_type,
+          city,
+          address,
+          photo,
 
-              distance,
-              rating,
-              rooms,
-              cheap,
-              desc,
-              featured
-          },
-          {new:true}
-      )
-      res.json({msg:'update success',updateHotel})
-    }catch (err:any){
-      return res.status(500).send({msg:'Sever error'})
+          distance,
+          rating,
+          rooms,
+          cheap,
+          desc,
+          featured,
+        },
+        { new: true },
+      );
+      res.json({ msg: 'update success', updateHotel });
+    } catch (err: any) {
+      return res.status(500).send({ msg: 'Sever error' });
     }
-}
+  },
 };
 export default HotelController;
