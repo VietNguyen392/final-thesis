@@ -1,60 +1,35 @@
-'use strict';
-var __awaiter =
-  (this && this.__awaiter) ||
-  function (thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P
-        ? value
-        : new P(function (resolve) {
-            resolve(value);
-          });
-    }
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator['throw'](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-  };
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, '__esModule', { value: true });
-const nodemailer_1 = __importDefault(require('nodemailer'));
-const sendMail = (to, url, txt, userName) =>
-  __awaiter(void 0, void 0, void 0, function* () {
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const sendMail = (to, url, txt, userName) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-      const tranport = nodemailer_1.default.createTransport({
-        service: 'Gmail',
-        auth: {
-          user: `${process.env.MAIL_USER}`,
-          pass: `${process.env.MAIL_PASS}`,
-        },
-        tls: {
-          rejectUnauthorized: false,
-        },
-      });
-      const mailOptions = {
-        from: `${process.env.MAIL_USER}`,
-        to: to,
-        subject: `${txt}`,
-        html: ` 
+        const tranport = nodemailer_1.default.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: `${process.env.MAIL_USER}`,
+                pass: `${process.env.MAIL_PASS}`,
+            },
+            tls: {
+                rejectUnauthorized: false,
+            },
+        });
+        const mailOptions = {
+            from: `${process.env.MAIL_USER}`,
+            to: to,
+            subject: `${txt}`,
+            html: ` 
            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
            <h2 style="text-align: center; text-transform: uppercase;color: black;">Xin Chào ${userName}</h2>
            <p>Nhấn vào nút bên dưới để xác thực tài khoản của bạn</p>
@@ -65,11 +40,12 @@ const sendMail = (to, url, txt, userName) =>
        
            <div>${url}</div>
            </div>`,
-      };
-      const result = yield tranport.sendMail(mailOptions);
-      return result;
-    } catch (error) {
-      console.log(error);
+        };
+        const result = yield tranport.sendMail(mailOptions);
+        return result;
     }
-  });
+    catch (error) {
+        console.log(error);
+    }
+});
 exports.default = sendMail;

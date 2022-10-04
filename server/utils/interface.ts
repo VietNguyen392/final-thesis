@@ -18,8 +18,7 @@ export interface IHotel extends Document {
   hotel_type: string;
   city: string;
   address: string;
-  photo: string[];
-  title: string;
+  photo: string;
   distance: string;
   rating: number;
   rooms: string[];
@@ -63,9 +62,9 @@ export interface IHistory extends Document {
   _doc: object;
 }
 export interface IBooking extends Document {
-  roomID: string;
-  hotelID: string;
-  customerID: string;
+  room: string;
+  hotel: string;
+  user: string;
   date: object;
   _doc: object;
 }
