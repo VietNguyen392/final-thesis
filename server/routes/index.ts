@@ -1,6 +1,5 @@
 import express, { Router } from 'express';
-import UserController from '../controller/UserController';
-import HotelController from '../controller/HotelController';
+import { UserController, HotelController } from '../controller';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
 const routes = express.Router();

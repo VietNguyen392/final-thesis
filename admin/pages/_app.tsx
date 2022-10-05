@@ -7,9 +7,10 @@ import { NotificationsProvider } from '@mantine/notifications';
 import 'styles/style.css';
 import { Loading, Layout } from 'components';
 export default function App(props: AppProps) {
+  const [showChild, setShowChild] = useState<boolean>(false);
+  const [pageLoading, setPageLoading] = useState<boolean>(false);
   const { Component, pageProps } = props;
   const router = useRouter();
-  const [pageLoading, setPageLoading] = useState<boolean>(false);
   useEffect(() => {
     const handleStart = () => {
       setPageLoading(true);
@@ -22,6 +23,13 @@ export default function App(props: AppProps) {
     router.events.on('routeChangeComplete', handleComplete);
     router.events.on('routeChangeError', handleComplete);
   }, [router]);
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
   return (
     <>
       <Head>

@@ -21,14 +21,13 @@ const HotelController = {
         featured,
       } = req.body;
       const isExist = await Hotel.findOne({ hotel_name });
-      if (isExist) return res.status(500).send({ msg: 'Hotelis already create' });
+      if (isExist) return res.status(500).send({ msg: 'Hotel already create' });
       const newHotel = await Hotel.create({
         hotel_name,
         hotel_type,
         city,
         address,
         photo,
-
         distance,
         rating,
         rooms,

@@ -7,8 +7,8 @@ import {
   IconLogout,
   IconWorld,
   IconLayoutDashboard,
-  IconUsers,
-  IconChartInfographic,
+  IconBrandBooking,
+  IconBuildingSkyscraper,
 } from '@tabler/icons';
 import useStyles from 'hooks/useStyles';
 import { useAuth } from 'hooks';
@@ -20,21 +20,26 @@ const navigations = [
     label: 'Bảng điều khiển',
     icon: IconLayoutDashboard,
   },
-  { id: 2, link: routes.manageUser, label: 'Quản lý User', icon: IconUsers },
+  {
+    id: 2,
+    link: routes.manageHotel,
+    label: 'quản lý khách sạn',
+    icon: IconBuildingSkyscraper,
+  },
   {
     id: 3,
     link: routes.manageRoom,
-    label: 'quản lý khách sạn',
+    label: 'quản lý phòng',
     icon: IconDoor,
   },
   {
     id: 4,
-    link: routes.managePlace,
-    label: 'quản lý địa điểm',
-    icon: IconWorld,
+    link: routes.manageBooking,
+    label: 'quản lý đặt phòng',
+    icon: IconBrandBooking,
   },
-  { id: 5, link: routes.stat, label: 'thống kê', icon: IconChartInfographic },
-  { id: 6, link: routes.setting, label: 'cài đặt', icon: IconSettings },
+  // { id: 5, link: routes.stat, label: 'thống kê', icon: IconChartInfographic },
+  // { id: 6, link: routes.setting, label: 'cài đặt', icon: IconSettings },
 ];
 
 export function NavbarChild() {

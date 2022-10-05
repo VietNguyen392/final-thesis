@@ -57,7 +57,7 @@ const HotelController = {
           featured,
         } = req.body;
         const isExist = yield Hotel_1.default.findOne({ hotel_name });
-        if (isExist) return res.status(500).send({ msg: 'Hotelis already create' });
+        if (isExist) return res.status(500).send({ msg: 'Hotel already create' });
         const newHotel = yield Hotel_1.default.create({
           hotel_name,
           hotel_type,

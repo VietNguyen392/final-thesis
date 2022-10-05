@@ -157,7 +157,7 @@ const UserController = {
         const { email, password } = req.body;
         const user = yield User_1.default.findOne({ email });
         if (!user) return res.status(400).send({ msg: 'Account not exist' });
-        (0, middleware_1.handleUserLogin)(user, password, res);
+        yield (0, middleware_1.handleUserLogin)(user, password, res);
       } catch (error) {
         return res.status(500).send({ msg: error.message });
       }
@@ -230,14 +230,10 @@ const UserController = {
         const { email } = req.body;
         const user = yield User_1.default.findOne({ email });
         if (!user) return res.status(400).send({ msg: 'Tài khoản không tồn tại' });
-        if (user.type !== 'register')
-          return res
-            .status(400)
-            .send({ msg: 'tài khoản đăng nhập bằng facebook không thể thưc hiện chức năng này ' });
         const access_token = (0, genToken_1.generateAccessToken)({ id: user._id });
         const url = `${process.env.SERVER_URL}/reset_password/${access_token}`;
         if ((0, utils_1.validateEmail)(email)) {
-          (0, sendEmail_1.default)(email, url, 'Quên mật khẩu?', user.fullName);
+          yield (0, sendEmail_1.default)(email, url, 'Quên mật khẩu?', user.fullName);
           return res.send({ msg: 'Thành công!,hãy kiểm tra hòm thư của bạn' });
         }
       } catch (error) {

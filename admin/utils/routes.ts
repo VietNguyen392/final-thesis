@@ -3,7 +3,8 @@ export const routes = {
   home: '/home',
   manageUser: '/manageUser',
   manageRoom: '/manageRoom',
-  managePlace: '/managePlace',
+  manageHotel: '/manageHotel',
+  manageBooking: '/manageBooking',
   setting: '/setting',
   stat: '/stat',
   api: {

@@ -113,7 +113,7 @@ const UserController = {
       const { email, password } = req.body;
       const user = await Users.findOne({ email });
       if (!user) return res.status(400).send({ msg: 'Account not exist' });
-      handleUserLogin(user, password, res);
+      await handleUserLogin(user, password, res);
     } catch (error: any) {
       return res.status(500).send({ msg: error.message });
     }
@@ -184,14 +184,10 @@ const UserController = {
       const { email } = req.body;
       const user = await Users.findOne({ email });
       if (!user) return res.status(400).send({ msg: 'Tài khoản không tồn tại' });
-      if (user.type !== 'register')
-        return res
-          .status(400)
-          .send({ msg: 'tài khoản đăng nhập bằng facebook không thể thưc hiện chức năng này ' });
       const access_token = generateAccessToken({ id: user._id });
       const url = `${process.env.SERVER_URL}/reset_password/${access_token}`;
       if (validateEmail(email)) {
-        sendMail(email, url, 'Quên mật khẩu?', user.fullName);
+        await sendMail(email, url, 'Quên mật khẩu?', user.fullName);
         return res.send({ msg: 'Thành công!,hãy kiểm tra hòm thư của bạn' });
       }
     } catch (error: any) {
