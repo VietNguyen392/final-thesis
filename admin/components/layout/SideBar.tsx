@@ -17,7 +17,7 @@ const navigations = [
   {
     id: 1,
     link: routes.home,
-    label: 'Bảng điều khiển',
+    label: 'Thống kê',
     icon: IconLayoutDashboard,
   },
   {
@@ -38,20 +38,17 @@ const navigations = [
     label: 'quản lý đặt phòng',
     icon: IconBrandBooking,
   },
-  // { id: 5, link: routes.stat, label: 'thống kê', icon: IconChartInfographic },
-  // { id: 6, link: routes.setting, label: 'cài đặt', icon: IconSettings },
 ];
 
 export function NavbarChild() {
   const [state, setState] = useState({
     active: 1,
   });
-  const { deauthenticate } = useAuth();
   const { active } = state;
-  // const {user}=useAuth()
+  const { deauthenticate } = useAuth();
   const { classes, cx } = useStyles();
   const links = navigations.map((item) => (
-    <a
+    <span
       className={cx(classes.link, {
         [classes.linkActive]: item.id === active,
       })}
@@ -64,7 +61,7 @@ export function NavbarChild() {
       <item.icon className={classes.linkIcon} stroke={1.5} />
 
       <Link href={item.link}>{item.label}</Link>
-    </a>
+    </span>
   ));
 
   return (

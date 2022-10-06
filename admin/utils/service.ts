@@ -5,7 +5,7 @@ export const Login = async (data: ILogin) => {
   return await instance.post(routes.api.login, data);
 };
 export const Logout = async () => {
-  return await instance.post(routes.api.logout);
+  return await instance.get(routes.api.logout);
 };
 export const getUserById = async (id: string) => {
   return await instance.get(`${routes.api.getProfile}:${id}`);
