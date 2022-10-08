@@ -68,10 +68,10 @@ const UserController = {
     }),
     getUserById: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const userID = yield User_1.default.findById(req.params._id).select('-password');
-            if (!userID)
+            const user = yield User_1.default.findById(req.params.id).select('-password');
+            if (!user)
                 return res.status(404).send({ msg: 'User not found' });
-            res.json({ userID });
+            res.send({ user });
         }
         catch (e) {
             res.status(500).send({ msg: 'Internal Server Error' });

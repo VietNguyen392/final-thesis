@@ -1,3 +1,5 @@
+import {ReactNode} from "react";
+
 export interface ILogin {
   email?: string | any;
   password?: string | any;
@@ -14,7 +16,7 @@ export interface Navigations {
   items: itemsNavigations[];
 }
 export interface Table {
-  data: any;
+  data: ReactNode;
 }
 export interface IHotel {
   _id?: string;

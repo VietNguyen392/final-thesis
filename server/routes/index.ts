@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import express from 'express';
 import { UserController, HotelController } from '../controller';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';

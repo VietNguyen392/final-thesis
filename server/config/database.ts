@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+
+let mongoose: any = require('mongoose');
 const URI = process.env.DATABASE_URL;
 mongoose.connect(
   `${URI}`,

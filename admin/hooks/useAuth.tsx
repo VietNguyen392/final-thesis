@@ -15,7 +15,7 @@ const useAuth = () => {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    shouldRetryOnError: false,
+    shouldRetryOnError: true,
   });
   const authenticate = (data: ILogin) => {
     setState((o) => ({ ...o, authenticating: true }));
