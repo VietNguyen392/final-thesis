@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import Hotel from '../models/Hotel';
 import { IHotel, IReqAuth } from '../utils';
 const HotelController = {
-  createHotel: async (req: Request, res: Response) => {
-    // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
-    // if (req.user.role !== 'admin') return res.status(400).send({ msg: 'not have permision' });
+  createHotel: async (req: IReqAuth, res: Response) => {
+    if (!req.user) return res.status(400).send({ msg: 'Invalid' });
+    if (req.user.role !== 'admin') return res.status(400).send({ msg: 'no permision' });
     try {
       const {
         hotel_name,

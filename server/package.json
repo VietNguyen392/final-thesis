@@ -6,6 +6,7 @@
   "scripts": {
     "xem": "tsc -w",
     "go": "nodemon build/index.js",
+    "start": "node build/index.js",
     "format": "prettier --write ."
   },
   "dependencies": {

@@ -52,7 +52,7 @@ const UserController = {
     try {
       const user = await Users.findById(req.params.id).select('-password');
       if (!user) return res.status(404).send({ msg: 'User not found' });
-      res.send({ user });
+      res.json({ user });
     } catch (e: any) {
       res.status(500).send({ msg: 'Internal Server Error' });
       console.log(e);
