@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Form, Input, message, Row, Col, Radio, Upload, InputNumber } from 'antd';
 import { AntCloudOutlined } from '@ant-design/icons';
 import { postAPI } from '../service';
-const FormRegister = ({ props }) => {
+const FormRegister = () => {
   const [form] = Form.useForm();
   const onSubmitForm = async (value) => {
     try {
-      const res = await postAPI('create-user', value);
+      const res = await postAPI('register', value);
       if (res.status === 200) {
         message.success('Đăng ký thành công');
       }

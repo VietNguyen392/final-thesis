@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 // const api_url = import.meta.env.VITE_API_URL;
-const api_url = import.meta.env.VITE_LOCAL_API_URL;
+const api_url = 'http://localhost:4040'
 export const postAPI = async (url, data, token) => {
   const res = await axios.post(`${api_url}/api/${url}`, data, {
     headers: { Authorization: token },
