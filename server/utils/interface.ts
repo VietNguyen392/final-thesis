@@ -37,9 +37,13 @@ export interface INewUser {
   fullName: string;
   email: string;
   password: string;
+  gender: string;
+  phoneNumber: number;
+  address: string;
 }
 export interface IDecodedToken {
   id?: string;
+  payload?: object | any;
   newRegister?: INewUser;
   iat: number;
   exp: number;

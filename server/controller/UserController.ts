@@ -87,11 +87,18 @@ const UserController = {
   },
   register: async (req: Request, res: Response) => {
     try {
-      const { fullName, email, password } = req.body;
+      const { fullName, email, password, gender, phoneNumber, address } = req.body;
       const hasUser = await Users.findOne({ email });
       if (hasUser) return res.status(400).send({ msg: 'Email đã được đăng ký' });
       const passwordHash = await bcrypt.hash(password, 10);
-      const newRegister = { fullName, email, password: passwordHash };
+      const newRegister = {
+        fullName,
+        email,
+        password: passwordHash,
+        gender,
+        phoneNumber,
+        address,
+      };
       const active_token = generateActiveToken({ newRegister });
       const url = `${process.env.APP_URL}/active/${active_token}`;
       if (validateEmail(email)) {
@@ -165,15 +172,16 @@ const UserController = {
       const { active_token } = req.body;
       const decoded = <IDecodedToken>jwt.verify(active_token, `${process.env.ACTIVE_TOKEN_SECRET}`);
       const { newRegister } = decoded;
-      if (!newRegister) return res.status(400).send({ msg: 'Lỗi xác thực' });
+
+      if (!newRegister) return res.status(400).send({ msg: 'Invalid ' });
 
       const user = await Users.findOne({ email: newRegister.email });
-      if (user) return res.status(400).send({ msg: 'Tài khoản đã tồn tại' });
+      if (user) return res.status(400).json({ msg: 'Tài khoản đã tồn tại' });
       const new_user = new Users(newRegister);
 
       await new_user.save();
 
-      res.send({ msg: 'Kích hoạt tài khoản thành công' });
+      res.json({ msg: 'Kích hoạt tài khoản thành công' });
     } catch (error: any) {
       console.log(error);
       return res.status(500).send({ msg: error.message });
