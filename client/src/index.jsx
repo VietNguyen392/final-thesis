@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { BrowserRouter } from "react-router-dom";
+import "antd/dist/antd.css";
+import "./styles/Css/index.css";
 import App from "./App";
 
 const container = document.getElementById("root");

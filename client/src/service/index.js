@@ -1,6 +1,6 @@
 import axios from "axios";
-// const api_url = import.meta.env.VITE_API_URL;
-const api_url = 'http://localhost:4040'
+// const api_url='https://web-api-vnjp.onrender.com'
+const api_url = "http://localhost:4040";
 export const postAPI = async (url, data, token) => {
   const res = await axios.post(`${api_url}/api/${url}`, data, {
     headers: { Authorization: token },

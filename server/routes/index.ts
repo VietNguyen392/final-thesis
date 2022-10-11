@@ -12,7 +12,7 @@ export const initWebRoute = (app: any) => {
   routes.delete('/api/delete-user/:id', UserController.deleteUser);
   routes.post('/api/login', UserController.login);
   routes.get('/api/logout', authenticate, UserController.logout);
-  routes.post('/api/register', UserController.register);
+  routes.post('/api/register', validRegister, UserController.register);
   routes.post('/api/active-account', UserController.activeAccount);
   routes.get('/api/rf-token', UserController.refreshToken);
   //*Hotel routes

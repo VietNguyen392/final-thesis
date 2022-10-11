@@ -1,8 +1,11 @@
 import React from "react";
-export default function Index() {
+import Home from "./home";
+const Index = () => {
   return (
-    <div className="home">
-      <h1>hello</h1>
-    </div>
+    <>
+      <Home />
+    </>
   );
-}
+};
+
+export default Index;

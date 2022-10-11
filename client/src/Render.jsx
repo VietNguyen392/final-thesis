@@ -1,14 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-// import { Notfound } from './pages'
+import Notfound from "pages";
 const generatePage = (name) => {
   const component = () => require(`./pages/${name}`).default;
 
   try {
     return React.createElement(component());
   } catch (err) {
-    console.log(err);
-    return "null";
+    return <Notfound />;
   }
 };
 const Render = () => {
