@@ -35,7 +35,6 @@ mongoose_1.default
     autoIndex: true,
     serverSelectionTimeoutMS: 5000,
     keepAlive: true,
-    family: 4,
   })
   .then(() => {
     console.log('connect success to mongodb 🍃');

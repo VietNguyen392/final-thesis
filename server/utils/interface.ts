@@ -32,6 +32,7 @@ export interface IRoom extends Document {
   max: number;
   desc: string;
   roomNumbers: number;
+  features: string;
 }
 export interface INewUser {
   fullName: string;

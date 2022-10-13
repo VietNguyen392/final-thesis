@@ -1,5 +1,5 @@
 import express from 'express';
-import { UserController, HotelController } from '../controller';
+import { UserController, HotelController, RoomController, BookingController } from '../controller';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
 const routes = express.Router();
@@ -19,6 +19,8 @@ export const initWebRoute = (app: any) => {
   routes.post('/api/create-hotel', HotelController.createHotel);
   routes.get('/api/get-hotel', HotelController.getHotel);
   routes.patch('/api/edit-hotel', HotelController.editHotel);
+  //*Room routes
+  routes.post('api/create-room', RoomController.createRoom);
   return app.use('/', routes);
 };
 //validRegister,

@@ -18,6 +18,9 @@ const roomSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    features: {
+      type: String,
+    },
     roomNumbers: [{ number: Number, unavailableDates: { type: [Date] } }],
   },
   { timestamps: true },

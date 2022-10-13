@@ -27,6 +27,8 @@ const initWebRoute = (app) => {
   routes.post('/api/create-hotel', controller_1.HotelController.createHotel);
   routes.get('/api/get-hotel', controller_1.HotelController.getHotel);
   routes.patch('/api/edit-hotel', controller_1.HotelController.editHotel);
+  //*Room routes
+  routes.post('api/create-room', controller_1.RoomController.createRoom);
   return app.use('/', routes);
 };
 exports.initWebRoute = initWebRoute;

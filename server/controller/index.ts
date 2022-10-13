@@ -1,4 +1,5 @@
 import BookingController from './BookingController';
 import HotelController from './HotelController';
 import UserController from './UserController';
-export { UserController, BookingController, HotelController };
+import RoomController from './RoomController';
+export { UserController, BookingController, HotelController, RoomController };

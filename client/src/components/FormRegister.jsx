@@ -4,8 +4,7 @@ import { Button, Form, Input, message, Row, Col, Radio, Select } from "antd";
 import { AntCloudOutlined } from "@ant-design/icons";
 import { postAPI } from "../service";
 const FormRegister = (props) => {
-  const { open } = props;
-  const { navigate } = useNavigate();
+  
   const [form] = Form.useForm();
   const onSubmitForm = async (value) => {
     const res = await postAPI("register", value)
