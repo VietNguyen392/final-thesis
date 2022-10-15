@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import useSWR, { mutate } from 'swr';
 import { showNotification } from '@mantine/notifications';
-import { Login, Logout, getUserProfile } from '../utils/service';
+import { Login, Logout, getUserProfile,checkToken } from '../utils/service';
 import { routes } from 'utils/routes';
 import { ILogin } from 'utils/interface';
 const useAuth = () => {
@@ -30,8 +30,10 @@ const useAuth = () => {
       )
       .finally(() => setState((o) => ({ ...o, authenticating: false })));
   };
-  const deauthenticate = () => {
-    Logout()
+  const deauthenticate = async(token:string) => {
+    const event=await checkToken(token)
+    const active_token=event?event:token
+    Logout(active_token)
       .then(async () => {
         mutate('use-user');
       })

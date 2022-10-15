@@ -33,3 +33,8 @@ export interface IHotel {
   desc: string;
   featured: string[];
 }
+export type TokenType={
+    id:string
+   exp:number,
+    iat:number,
+}

@@ -8,8 +8,9 @@ export const routes = {
   setting: '/setting',
   stat: '/stat',
   api: {
-    login: 'api/login',
-    logout: 'api/logout',
+    login: '/api/login',
+    logout: '/api/logout',
+    refreshToken:'/api/rf-token',
     getProfile: '/api/get-user-by-id/',
     getUser: '/api/get-user',
     createUser: '/api/create-user',

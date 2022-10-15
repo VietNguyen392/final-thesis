@@ -1,11 +1,22 @@
+import jwt_decode from 'jwt-decode';
 import { instance } from './_axios';
 import { routes } from './routes';
 import { ILogin, IHotel } from './interface';
+import { TokenType } from './interface';
 export const Login = async (data: ILogin) => {
   return await instance.post(routes.api.login, data);
 };
-export const Logout = async () => {
-  return await instance.get(routes.api.logout);
+export async function checkToken(token: string) {
+  const decoded: TokenType = jwt_decode(token);
+  if (decoded.exp >= Date.now() / 1000) return;
+  const res = await instance.get(routes.api.refreshToken);
+  return res.data.access_token;
+}
+export const Logout = async (token:string|any) => {
+  return await instance.get(routes.api.logout,token);
+};
+export const refeshToken = async () => {
+  return await instance.get(routes.api.refreshToken);
 };
 export const getUserById = async (id: string) => {
   return await instance.get(`${routes.api.getProfile}:${id}`);

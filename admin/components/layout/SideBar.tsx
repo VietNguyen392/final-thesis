@@ -81,7 +81,7 @@ export function NavbarChild() {
               <Text>Name</Text>
               <Text>abc@email.com</Text>
             </div>
-            <IconLogout size={15} stroke={1.5} onClick={deauthenticate} />
+            <IconLogout size={15} stroke={1.5} onClick={()=>deauthenticate} />
           </Group>
         </div>
       </Navbar.Section>

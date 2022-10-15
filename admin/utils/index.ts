@@ -1,3 +1,5 @@
+
+export * from './interface'
 export const checkImage = (file: File) => {
   const types = ['image/png', 'image/jpeg', 'img/jpg'];
   let err = '';
@@ -24,3 +26,4 @@ export const imageUpload = async (file: File) => {
   const data = await res.json();
   return { public_id: data.public_id, url: data.secure_url };
 };
+
