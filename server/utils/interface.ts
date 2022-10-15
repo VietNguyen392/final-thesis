@@ -33,6 +33,7 @@ export interface IRoom extends Document {
   desc: string;
   roomNumbers: number;
   features: string;
+  hotel: string;
 }
 export interface INewUser {
   fullName: string;
@@ -46,6 +47,7 @@ export interface IDecodedToken {
   id?: string;
   payload?: object | any;
   newRegister?: INewUser;
+  newBooking?: IBooking;
   iat: number;
   exp: number;
 }
@@ -72,4 +74,9 @@ export interface IBooking extends Document {
   user: string;
   date: object;
   _doc: object;
+}
+export interface INoti extends Document {
+  user: string;
+  content: string;
+  state: boolean;
 }

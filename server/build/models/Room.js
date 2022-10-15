@@ -12,6 +12,10 @@ const roomSchema = new mongoose_1.default.Schema(
       type: String,
       required: true,
     },
+    hotel: {
+      type: mongoose_1.default.Types.ObjectId,
+      ref: 'Hotel',
+    },
     price: {
       type: Number,
       required: true,
@@ -25,7 +29,7 @@ const roomSchema = new mongoose_1.default.Schema(
       required: true,
     },
     features: {
-      type: String,
+      type: [String],
     },
     roomNumbers: [{ number: Number, unavailableDates: { type: [Date] } }],
   },

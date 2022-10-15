@@ -31,7 +31,7 @@ const generateRefreshToken = (payload, antwort) => {
   antwort.cookie('refreshtoken', refresh_token, {
     httpOnly: true,
     path: `/api/rf_token`,
-    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 ngay
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   });
   return refresh_token;
 };

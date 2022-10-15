@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import Hotel from '../models/Hotel';
 import { IHotel, IReqAuth } from '../utils';
+import { Pagination } from '../middleware';
+
 const HotelController = {
   createHotel: async (req: IReqAuth, res: Response) => {
     if (!req.user) return res.status(400).send({ msg: 'Invalid' });
@@ -12,7 +14,6 @@ const HotelController = {
         city,
         address,
         photo,
-
         distance,
         rating,
         rooms,

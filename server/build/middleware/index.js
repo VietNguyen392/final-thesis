@@ -36,7 +36,7 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.handleUserLogin = exports.authenticate = void 0;
+exports.Pagination = exports.handleUserLogin = exports.authenticate = void 0;
 const jsonwebtoken_1 = __importDefault(require('jsonwebtoken'));
 const bcrypt_1 = __importDefault(require('bcrypt'));
 const User_1 = __importDefault(require('../models/User'));
@@ -84,3 +84,10 @@ const handleUserLogin = (user, password, res) =>
     });
   });
 exports.handleUserLogin = handleUserLogin;
+function Pagination(req) {
+  let page = Number(req.query.page) * 1 || 1;
+  let limit = Number(req.query.limit) * 1 || 4;
+  let skip = (page - 1) * limit;
+  return { page, limit, skip };
+}
+exports.Pagination = Pagination;

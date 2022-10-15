@@ -41,8 +41,8 @@ const RoomController = {
   createRoom: (req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
       try {
-        const { title, price, max, desc, features, roomNumbers } = req.body;
-        const roomExist = yield Room_1.default.findOne({ roomNumbers });
+        const { title, price, max, desc, features, roomNumbers, hotel } = req.body;
+        const roomExist = yield Room_1.default.findOne({ hotel });
         if (roomExist) return res.status(400).send({ msg: 'Room already create' });
         const newRoom = yield Room_1.default.create({
           title,
@@ -51,6 +51,7 @@ const RoomController = {
           desc,
           features,
           roomNumbers,
+          hotel,
         });
         if (newRoom) {
           res.status(200).json({
@@ -66,5 +67,15 @@ const RoomController = {
         console.log(e);
       }
     }),
+  /*getRoomByHotel:async(req:Request,res:Response)=> {
+        const {limit,skip}=Pagination(req)
+      try {
+        const data = await Room.find().sort('-createdAt');
+        if (!data) res.status(404).send({msg: 'not found'});
+        res.json({data});
+      } catch (e: any) {
+    
+      }
+    }*/
 };
 exports.default = RoomController;

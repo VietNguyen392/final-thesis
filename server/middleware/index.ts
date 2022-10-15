@@ -1,5 +1,5 @@
 // entry point here
-import { Response, NextFunction } from 'express';
+import { Response, NextFunction, Request } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Users from '../models/User';
@@ -47,3 +47,9 @@ export const handleUserLogin = async (user: IUser, password: string, res: Respon
     user: { ...user._doc, password: '' },
   });
 };
+export function Pagination(req: Request) {
+  let page = Number(req.query.page) * 1 || 1;
+  let limit = Number(req.query.limit) * 1 || 4;
+  let skip = (page - 1) * limit;
+  return { page, limit, skip };
+}
