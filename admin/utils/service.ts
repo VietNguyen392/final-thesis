@@ -12,10 +12,10 @@ export async function checkToken(token: string) {
   const res = await instance.get(routes.api.refreshToken);
   return res.data.access_token;
 }
-export const Logout = async (token:string|any) => {
-  return await instance.get(routes.api.logout,token);
+export const Logout = async (token: string | any) => {
+  return await instance.get(routes.api.logout, token);
 };
-export const refeshToken = async () => {
+export const refreshToken = async () => {
   return await instance.get(routes.api.refreshToken);
 };
 export const getUserById = async (id: string) => {

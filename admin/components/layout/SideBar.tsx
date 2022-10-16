@@ -2,10 +2,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Navbar, Avatar, Text, Group, UnstyledButton } from '@mantine/core';
 import {
-  IconSettings,
   IconDoor,
   IconLogout,
-  IconWorld,
   IconLayoutDashboard,
   IconBrandBooking,
   IconBuildingSkyscraper,
@@ -39,22 +37,26 @@ const navigations = [
     icon: IconBrandBooking,
   },
 ];
-
-export function NavbarChild() {
+type TypeNav = {
+  onClose: () => void;
+};
+export function NavbarChild({ onClose }: TypeNav) {
   const [state, setState] = useState({
     active: 1,
   });
   const { active } = state;
-  const { deauthenticate } = useAuth();
+  const { deAuthenticate } = useAuth();
+
   const { classes, cx } = useStyles();
   const links = navigations.map((item) => (
     <span
       className={cx(classes.link, {
         [classes.linkActive]: item.id === active,
       })}
-      onClick={(event) => {
+      onClick={(event: React.MouseEvent<HTMLSpanElement>) => {
         event.preventDefault();
         setState((o) => ({ ...o, active: item.id }));
+        onClose();
       }}
       key={item.id}
     >
@@ -78,10 +80,10 @@ export function NavbarChild() {
               radius="xl"
             />
             <div style={{ flex: 1 }}>
-              <Text>Name</Text>
-              <Text>abc@email.com</Text>
+              <Text>Admin</Text>
+              <Text>admin@ad.com</Text>
             </div>
-            <IconLogout size={15} stroke={1.5} onClick={()=>deauthenticate} />
+            <IconLogout size={15} stroke={1.5} onClick={() => deAuthenticate} />
           </Group>
         </div>
       </Navbar.Section>

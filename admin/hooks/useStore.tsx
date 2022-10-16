@@ -1,7 +1,5 @@
-import React from 'react'
-import create from 'zustand/react'
+import React from 'react';
+import create from 'zustand/react';
 export const useStore = () => {
-  return (
-    <div>useStore</div>
-  )
-}
+  return <div>useStore</div>;
+};

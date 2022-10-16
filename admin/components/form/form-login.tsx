@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from '@mantine/form';
 import { Paper, TextInput, PasswordInput, Button, Title } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
 import { IconLogin } from '@tabler/icons';
 import { useStyles, useAuth } from 'hooks';
 import { emailRegex, passwordRegex } from 'utils/regex';
@@ -10,7 +9,7 @@ import { useRouter } from 'next/router';
 import { routes } from 'utils/routes';
 const FormLogin = () => {
   const router = useRouter();
-  const { authenticate, isAuth, user, isAuthenticated } = useAuth();
+  const { authenticate, user, isAuth } = useAuth();
   const { classes } = useStyles();
   const form = useForm({
     initialValues: { email: '', password: '' },
@@ -18,17 +17,16 @@ const FormLogin = () => {
       email: (value) => (emailRegex.test(value) ? null : 'Email không hợp lệ'),
     },
   });
-
   const onSubmit = (data: ILogin) => {
     authenticate(data);
   };
   useEffect(() => {
-    if (isAuthenticated) {
-      // if (user?.data?.user?.role === 'admin') {
-      router.push(routes.home);
-      // }
+    if (isAuth) {
+      if (user?.user?.user?.role === 'admin') {
+        router.push(routes.home);
+      }
     }
-  }, [isAuthenticated, router]);
+  }, [isAuth, router]);
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>
       <div className={classes.wrapper}>
@@ -56,7 +54,6 @@ const FormLogin = () => {
             mt="xl"
             size="md"
             type="submit"
-            // loading={isAuthenticated ? true : false}
           >
             Đăng Nhập
           </Button>

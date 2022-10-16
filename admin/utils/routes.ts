@@ -10,7 +10,7 @@ export const routes = {
   api: {
     login: '/api/login',
     logout: '/api/logout',
-    refreshToken:'/api/rf-token',
+    refreshToken: '/api/rf-token',
     getProfile: '/api/get-user-by-id/',
     getUser: '/api/get-user',
     createUser: '/api/create-user',

@@ -17,7 +17,6 @@ const UserList = () => {
           };
         }),
       }));
-      console.log(listUser.length);
     });
   }, []);
 

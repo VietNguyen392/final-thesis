@@ -1,41 +1,43 @@
 import React from 'react';
+import create from 'zustand';
 import { useRouter } from 'next/router';
 import useSWR, { mutate } from 'swr';
 import { showNotification } from '@mantine/notifications';
-import { Login, Logout, getUserProfile,checkToken } from '../utils/service';
+import { Login, Logout, getUserProfile, checkToken } from '../utils/service';
 import { routes } from 'utils/routes';
-import { ILogin } from 'utils/interface';
+import { ILogin, IAdmin } from 'utils/interface';
+
 const useAuth = () => {
-  const [state, setState] = React.useState({
-    authenticating: false,
-  });
-  const { authenticating } = state;
+  const [auth, setAuth] = React.useState<Boolean>(false);
+  const [user, setUser] = React.useState<IAdmin>();
+  const [token, setToken] = React.useState<String>('');
+  const [isAuth, setIsAuth] = React.useState<Boolean>(false);
   const router = useRouter();
-  const user = useSWR('use-user', getUserProfile, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    shouldRetryOnError: true,
-  });
-  const authenticate = (data: ILogin) => {
-    setState((o) => ({ ...o, authenticating: true }));
-    Login(data)
-      .then(() => mutate('use-user'))
-      .catch(() =>
+  const authenticate = async (data: ILogin) => {
+    setAuth(true);
+    await Login(data)
+      .then((res) => setUser((o) => ({ ...o, user: res?.data })))
+      .catch((err) =>
         showNotification({
           title: 'Thông báo',
-          message: 'Đăng nhập không thành công',
+          message: `${err?.response?.data?.msg}`,
           color: 'red',
         }),
       )
-      .finally(() => setState((o) => ({ ...o, authenticating: false })));
+      .finally(() => {
+        setAuth(false), setIsAuth(true);
+      });
   };
-  const deauthenticate = async(token:string) => {
-    const event=await checkToken(token)
-    const active_token=event?event:token
+  const deAuthenticate = async (token: string) => {
+    const expire = await checkToken(token);
+    const active_token = expire ? expire : token;
     Logout(active_token)
       .then(async () => {
-        mutate('use-user');
+        showNotification({
+          title: 'Thông báo',
+          message: 'Đăng xuất thành công',
+          color: 'green',
+        });
       })
       .catch(() =>
         showNotification({
@@ -47,11 +49,10 @@ const useAuth = () => {
       .finally(() => router.push(routes.login));
   };
   return {
-    user: user.data,
-    isAuth: authenticating || user.isValidating,
-    isAuthenticated: Boolean(user.data && !user.error),
+    user,
     authenticate,
-    deauthenticate,
+    isAuth,
+    deAuthenticate,
   };
 };
 
