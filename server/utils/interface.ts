@@ -19,9 +19,9 @@ export interface IHotel extends Document {
   city: string;
   address: string;
   photo: string;
-  distance: string;
+  distance: number;
   rating: number;
-  rooms: string[];
+  rooms: number;
   cheap: number;
   desc: string;
   featured: string[];

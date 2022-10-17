@@ -5,8 +5,8 @@ import { Pagination } from '../middleware';
 
 const HotelController = {
   createHotel: async (req: IReqAuth, res: Response) => {
-    if (!req.user) return res.status(400).send({ msg: 'Invalid' });
-    if (req.user.role !== 'admin') return res.status(400).send({ msg: 'no permision' });
+    // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
+    // if (req.user.role !== 'admin') return res.status(400).send({ msg: 'no permision' });
     try {
       const {
         hotel_name,
@@ -22,7 +22,7 @@ const HotelController = {
         featured,
       } = req.body;
       const isExist = await Hotel.findOne({ hotel_name });
-      if (isExist) return res.status(500).send({ msg: 'Hotel already create' });
+      if (isExist) return res.status(500).send({ msg: 'Hotel already exist' });
       const newHotel = await Hotel.create({
         hotel_name,
         hotel_type,

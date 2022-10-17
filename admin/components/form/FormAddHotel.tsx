@@ -12,11 +12,13 @@ import {
   FileButton,
   List,
   Text,
+  MultiSelect,
+  NumberInput
 } from '@mantine/core';
 import { createHotel } from 'utils/service';
 import TextEdit from 'components/common/TextEdit';
 import { IHotel } from 'utils/interface';
-
+import city from 'mock/city.json'
 const FormAddHotel = () => {
   const [files, setFiles] = React.useState<File[]>([]);
   const form = useForm({
@@ -26,13 +28,11 @@ const FormAddHotel = () => {
       city: '',
       address: '',
       photo: '',
-      distance: '',
-      rating: undefined,
-      rooms: '',
-      cheap: undefined,
+      distance: undefined,
+      rooms: undefined,
       desc: '',
-      featured: '',
-    },
+      featured:[],
+    }
   });
   const handleImageUp = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
@@ -43,7 +43,9 @@ const FormAddHotel = () => {
     //     ({...form,photo:imgfile})
     // }
   };
-  const onCreateHotel = async (data: any) => {
+ 
+  
+  async function onCreateHotel(data: IHotel) {
     try {
       const res = await createHotel(data);
       if (res.status === 200)
@@ -52,15 +54,15 @@ const FormAddHotel = () => {
           message: 'Thành công',
           color: 'blue',
         });
-      form.onReset;
+      form.reset();
     } catch (error: any) {
       showNotification({
         color: 'red',
         title: 'Thông báo',
-        message: 'Không thành công',
+        message: `${error.response.data.msg}`,
       });
     }
-  };
+  }
   return (
     <Paper
       component="form"
@@ -83,7 +85,14 @@ const FormAddHotel = () => {
               ]}
               {...form.getInputProps('hotel_type')}
             />
-            <TextInput
+            <Select
+             data={[
+                { value: 'Hà nội', label: 'Hà Nội' },
+                { value: 'Sài gòn', label: 'Sài Gòn' },
+                { value: 'Đà nẵng', label: 'Đà Nẵng' },
+                { value: 'Hải phòng', label: 'Hài Phòng' },
+                { value: 'Quảng Ninh', label: 'Quảng Ninh' },
+              ]}
               label="City"
               {...form.getInputProps('city')}
               withAsterisk
@@ -97,20 +106,24 @@ const FormAddHotel = () => {
         </Grid.Col>
         <Grid.Col span={4}>
           <Box>
-            <TextInput label="Distance" {...form.getInputProps('distance')} />
-            <Box style={{ display: 'flex' }}>
-              <TextInput
-                label="Room"
+            <NumberInput label="Distance" {...form.getInputProps('distance')} />
+              <NumberInput
+               min={0}
+               max={100}
+                label="Number of Room"
                 {...form.getInputProps('rooms')}
                 withAsterisk
               />
-              <TextInput
-                label="Featured"
-                style={{ marginLeft: '10px' }}
-                {...form.getInputProps('featured')}
-                withAsterisk
-              />
-            </Box>
+             <MultiSelect
+             data={[
+              {value:'Xe đưa đón',label:'Xe đưa đón'},
+              {value:'Buffet',label:'Buffet'},
+              {value:'Người phục vụ riêng',label:'Người phục vụ riêng'},
+             ]}
+             {...form.getInputProps('featured')}
+             label='Features'
+             />
+            
             <div style={{ marginTop: '25px', display: 'flex' }}>
               <FileButton
                 accept="image/png,image/jpeg"

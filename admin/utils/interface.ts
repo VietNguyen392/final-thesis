@@ -25,11 +25,10 @@ export interface IHotel {
   city: string;
   address: string;
   photo: string;
-  title: string;
-  distance: string;
-  rating: number;
-  rooms: string[];
-  cheap: number;
+ 
+  distance: number|undefined;
+  rating?: number|undefined;
+  rooms: number|undefined;
   desc: string;
   featured: string[];
 }
@@ -48,6 +47,7 @@ export interface IAdmin {
     };
   };
 }
+
 /*
 * {
     "_id": "6340310c93c547c2b6a64420",

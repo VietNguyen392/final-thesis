@@ -12,11 +12,16 @@ const HotelList = () => {
   const list = (datum as any)?.data?.map((item: IHotel) => (
     <tr key={item._id}>
       <td>{item.hotel_name}</td>
-      <td>{item.hotel_type === 'Medium' ? 'Trung bình' : 'bình thường'}</td>
+      <td>{item.hotel_type }</td>
       <td>{item.city}</td>
       <td>{item.address}</td>
       <td>{item.distance}</td>
-      <td>{item.title}</td>
+      <td>{item.featured.join(',')}</td>
+      <td>
+      <div dangerouslySetInnerHTML={{
+        __html:item.desc
+      }}/>
+      </td>
       <td>
         <Button onClick={() => setOpen(true)}>Edit</Button>
       </td>
@@ -38,7 +43,8 @@ const HotelList = () => {
               <th>City</th>
               <th>Address</th>
               <th>Distance</th>
-              <th>Title</th>
+              <th>Feature</th>
+              <th>Description</th>
             </tr>
           </thead>
           <tbody>{list}</tbody>
