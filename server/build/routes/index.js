@@ -34,10 +34,10 @@ const initWebRoute = (app) => {
   routes.post('api/new-booking', controller_1.BookingController.newBooking);
   routes.post('api/active-booking', controller_1.BookingController.activeBooking);
   //*Test routes
-  routes.post('api/create-company', TestController_1.default.createTest);
-  routes.get('api/get-company', TestController_1.default.getTest);
-  routes.patch('api/edit-company', TestController_1.default.editTest);
-  routes.delete('api/delete-company', TestController_1.default.deleteTest);
+  routes.post('/api/create-company', TestController_1.default.createTest);
+  routes.get('/api/get-company', TestController_1.default.getTest);
+  routes.patch('/api/edit-company', TestController_1.default.editTest);
+  routes.delete('/api/delete-company', TestController_1.default.deleteTest);
   return app.use('/', routes);
 };
 exports.initWebRoute = initWebRoute;

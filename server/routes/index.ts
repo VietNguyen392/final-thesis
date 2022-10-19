@@ -26,10 +26,10 @@ export const initWebRoute = (app: any) => {
   routes.post('api/new-booking', BookingController.newBooking);
   routes.post('api/active-booking', BookingController.activeBooking);
   //*Test routes
-  routes.post('api/create-company', TestController.createTest);
-  routes.get('api/get-company', TestController.getTest);
-  routes.patch('api/edit-company', TestController.editTest);
-  routes.delete('api/delete-company', TestController.deleteTest);
+  routes.post('/api/create-company', TestController.createTest);
+  routes.get('/api/get-company', TestController.getTest);
+  routes.patch('/api/edit-company', TestController.editTest);
+  routes.delete('/api/delete-company', TestController.deleteTest);
   return app.use('/', routes);
 };
 //validRegister,

@@ -59,7 +59,6 @@ const TestController = {
         }
       } catch (error) {
         res.status(500).send({ msg: 'Server error' });
-        console.log(error);
       }
     }),
   getTest: (_req, res) =>
