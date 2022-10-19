@@ -1,15 +1,28 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import { UserList } from 'components/List';
 import StatCard from 'components/common/StatCard';
-import { useAuth } from 'hooks';
+import { useAuth, useDataLength } from 'hooks';
+import {
+  SimpleGrid,
+  Box,
+  Container,
+  Stack,
+  useMantineTheme,
+} from '@mantine/core';
+
 const Home: NextPage = () => {
-  // const {user}=useAuth()
+  const { userList, hotelList } = useDataLength();
 
   return (
-    <div>
-      <UserList />
-    </div>
+    <>
+      <Box>
+        <Stack>
+          <StatCard length={userList} listName="user" />
+          <StatCard length={hotelList} listName="Hotel" />
+        </Stack>
+     
+      </Box>
+    </>
   );
 };
 

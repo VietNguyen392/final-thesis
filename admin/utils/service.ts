@@ -1,8 +1,11 @@
 import jwt_decode from 'jwt-decode';
-import { instance } from './_axios';
+import axios from 'axios';
 import { routes } from './routes';
 import { ILogin, IHotel } from './interface';
 import { TokenType } from './interface';
+const instance = axios.create({
+  baseURL: process.env.API_URL,
+});
 export const Login = async (data: ILogin) => {
   return await instance.post(routes.api.login, data);
 };

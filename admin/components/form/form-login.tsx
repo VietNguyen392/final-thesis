@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react';
-import { useForm } from '@mantine/form';
+import { useForm,zodResolver } from '@mantine/form';
 import { Paper, TextInput, PasswordInput, Button, Title } from '@mantine/core';
 import { IconLogin } from '@tabler/icons';
 import { useStyles, useAuth } from 'hooks';
-import { emailRegex, passwordRegex } from 'utils/regex';
-import { ILogin } from 'utils/interface';
 import { useRouter } from 'next/router';
-import { routes } from 'utils/routes';
+import { emailRegex,routes,ILogin,loginSchema } from 'utils';
 const FormLogin = () => {
   const router = useRouter();
   const { authenticate, user, isAuth } = useAuth();
   const { classes } = useStyles();
   const form = useForm({
     initialValues: { email: '', password: '' },
-    validate: {
-      email: (value) => (emailRegex.test(value) ? null : 'Email không hợp lệ'),
-    },
+    validate: zodResolver(loginSchema)
   });
   const onSubmit = (data: ILogin) => {
     authenticate(data);

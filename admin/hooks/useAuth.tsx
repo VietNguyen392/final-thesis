@@ -6,8 +6,28 @@ import { showNotification } from '@mantine/notifications';
 import { Login, Logout, getUserProfile, checkToken } from '../utils/service';
 import { routes } from 'utils/routes';
 import { ILogin, IAdmin } from 'utils/interface';
-
-const useAuth = () => {
+// interface AuthState{
+//   auth:boolean
+//   user:any[]
+//   authenticate:boolean
+//   login:(data:ILogin)=>void
+// }
+// const useAuth=create<AuthState>((set)=>({
+//   auth:false,
+//   user:[],
+//   authenticate:false,
+//   login:async(data)=>{
+//     set((state)=>({...state,auth:true}))
+//     await Login(data).then((res)=>set((state)=>({...state,user:res?.data}))).catch((err) =>
+//         showNotification({
+//           title: 'Thông báo',
+//           message: `${err?.response?.data?.msg}`,
+//           color: 'red',
+//         }),
+//       )
+//   }
+// }))
+const useAuth =() => {
   const [auth, setAuth] = React.useState<Boolean>(false);
   const [user, setUser] = React.useState<IAdmin>();
   const [token, setToken] = React.useState<String>('');

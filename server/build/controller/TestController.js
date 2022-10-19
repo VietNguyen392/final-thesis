@@ -36,46 +36,23 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, '__esModule', { value: true });
-const Hotel_1 = __importDefault(require('../models/Hotel'));
-const HotelController = {
-  createHotel: (req, res) =>
+const Test_1 = __importDefault(require('../models/Test'));
+const TestController = {
+  createTest: (req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
-      // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
-      // if (req.user.role !== 'admin') return res.status(400).send({ msg: 'no permision' });
       try {
-        const {
-          hotel_name,
-          hotel_type,
-          city,
-          address,
-          photo,
-          distance,
-          rating,
-          rooms,
-          cheap,
-          desc,
-          featured,
-        } = req.body;
-        const isExist = yield Hotel_1.default.findOne({ hotel_name });
+        const { company_name, director_name } = req.body;
+        const isExist = yield Test_1.default.findOne({ company_name });
         if (isExist) return res.status(500).send({ msg: 'Hotel already exist' });
-        const newHotel = yield Hotel_1.default.create({
-          hotel_name,
-          hotel_type,
-          city,
-          address,
-          photo,
-          distance,
-          rating,
-          rooms,
-          cheap,
-          desc,
-          featured,
+        const newTest = yield Test_1.default.create({
+          company_name,
+          director_name,
         });
-        if (newHotel) {
+        if (newTest) {
           res.status(200).json({
             code: 0,
-            _id: newHotel.id,
-            name: newHotel.hotel_name,
+            _id: newTest.id,
+            name: newTest.company_name,
           });
         } else {
           res.status(400).send({ msg: 'error' });
@@ -85,53 +62,42 @@ const HotelController = {
         console.log(error);
       }
     }),
-  getHotel: (_req, res) =>
+  getTest: (_req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
       try {
-        const data = yield Hotel_1.default.find().sort('-createdAt');
+        const data = yield Test_1.default.find().sort('-createdAt');
         if (!data) res.status(404).send({ msg: 'not found' });
         res.json({ data });
       } catch (error) {
         return res.status(500).send({ msg: error.message });
       }
     }),
-  editHotel: (req, res) =>
+  editTest: (req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
       try {
-        const {
-          hotel_name,
-          hotel_type,
-          city,
-          address,
-          photo,
-          distance,
-          rating,
-          rooms,
-          cheap,
-          desc,
-          featured,
-        } = req.body;
-        const updateHotel = yield Hotel_1.default.findOneAndUpdate(
+        const { company_name, director_name } = req.body;
+        const updateTest = yield Test_1.default.findOneAndUpdate(
           { _id: req.params.id },
           {
-            hotel_name,
-            hotel_type,
-            city,
-            address,
-            photo,
-            distance,
-            rating,
-            rooms,
-            cheap,
-            desc,
-            featured,
+            company_name,
+            director_name,
           },
           { new: true },
         );
-        res.json({ msg: 'update success', updateHotel });
+        res.json({ msg: 'update success', updateTest });
       } catch (err) {
         return res.status(500).send({ msg: 'Sever error' });
       }
     }),
+  deleteTest: (req, res) =>
+    __awaiter(void 0, void 0, void 0, function* () {
+      try {
+        const test = yield Test_1.default.findByIdAndDelete(req.params.id);
+        if (!test) return res.status(404).send({ msg: 'User not found' });
+        res.json({ msg: 'delete success' });
+      } catch (error) {
+        res.status(500).json({ msg: 'Server error' });
+      }
+    }),
 };
-exports.default = HotelController;
+exports.default = TestController;
