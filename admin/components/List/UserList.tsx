@@ -23,10 +23,7 @@ const UserList = () => {
 
   return (
     <>
-      <StatCard
-      length={listUser.length}
-      listName='Người dùng'
-      />
+      <StatCard length={listUser.length} listName="Người dùng" />
     </>
   );
 };

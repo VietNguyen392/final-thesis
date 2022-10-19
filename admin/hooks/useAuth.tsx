@@ -27,7 +27,7 @@ import { ILogin, IAdmin } from 'utils/interface';
 //       )
 //   }
 // }))
-const useAuth =() => {
+const useAuth = () => {
   const [auth, setAuth] = React.useState<Boolean>(false);
   const [user, setUser] = React.useState<IAdmin>();
   const [token, setToken] = React.useState<String>('');

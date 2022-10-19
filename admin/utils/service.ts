@@ -30,7 +30,7 @@ export const getUserProfile = async () => {
 export const createHotel = async (data: IHotel) => {
   return await instance.post(routes.api.createHotel, data);
 };
-export const getHotelList=async()=>{
-  const res=await instance.get(routes.api.getHotelList)
-  return res.data
-}
+export const getHotelList = async () => {
+  const res = await instance.get(routes.api.getHotelList);
+  return res.data;
+};

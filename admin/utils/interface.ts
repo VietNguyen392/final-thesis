@@ -25,10 +25,10 @@ export interface IHotel {
   city: string;
   address: string;
   photo: string;
- 
-  distance: number|undefined;
-  rating?: number|undefined;
-  rooms: number|undefined;
+
+  distance: number | undefined;
+  rating?: number | undefined;
+  rooms: number | undefined;
   desc: string;
   featured: string[];
 }

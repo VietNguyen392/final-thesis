@@ -25,47 +25,45 @@ const AppLayout = ({ children }: { children?: ReactNode }) => {
   }, [isAuth, router]);
   return (
     <>
-
-        <AppShell
-          padding="md"
-          navbarOffsetBreakpoint="sm"
-          navbar={
-            <Navbar
-              height={650}
-              width={{ sm: 250 }}
-              hiddenBreakpoint="sm"
-              hidden={!open}
-              p="md"
+      <AppShell
+        padding="md"
+        navbarOffsetBreakpoint="sm"
+        navbar={
+          <Navbar
+            height={650}
+            width={{ sm: 250 }}
+            hiddenBreakpoint="sm"
+            hidden={!open}
+            p="md"
+          >
+            <NavbarChild onClose={() => setOpen(false)} />
+          </Navbar>
+        }
+        header={
+          <Header height={60} p="md">
+            <section
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                height: '100%',
+              }}
             >
-              <NavbarChild onClose={() => setOpen(false)} />
-            </Navbar>
-          }
-          header={
-            <Header height={60} p="md">
-              <section
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '100%',
-                }}
-              >
-                <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                  <Burger
-                    opened={open}
-                    onClick={() => setOpen((o) => !o)}
-                    size="sm"
-                    color={theme.colors.blue[6]}
-                    mr="xl"
-                  />
-                </MediaQuery>
-                <Text size="lg">Trang Quản Trị Viên </Text>
-              </section>
-            </Header>
-          }
-        >
-          {children}
-        </AppShell>
-
+              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                <Burger
+                  opened={open}
+                  onClick={() => setOpen((o) => !o)}
+                  size="sm"
+                  color={theme.colors.blue[6]}
+                  mr="xl"
+                />
+              </MediaQuery>
+              <Text size="lg">Trang Quản Trị Viên </Text>
+            </section>
+          </Header>
+        }
+      >
+        {children}
+      </AppShell>
     </>
   );
 };

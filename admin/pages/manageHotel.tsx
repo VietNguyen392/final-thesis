@@ -8,8 +8,8 @@ const ManageHotel = () => {
     <div>
       <Tabs variant="pills" defaultValue="form">
         <Tabs.List>
-          <Tabs.Tab value="form">Tạo mới</Tabs.Tab>
-          <Tabs.Tab value="list">Danh sách</Tabs.Tab>
+          <Tabs.Tab value="form">Thêm mới phòng</Tabs.Tab>
+          <Tabs.Tab value="list">Danh sách phòng</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="form">
           <FormAddHotel />

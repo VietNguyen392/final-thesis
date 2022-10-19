@@ -36,8 +36,8 @@ const initWebRoute = (app) => {
   //*Test routes
   routes.post('/api/create-company', TestController_1.default.createTest);
   routes.get('/api/get-company', TestController_1.default.getTest);
-  routes.patch('/api/edit-company', TestController_1.default.editTest);
-  routes.delete('/api/delete-company', TestController_1.default.deleteTest);
+  routes.patch('/api/edit-company/:id', TestController_1.default.editTest);
+  routes.delete('/api/delete-company/:id', TestController_1.default.deleteTest);
   return app.use('/', routes);
 };
 exports.initWebRoute = initWebRoute;

@@ -12,15 +12,17 @@ const HotelList = () => {
   const list = (datum as any)?.data?.map((item: IHotel) => (
     <tr key={item._id}>
       <td>{item.hotel_name}</td>
-      <td>{item.hotel_type }</td>
+      <td>{item.hotel_type}</td>
       <td>{item.city}</td>
       <td>{item.address}</td>
       <td>{item.distance}</td>
       <td>{item.featured.join(',')}</td>
       <td>
-      <div dangerouslySetInnerHTML={{
-        __html:item.desc
-      }}/>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: item.desc,
+          }}
+        />
       </td>
       <td>
         <Button onClick={() => setOpen(true)}>Edit</Button>

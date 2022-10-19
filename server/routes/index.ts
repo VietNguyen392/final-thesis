@@ -28,8 +28,8 @@ export const initWebRoute = (app: any) => {
   //*Test routes
   routes.post('/api/create-company', TestController.createTest);
   routes.get('/api/get-company', TestController.getTest);
-  routes.patch('/api/edit-company', TestController.editTest);
-  routes.delete('/api/delete-company', TestController.deleteTest);
+  routes.patch('/api/edit-company/:id', TestController.editTest);
+  routes.delete('/api/delete-company/:id', TestController.deleteTest);
   return app.use('/', routes);
 };
 //validRegister,

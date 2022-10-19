@@ -13,12 +13,14 @@ import {
   List,
   Text,
   MultiSelect,
-  NumberInput
+  NumberInput,
+  FileInput,
 } from '@mantine/core';
+import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { createHotel } from 'utils/service';
 import TextEdit from 'components/common/TextEdit';
 import { IHotel } from 'utils/interface';
-import city from 'mock/city.json'
+import { checkImage, imageUpload } from 'utils';
 const FormAddHotel = () => {
   const [files, setFiles] = React.useState<File[]>([]);
   const form = useForm({
@@ -31,20 +33,24 @@ const FormAddHotel = () => {
       distance: undefined,
       rooms: undefined,
       desc: '',
-      featured:[],
-    }
+      featured: [],
+    },
   });
-  const handleImageUp = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    // const target = e.target as HTMLInputElement
-    // const files = target.files
-    // if (files) {
-    //     const imgfile = files[0]
-    //     ({...form,photo:imgfile})
-    // }
+  const handleImageUp = async (img: File) => {
+    let url: string = '';
+    if (img) {
+      const checkImg = checkImage(img);
+      if (checkImg)
+        return showNotification({
+          title: 'Thông báo',
+          message: checkImg,
+          color: 'red',
+        });
+      let hotel_img = await imageUpload(img);
+      url = hotel_img.url;
+    }
   };
- 
-  
+
   async function onCreateHotel(data: IHotel) {
     try {
       const res = await createHotel(data);
@@ -72,12 +78,12 @@ const FormAddHotel = () => {
         <Grid.Col span={4}>
           <Box>
             <TextInput
-              label="Hotel Name"
+              label="Tên phòng"
               {...form.getInputProps('hotel_name')}
               withAsterisk
             />
             <Select
-              label="Hotel Type"
+              label="Hạng Phòng"
               data={[
                 { value: 'Normal', label: 'Bình dân' },
                 { value: 'Medium', label: 'Trung bình' },
@@ -86,14 +92,12 @@ const FormAddHotel = () => {
               {...form.getInputProps('hotel_type')}
             />
             <Select
-             data={[
-                { value: 'Hà nội', label: 'Hà Nội' },
-                { value: 'Sài gòn', label: 'Sài Gòn' },
-                { value: 'Đà nẵng', label: 'Đà Nẵng' },
-                { value: 'Hải phòng', label: 'Hài Phòng' },
-                { value: 'Quảng Ninh', label: 'Quảng Ninh' },
+              data={[
+                { value: 'Hướng ra Biển', label: 'Hướng ra biển' },
+                { value: 'Hướng ra núi', label: 'Hướng ra núi' },
+                { value: 'Hướng ra vịnh', label: 'Hướng ra vịnh ' },
               ]}
-              label="City"
+              label="Hướng Phòng"
               {...form.getInputProps('city')}
               withAsterisk
             />
@@ -106,45 +110,26 @@ const FormAddHotel = () => {
         </Grid.Col>
         <Grid.Col span={4}>
           <Box>
-            <NumberInput label="Distance" {...form.getInputProps('distance')} />
-              <NumberInput
-               min={0}
-               max={100}
-                label="Number of Room"
-                {...form.getInputProps('rooms')}
-                withAsterisk
-              />
-             <MultiSelect
-             data={[
-              {value:'Xe đưa đón',label:'Xe đưa đón'},
-              {value:'Buffet',label:'Buffet'},
-              {value:'Người phục vụ riêng',label:'Người phục vụ riêng'},
-             ]}
-             {...form.getInputProps('featured')}
-             label='Features'
-             />
-            
-            <div style={{ marginTop: '25px', display: 'flex' }}>
-              <FileButton
-                accept="image/png,image/jpeg"
-                multiple
-                onChange={handleImageUp}
-                {...form.getInputProps('photo')}
-              >
-                {(props) => <Button {...props}>Upload image</Button>}
-              </FileButton>
-              {files.length > 0 && (
-                <Text size="sm" mt="sm" mr={3}>
-                  Picked files:
-                </Text>
-              )}
-
-              <List size="sm" mt={5} withPadding>
-                {files.map((file, index) => (
-                  <List.Item key={index}>{file.name}</List.Item>
-                ))}
-              </List>
-            </div>
+            <NumberInput label="Giá tiền" {...form.getInputProps('distance')} />
+            <NumberInput
+              label="Number of Room"
+              {...form.getInputProps('rooms')}
+              withAsterisk
+            />
+            <MultiSelect
+              data={[
+                { value: 'Xe đưa đón', label: 'Xe đưa đón' },
+                { value: 'Buffet', label: 'Buffet' },
+                { value: 'Người phục vụ riêng', label: 'Người phục vụ riêng' },
+              ]}
+              {...form.getInputProps('featured')}
+              label="Features"
+            />
+            <FileInput
+              label="Upload files"
+              placeholder="Upload files"
+              multiple
+            />
           </Box>
         </Grid.Col>
       </Grid>
