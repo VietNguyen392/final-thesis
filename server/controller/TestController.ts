@@ -4,8 +4,6 @@ const TestController = {
   createTest: async (req: Request, res: Response) => {
     try {
       const { company_name, director_name } = req.body;
-      const isExist = await TestModel.findOne({ company_name });
-      if (isExist) return res.status(500).send({ msg: 'Hotel already exist' });
       const newTest = await TestModel.create({
         company_name,
         director_name,

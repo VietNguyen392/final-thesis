@@ -11,10 +11,8 @@ export const routes = {
     login: '/api/login',
     logout: '/api/logout',
     refreshToken: '/api/rf-token',
-    getProfile: '/api/get-user-by-id/',
-    getUser: '/api/get-user',
+    user: '/api/user/',
+    hotel: '/api/hotel',
     createUser: '/api/create-user',
-    createHotel: '/api/create-hotel',
-    getHotelList: '/api/get-hotel',
   },
 };

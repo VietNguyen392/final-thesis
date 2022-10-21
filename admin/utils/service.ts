@@ -22,15 +22,18 @@ export const refreshToken = async () => {
   return await instance.get(routes.api.refreshToken);
 };
 export const getUserById = async (id: string) => {
-  return await instance.get(`${routes.api.getProfile}:${id}`);
+  return await instance.get(`${routes.api.user}${id}`);
 };
-export const getUserProfile = async () => {
-  return await instance.get(routes.api.getUser);
+export const getAllUserProfile = async () => {
+  return await instance.get(routes.api.user);
 };
 export const createHotel = async (data: IHotel) => {
-  return await instance.post(routes.api.createHotel, data);
+  return await instance.post(routes.api.hotel, data);
 };
 export const getHotelList = async () => {
-  const res = await instance.get(routes.api.getHotelList);
+  const res = await instance.get(routes.api.hotel);
   return res.data;
 };
+export async function deleteRoom(id: string) {
+  return await instance.delete(routes.api.hotel + '/' + id);
+}

@@ -10,9 +10,9 @@ export const checkImage = (file: File) => {
   return err;
 };
 
-export const imageUpload = async (file: File) => {
+export const imageUpload = async (file: File[]) => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', file[0]);
   formData.append('upload_preset', 'ml_default');
   formData.append('cloud_name', 'dji8eaf4q');
 

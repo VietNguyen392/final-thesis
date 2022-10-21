@@ -42,8 +42,6 @@ const TestController = {
     __awaiter(void 0, void 0, void 0, function* () {
       try {
         const { company_name, director_name } = req.body;
-        const isExist = yield Test_1.default.findOne({ company_name });
-        if (isExist) return res.status(500).send({ msg: 'Hotel already exist' });
         const newTest = yield Test_1.default.create({
           company_name,
           director_name,

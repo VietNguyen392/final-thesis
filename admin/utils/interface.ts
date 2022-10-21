@@ -19,7 +19,7 @@ export interface Table {
   data: ReactNode;
 }
 export interface IHotel {
-  _id?: string;
+  _id?: string | any;
   hotel_name: string;
   hotel_type: string;
   city: string;

@@ -76,7 +76,7 @@ const UserController = {
         console.log(e);
       }
     }),
-  getUser: (req, res) =>
+  getAllUser: (_req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
       try {
         const user = yield User_1.default.find().select('-password').sort('-createdAt');

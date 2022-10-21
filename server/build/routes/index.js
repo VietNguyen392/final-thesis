@@ -13,21 +13,30 @@ const utils_1 = require('../utils');
 const middleware_1 = require('../middleware');
 const routes = express_1.default.Router();
 const initWebRoute = (app) => {
-  //*User Routes
+  //*User routes
   routes.post('/api/create-user', utils_1.validRegister, controller_1.UserController.createUser);
-  routes.get('/api/get-user', controller_1.UserController.getUser);
-  routes.get('/api/get-user-by-id/:id', controller_1.UserController.getUserById);
-  routes.patch('/api/update-user/:id', controller_1.UserController.updateUser);
-  routes.delete('/api/delete-user/:id', controller_1.UserController.deleteUser);
+  routes.get('/api/user', controller_1.UserController.getAllUser);
+  routes
+    .route('/api/user/:id')
+    .get(controller_1.UserController.getUserById)
+    .patch(controller_1.UserController.updateUser)
+    .delete(controller_1.UserController.deleteUser);
+  //*Auth routes
   routes.post('/api/login', controller_1.UserController.login);
   routes.get('/api/logout', middleware_1.authenticate, controller_1.UserController.logout);
   routes.post('/api/register', utils_1.validRegister, controller_1.UserController.register);
   routes.post('/api/active-account', controller_1.UserController.activeAccount);
   routes.get('/api/rf-token', controller_1.UserController.refreshToken);
   //*Hotel routes
-  routes.post('/api/create-hotel', controller_1.HotelController.createHotel);
-  routes.get('/api/get-hotel', controller_1.HotelController.getHotel);
-  routes.patch('/api/edit-hotel', controller_1.HotelController.editHotel);
+  routes
+    .route('/api/hotel')
+    .post(controller_1.HotelController.createHotel)
+    .get(controller_1.HotelController.getHotel);
+  routes
+    .route('/api/hotel/:id')
+    .get(controller_1.HotelController.getRoomById)
+    .patch(controller_1.HotelController.editHotel)
+    .delete(controller_1.HotelController.deleteHotel);
   //*Room routes
   routes.post('api/create-room', controller_1.RoomController.createRoom);
   //*Booking routes

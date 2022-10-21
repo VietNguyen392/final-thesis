@@ -9,7 +9,7 @@ import {
   Stack,
   useMantineTheme,
 } from '@mantine/core';
-
+import { getUserById } from 'utils';
 const Home: NextPage = () => {
   const { userList, hotelList } = useDataLength();
 

@@ -9,20 +9,30 @@ import {
   Paper,
   Grid,
   Select,
-  FileButton,
   List,
   Text,
   MultiSelect,
   NumberInput,
   FileInput,
+  Image,
+  SimpleGrid,
+  useMantineTheme,
 } from '@mantine/core';
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { IconUpload, IconPhoto, IconX } from '@tabler/icons';
+import {
+  Dropzone,
+  DropzoneProps,
+  IMAGE_MIME_TYPE,
+  FileWithPath,
+} from '@mantine/dropzone';
 import { createHotel } from 'utils/service';
 import TextEdit from 'components/common/TextEdit';
 import { IHotel } from 'utils/interface';
 import { checkImage, imageUpload } from 'utils';
 const FormAddHotel = () => {
-  const [files, setFiles] = React.useState<File[]>([]);
+  const [files, setFiles] = React.useState('');
+  const [img, setImg] = React.useState<FileWithPath[]>([]);
+  const theme = useMantineTheme();
   const form = useForm({
     initialValues: {
       hotel_name: '',
@@ -36,21 +46,28 @@ const FormAddHotel = () => {
       featured: [],
     },
   });
-  const handleImageUp = async (img: File) => {
-    let url: string = '';
-    if (img) {
-      const checkImg = checkImage(img);
-      if (checkImg)
-        return showNotification({
-          title: 'Thông báo',
-          message: checkImg,
-          color: 'red',
-        });
-      let hotel_img = await imageUpload(img);
-      url = hotel_img.url;
-    }
-  };
+  const previews = img.map((file, index) => {
+    const imageUrl = URL.createObjectURL(file);
+    return (
+      <Image
+        key={index}
+        src={imageUrl}
+        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+      />
+    );
+  });
+  const handleImageUp = async (img: File[]) => {
+    // const imgCheck=checkImage(img)
+    // console.log(imgCheck);
 
+    // if(imgCheck) return showNotification({title:'Lỗi',message:imgCheck,color:'red'})
+    const Imgurl = await imageUpload(img);
+    form.setFieldValue('photo', Imgurl.url);
+  };
+  function testMulti() {
+    setImg;
+    console.log('ok');
+  }
   async function onCreateHotel(data: IHotel) {
     try {
       const res = await createHotel(data);
@@ -125,14 +142,65 @@ const FormAddHotel = () => {
               {...form.getInputProps('featured')}
               label="Features"
             />
-            <FileInput
-              label="Upload files"
-              placeholder="Upload files"
-              multiple
-            />
           </Box>
         </Grid.Col>
       </Grid>
+      <Box sx={{ paddingTop: '10px' }}>
+        <Dropzone
+          multiple
+          onDrop={setImg}
+          onReject={() =>
+            showNotification({
+              title: 'Lỗi',
+              message: 'không hỗ trợ',
+              color: 'red',
+            })
+          }
+          accept={IMAGE_MIME_TYPE}
+          maxSize={1024 * 1024}
+        >
+          <Group
+            position="center"
+            spacing="xl"
+            style={{ minHeight: 220, pointerEvents: 'none' }}
+          >
+            <Dropzone.Accept>
+              <IconUpload
+                size={50}
+                stroke={1.5}
+                color={
+                  theme.colors[theme.primaryColor][
+                    theme.colorScheme === 'dark' ? 4 : 6
+                  ]
+                }
+              />
+            </Dropzone.Accept>
+            <Dropzone.Reject>
+              <IconX
+                size={50}
+                stroke={1.5}
+                color={theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6]}
+              />
+            </Dropzone.Reject>
+            <Dropzone.Idle>
+              <IconPhoto size={50} stroke={1.5} />
+            </Dropzone.Idle>
+
+            <div>
+              <Text size="xl" inline>
+                Tải ảnh lên
+              </Text>
+            </div>
+          </Group>
+        </Dropzone>
+        <SimpleGrid
+          cols={4}
+          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
+          mt={previews.length > 0 ? 'xl' : 0}
+        >
+          {previews}
+        </SimpleGrid>
+      </Box>
       <Box style={{ paddingTop: '10px' }}>
         <TextEdit {...form.getInputProps('desc')} />
       </Box>

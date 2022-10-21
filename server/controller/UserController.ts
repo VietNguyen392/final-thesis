@@ -38,7 +38,7 @@ const UserController = {
       console.log(e);
     }
   },
-  getUser: async (req: Request, res: Response) => {
+  getAllUser: async (_req: Request, res: Response) => {
     try {
       const user = await Users.find().select('-password').sort('-createdAt');
       if (!user) return res.status(404).send({ msg: 'User not found' });

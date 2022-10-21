@@ -2,36 +2,27 @@ import mongoose, { mongo } from 'mongoose';
 import { IHotel } from '../utils';
 const hotelSchema = new mongoose.Schema(
   {
-    hotel_name: {
+    room_name: {
       type: String,
       require: true,
     },
-    hotel_type: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
-    address: {
+    room_type: {
       type: String,
       required: true,
     },
-    photo: {
+    location: {
       type: String,
     },
-
-    distance: {
+    photo: {
+      type: [String],
+    },
+    room_price: {
       type: Number,
     },
     rating: {
       type: Number,
       min: 0,
       max: 6,
-    },
-    rooms: {
-      type: Number,
-      min: 0,
-      max: 100,
     },
     cheap: {
       type: String,

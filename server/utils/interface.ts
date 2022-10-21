@@ -14,15 +14,12 @@ export interface IUser extends Document {
   _doc: object;
 }
 export interface IHotel extends Document {
-  hotel_name: string;
-  hotel_type: string;
-  city: string;
-  address: string;
-  photo: string;
-  distance: number;
+  room_name: string;
+  room_type: string;
+  location: string;
+  photo: string[];
+  room_price: number;
   rating: number;
-  rooms: number;
-  cheap: number;
   desc: string;
   featured: string[];
 }

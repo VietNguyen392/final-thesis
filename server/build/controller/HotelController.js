@@ -43,31 +43,18 @@ const HotelController = {
       // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
       // if (req.user.role !== 'admin') return res.status(400).send({ msg: 'no permision' });
       try {
-        const {
-          hotel_name,
-          hotel_type,
-          city,
-          address,
-          photo,
-          distance,
-          rating,
-          rooms,
-          cheap,
-          desc,
-          featured,
-        } = req.body;
-        const isExist = yield Hotel_1.default.findOne({ hotel_name });
+        const { room_name, room_type, city, location, photo, room_price, rating, desc, featured } =
+          req.body;
+        const isExist = yield Hotel_1.default.findOne({ room_name });
         if (isExist) return res.status(500).send({ msg: 'Hotel already exist' });
         const newHotel = yield Hotel_1.default.create({
-          hotel_name,
-          hotel_type,
+          room_name,
+          room_type,
           city,
-          address,
+          location,
           photo,
-          distance,
+          room_price,
           rating,
-          rooms,
-          cheap,
           desc,
           featured,
         });
@@ -75,7 +62,7 @@ const HotelController = {
           res.status(200).json({
             code: 0,
             _id: newHotel.id,
-            name: newHotel.hotel_name,
+            name: newHotel.room_name,
           });
         } else {
           res.status(400).send({ msg: 'error' });
@@ -95,34 +82,31 @@ const HotelController = {
         return res.status(500).send({ msg: error.message });
       }
     }),
+  getRoomById: (req, res) =>
+    __awaiter(void 0, void 0, void 0, function* () {
+      try {
+        const room = yield Hotel_1.default.findById(req.params.id);
+        if (!room) return res.status(404).send({ msg: 'Not found' });
+        res.json({ room });
+      } catch (error) {
+        res.status(500).send({ msg: 'Internal server error' });
+      }
+    }),
   editHotel: (req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
       try {
-        const {
-          hotel_name,
-          hotel_type,
-          city,
-          address,
-          photo,
-          distance,
-          rating,
-          rooms,
-          cheap,
-          desc,
-          featured,
-        } = req.body;
+        const { room_name, room_type, city, location, photo, room_price, rating, desc, featured } =
+          req.body;
         const updateHotel = yield Hotel_1.default.findOneAndUpdate(
           { _id: req.params.id },
           {
-            hotel_name,
-            hotel_type,
+            room_name,
+            room_type,
             city,
-            address,
+            location,
             photo,
-            distance,
+            room_price,
             rating,
-            rooms,
-            cheap,
             desc,
             featured,
           },
@@ -131,6 +115,16 @@ const HotelController = {
         res.json({ msg: 'update success', updateHotel });
       } catch (err) {
         return res.status(500).send({ msg: 'Sever error' });
+      }
+    }),
+  deleteHotel: (req, res) =>
+    __awaiter(void 0, void 0, void 0, function* () {
+      try {
+        const hotel = yield Hotel_1.default.findByIdAndDelete(req.params.id);
+        if (!hotel) return res.status(404).send({ msg: 'Not Found' });
+        res.json({ msg: 'delete success' });
+      } catch (error) {
+        res.status(500).json({ msg: 'Server error' });
       }
     }),
 };
