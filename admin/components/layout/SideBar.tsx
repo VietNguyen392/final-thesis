@@ -15,7 +15,7 @@ const navigations = [
   {
     id: 1,
     link: routes.home,
-    label: 'Thống kê',
+    label: 'Bảng điều khiển',
     icon: IconLayoutDashboard,
   },
   {

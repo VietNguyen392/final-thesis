@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles } from '@mantine/core';
 const useStyles = createStyles((theme, _params, getRef) => {
-  const icon = getRef('icon');
+  const icon: any = getRef('icon');
   return {
     wrapper: {
       minHeight: 900,

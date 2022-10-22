@@ -3,6 +3,7 @@ import { UserController, HotelController, RoomController, BookingController } fr
 import TestController from '../controller/TestController';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
+
 const routes = express.Router();
 export const initWebRoute = (app: any) => {
   //*User routes
@@ -36,6 +37,7 @@ export const initWebRoute = (app: any) => {
   routes.get('/api/get-company', TestController.getTest);
   routes.patch('/api/edit-company/:id', TestController.editTest);
   routes.delete('/api/delete-company/:id', TestController.deleteTest);
+
   return app.use('/', routes);
 };
 //validRegister,

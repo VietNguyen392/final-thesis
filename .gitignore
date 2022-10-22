@@ -1,1 +1,4 @@
 .idea/
+.vscode/
+test.js
+test.ts

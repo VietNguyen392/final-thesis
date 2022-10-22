@@ -1,37 +1,64 @@
-import React, { useState } from 'react';
-import { Table, ScrollArea, Button, Drawer, Modal, Group } from '@mantine/core';
-import { useStyles, useFetch } from 'hooks';
-import { routes } from 'utils/routes';
+import React, { useState, useEffect } from 'react';
+import useSWR, { useSWRConfig } from 'swr';
+import { Table, ScrollArea, Button, Drawer, Modal, Image } from '@mantine/core';
+import useStyles from 'hooks/useStyles';
+
 import { IHotel } from 'utils/interface';
-import FormAddHotel from 'components/form/FormAddHotel';
-import { deleteRoom } from 'utils';
+import { FormEditRoom } from '../form';
+import { deleteRoom, getHotelList } from 'utils';
 import { showNotification } from '@mantine/notifications';
+import { IconTrash, IconBallpen } from '@tabler/icons';
+import Loading from '../common/loading';
 const HotelList = () => {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [state, setState] = useState({
+    roomList: [],
+    openDrawer: false,
+    scrolled: false,
+    openModal: false,
+    roomID: '',
+  });
+  const { roomList, openDrawer, scrolled, openModal, roomID } = state;
   const { classes, cx } = useStyles();
-  const { datum } = useFetch(routes.api.hotel);
-  const handleDelete = async (id: string) => {
-    // setOpenModal(true)
-    const result = await deleteRoom(id);
-    if (result)
-      return showNotification({
+  const { data } = useSWR('get-roomList', getHotelList);
+  if (!data) return <Loading />;
+  const { mutate } = useSWRConfig();
+
+  const handleConfirmDelete = (id: string) => {
+    setState((o) => ({ ...o, openModal: true, roomID: id }));
+  };
+  const handleDelete = async (ID: string) => {
+    const result = await deleteRoom(ID);
+    if (result) {
+      showNotification({
         title: 'Thông báo',
         message: 'Xóa thành công',
         color: 'blue',
       });
+      setState((o) => ({ ...o, openModal: false }));
+    }
   };
-  const list = (datum as any)?.data?.map((item: IHotel) => (
+
+  const list = data?.data?.map((item: IHotel) => (
     <tr key={item._id}>
-      <td>{item.hotel_name}</td>
-      <td>{item.hotel_type}</td>
-      <td>{item.city}</td>
-      <td>{item.address}</td>
-      <td>{item.distance}</td>
+      <td>{item.room_name}</td>
+      <td>{item.room_type}</td>
+      <td>{item.room_price}</td>
+      <td>{item.location}</td>
       <td>{item.featured.join(',')}</td>
       <td>
-        <img src={item.photo} />
+        {/*<img alt='photo' src={item.photo}/>*/}
+        {item.photo.map((n, index) => {
+          return (
+            <Image
+              src={n}
+              key={index}
+              radius="md"
+              alt="photo"
+              width={200}
+              height={120}
+            />
+          );
+        })}
       </td>
       <td>
         <div
@@ -41,10 +68,14 @@ const HotelList = () => {
         />
       </td>
       <td>
-        <Button onClick={() => setOpen(true)}>Edit</Button>
+        <Button onClick={() => setState((o) => ({ ...o, openDrawer: true }))}>
+          <IconBallpen />
+          Edit
+        </Button>
       </td>
       <td>
-        <Button color="red" onClick={() => setOpenModal(true)}>
+        <Button color="red" onClick={() => handleConfirmDelete(item._id)}>
+          <IconTrash />
           Delete
         </Button>
       </td>
@@ -54,7 +85,9 @@ const HotelList = () => {
     <div>
       <ScrollArea
         sx={{ height: 300 }}
-        onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+        onScrollPositionChange={({ y }) =>
+          setState((o) => ({ ...o, scrolled: y !== 0 }))
+        }
       >
         <Table sx={{ minWidth: 700 }}>
           <thead
@@ -75,8 +108,8 @@ const HotelList = () => {
         </Table>
       </ScrollArea>
       <Drawer
-        opened={open}
-        onClose={() => setOpen(false)}
+        opened={openDrawer}
+        onClose={() => setState((o) => ({ ...o, openDrawer: false }))}
         title="Edit"
         padding="xl"
         size="xl"
@@ -86,21 +119,37 @@ const HotelList = () => {
         transitionDuration={250}
         transitionTimingFunction="ease"
       >
-        <FormAddHotel />
+        <FormEditRoom
+          data={data?.data}
+          submitEdit={(e) => console.log({ ...e })}
+        />
       </Drawer>
       <Modal
         opened={openModal}
-        onClose={() => setOpenModal(false)}
-        title="Xóa Phòng Này"
+        onClose={() => setState((o) => ({ ...o, openModal: false }))}
+        title="Xác nhận"
         centered
-        size={'sm'}
+        size={'xs'}
+        withCloseButton={false}
+        sx={{ textAlign: 'center' }}
       >
         Bạn có chắc chắn xóa
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button color={'gray'} onClick={() => setOpenModal(false)}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Button
+            color={'gray'}
+            onClick={() => setState((o) => ({ ...o, openModal: false }))}
+          >
             Hủy
           </Button>
-          <Button color={'red'}>Xóa</Button>
+          <Button color={'red'} onClick={() => handleDelete(roomID)}>
+            Xóa
+          </Button>
         </div>
       </Modal>
     </div>

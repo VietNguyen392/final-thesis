@@ -20,15 +20,12 @@ export interface Table {
 }
 export interface IHotel {
   _id?: string | any;
-  hotel_name: string;
-  hotel_type: string;
-  city: string;
-  address: string;
-  photo: string;
-
-  distance: number | undefined;
+  room_name: string;
+  room_type: string;
+  location: string;
+  photo: string[];
+  room_price: number | undefined;
   rating?: number | undefined;
-  rooms: number | undefined;
   desc: string;
   featured: string[];
 }

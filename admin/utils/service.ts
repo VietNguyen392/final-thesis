@@ -1,6 +1,7 @@
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import { routes } from './routes';
+import { encode, ParsedUrlQuery } from 'querystring';
 import { ILogin, IHotel } from './interface';
 import { TokenType } from './interface';
 const instance = axios.create({
@@ -15,6 +16,20 @@ export async function checkToken(token: string) {
   const res = await instance.get(routes.api.refreshToken);
   return res.data.access_token;
 }
+export const imageUpload = async (file: File[]) => {
+  const formData = new FormData();
+  formData.append('file', file[0]);
+  formData.append('upload_preset', 'ml_default');
+  formData.append('cloud_name', 'dji8eaf4q');
+
+  const res = await fetch('https://api.cloudinary.com/v1_1/dji8eaf4q/upload', {
+    method: 'POST',
+    body: formData,
+  });
+
+  const data = await res.json();
+  return { public_id: data.public_id, url: data.secure_url };
+};
 export const Logout = async (token: string | any) => {
   return await instance.get(routes.api.logout, token);
 };
@@ -37,3 +52,10 @@ export const getHotelList = async () => {
 export async function deleteRoom(id: string) {
   return await instance.delete(routes.api.hotel + '/' + id);
 }
+export const updateRoom = async (id: ParsedUrlQuery, data: IHotel) => {
+  return await instance.patch(routes.api.hotel + '/' + encode(id), data);
+};
+export const getFeatureList = async () => {
+  const res = await instance.get('api/get-company');
+  return res.data;
+};

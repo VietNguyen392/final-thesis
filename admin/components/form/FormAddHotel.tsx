@@ -1,51 +1,47 @@
 import React from 'react';
 import { useForm } from '@mantine/form';
+import useSWR from 'swr';
 import { showNotification } from '@mantine/notifications';
 import {
   TextInput,
   Button,
-  Group,
   Box,
   Paper,
   Grid,
   Select,
-  List,
-  Text,
   MultiSelect,
   NumberInput,
-  FileInput,
-  Image,
-  SimpleGrid,
   useMantineTheme,
+  Image,
 } from '@mantine/core';
-import { IconUpload, IconPhoto, IconX } from '@tabler/icons';
-import {
-  Dropzone,
-  DropzoneProps,
-  IMAGE_MIME_TYPE,
-  FileWithPath,
-} from '@mantine/dropzone';
-import { createHotel } from 'utils/service';
-import TextEdit from 'components/common/TextEdit';
+import UploadImage from '../common/UploadImage';
+import TextEdit from '../common/TextEdit';
 import { IHotel } from 'utils/interface';
-import { checkImage, imageUpload } from 'utils';
+import { createHotel, getFeatureList, imageUpload } from 'utils';
+import { FileWithPath } from '@mantine/dropzone';
 const FormAddHotel = () => {
-  const [files, setFiles] = React.useState('');
+  const [searchFeatures, setSearchFeatures] = React.useState('');
   const [img, setImg] = React.useState<FileWithPath[]>([]);
-  const theme = useMantineTheme();
+
   const form = useForm({
     initialValues: {
-      hotel_name: '',
-      hotel_type: '',
-      city: '',
-      address: '',
-      photo: '',
-      distance: undefined,
-      rooms: undefined,
+      room_name: '',
+      room_type: '',
+      location: '',
+      photo: [],
+      room_price: undefined,
       desc: '',
       featured: [],
     },
   });
+  const { data } = useSWR('get-feature', getFeatureList);
+  const featureList = data?.data?.map((ft: any) => ({
+    ftname: ft.company_name,
+  }));
+  const selectData = featureList?.map((ir: any) => ({
+    value: ir.ftname,
+    label: ir.ftname,
+  }));
   const previews = img.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     return (
@@ -57,18 +53,12 @@ const FormAddHotel = () => {
     );
   });
   const handleImageUp = async (img: File[]) => {
-    // const imgCheck=checkImage(img)
-    // console.log(imgCheck);
-
-    // if(imgCheck) return showNotification({title:'Lỗi',message:imgCheck,color:'red'})
-    const Imgurl = await imageUpload(img);
-    form.setFieldValue('photo', Imgurl.url);
+    const imgUrl = await imageUpload(img);
+    setImg(img);
+    form.setFieldValue('photo', imgUrl.url);
   };
-  function testMulti() {
-    setImg;
-    console.log('ok');
-  }
-  async function onCreateHotel(data: IHotel) {
+
+  async function handleCreateRoom(data: IHotel) {
     try {
       const res = await createHotel(data);
       if (res.status === 200)
@@ -89,14 +79,15 @@ const FormAddHotel = () => {
   return (
     <Paper
       component="form"
-      onSubmit={form.onSubmit((value) => onCreateHotel(value))}
+      onSubmit={form.onSubmit((value) => handleCreateRoom(value))}
+      sx={{ marginRight: '10px' }}
     >
       <Grid grow>
         <Grid.Col span={4}>
           <Box>
             <TextInput
               label="Tên phòng"
-              {...form.getInputProps('hotel_name')}
+              {...form.getInputProps('room_name')}
               withAsterisk
             />
             <Select
@@ -106,7 +97,7 @@ const FormAddHotel = () => {
                 { value: 'Medium', label: 'Trung bình' },
                 { value: 'Luxury', label: 'Cao cấp' },
               ]}
-              {...form.getInputProps('hotel_type')}
+              {...form.getInputProps('room_type')}
             />
             <Select
               data={[
@@ -115,97 +106,39 @@ const FormAddHotel = () => {
                 { value: 'Hướng ra vịnh', label: 'Hướng ra vịnh ' },
               ]}
               label="Hướng Phòng"
-              {...form.getInputProps('city')}
-              withAsterisk
-            />
-            <TextInput
-              label="Address"
-              {...form.getInputProps('address')}
+              {...form.getInputProps('location')}
               withAsterisk
             />
           </Box>
         </Grid.Col>
         <Grid.Col span={4}>
           <Box>
-            <NumberInput label="Giá tiền" {...form.getInputProps('distance')} />
             <NumberInput
-              label="Number of Room"
-              {...form.getInputProps('rooms')}
-              withAsterisk
+              label="Giá tiền"
+              {...form.getInputProps('room_price')}
             />
+
             <MultiSelect
-              data={[
-                { value: 'Xe đưa đón', label: 'Xe đưa đón' },
-                { value: 'Buffet', label: 'Buffet' },
-                { value: 'Người phục vụ riêng', label: 'Người phục vụ riêng' },
-              ]}
+              data={selectData}
+              clearable
+              searchable
+              searchValue={searchFeatures}
+              onSearchChange={setSearchFeatures}
               {...form.getInputProps('featured')}
-              label="Features"
+              label="Dịch vụ"
             />
           </Box>
         </Grid.Col>
       </Grid>
-      <Box sx={{ paddingTop: '10px' }}>
-        <Dropzone
-          multiple
-          onDrop={setImg}
-          onReject={() =>
-            showNotification({
-              title: 'Lỗi',
-              message: 'không hỗ trợ',
-              color: 'red',
-            })
-          }
-          accept={IMAGE_MIME_TYPE}
-          maxSize={1024 * 1024}
-        >
-          <Group
-            position="center"
-            spacing="xl"
-            style={{ minHeight: 220, pointerEvents: 'none' }}
-          >
-            <Dropzone.Accept>
-              <IconUpload
-                size={50}
-                stroke={1.5}
-                color={
-                  theme.colors[theme.primaryColor][
-                    theme.colorScheme === 'dark' ? 4 : 6
-                  ]
-                }
-              />
-            </Dropzone.Accept>
-            <Dropzone.Reject>
-              <IconX
-                size={50}
-                stroke={1.5}
-                color={theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6]}
-              />
-            </Dropzone.Reject>
-            <Dropzone.Idle>
-              <IconPhoto size={50} stroke={1.5} />
-            </Dropzone.Idle>
-
-            <div>
-              <Text size="xl" inline>
-                Tải ảnh lên
-              </Text>
-            </div>
-          </Group>
-        </Dropzone>
-        <SimpleGrid
-          cols={4}
-          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
-          mt={previews.length > 0 ? 'xl' : 0}
-        >
-          {previews}
-        </SimpleGrid>
-      </Box>
+      <UploadImage
+        image={previews}
+        onUpload={(files) => handleImageUp(files)}
+      />
       <Box style={{ paddingTop: '10px' }}>
         <TextEdit {...form.getInputProps('desc')} />
       </Box>
       <Button style={{ width: '100%', marginTop: '10px' }} type="submit">
-        Submit
+        Thêm Mới
       </Button>
     </Paper>
   );
