@@ -7,14 +7,13 @@ const HotelController = {
     // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
     // if (req.user.role !== 'admin') return res.status(400).send({ msg: 'no permision' });
     try {
-      const { room_name, room_type, city, location, photo, room_price, rating, desc, featured } =
+      const { room_name, room_type, location, photo, room_price, rating, desc, featured } =
         req.body;
       const isExist = await Hotel.findOne({ room_name });
       if (isExist) return res.status(500).send({ msg: 'Hotel already exist' });
       const newHotel = await Hotel.create({
         room_name,
         room_type,
-        city,
         location,
         photo,
         room_price,
@@ -24,9 +23,14 @@ const HotelController = {
       });
       if (newHotel) {
         res.status(200).json({
-          code: 0,
           _id: newHotel.id,
           name: newHotel.room_name,
+          type: newHotel.room_type,
+          price: newHotel.room_price,
+          locate: newHotel.location,
+          description: newHotel.desc,
+          gallery: newHotel.photo,
+          features: newHotel.featured,
         });
       } else {
         res.status(400).send({ msg: 'error' });

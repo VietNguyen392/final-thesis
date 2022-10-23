@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from '@mantine/core';
-import FormAddHotel from 'components/form/FormAddHotel';
+import HotelForm from 'components/form/HotelForm';
 import HotelList from 'components/List/HotelList';
 const ManageRoom = () => {
   return <div>In progress...</div>;

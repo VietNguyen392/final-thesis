@@ -11,8 +11,9 @@ import {
 type ImageUpProps = {
   image?: ReactElement[];
   onUpload: (img: FileWithPath[]) => void;
+  isLoad?: boolean;
 };
-const UploadImage: React.FC<ImageUpProps> = ({ onUpload, image }) => {
+const UploadImage: React.FC<ImageUpProps> = ({ onUpload, image, isLoad }) => {
   const theme = useMantineTheme();
   return (
     <div>
@@ -29,6 +30,7 @@ const UploadImage: React.FC<ImageUpProps> = ({ onUpload, image }) => {
           }
           accept={IMAGE_MIME_TYPE}
           maxSize={1024 * 1024}
+          loading={isLoad}
         >
           <Group
             position="center"

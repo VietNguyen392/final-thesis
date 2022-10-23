@@ -12,7 +12,8 @@ import { useRouter } from 'next/router';
 import { useAuth } from 'hooks';
 import { IconUserCircle } from '@tabler/icons';
 import { NavbarChild } from './SideBar';
-import { routes } from '../../utils/routes';
+import { routes } from 'utils';
+import ScrollTop from 'components/common/ScrollTop';
 const AppLayout = ({ children }: { children?: ReactNode }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useMantineTheme();
@@ -63,6 +64,7 @@ const AppLayout = ({ children }: { children?: ReactNode }) => {
         }
       >
         {children}
+        <ScrollTop />
       </AppShell>
     </>
   );

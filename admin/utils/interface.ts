@@ -18,7 +18,18 @@ export interface Navigations {
 export interface Table {
   data: ReactNode;
 }
-export interface IHotel {
+
+export interface ListType {
+  roomID?: string | any;
+  roomName?: string;
+  roomType?: string;
+  roomPrice?: number;
+  roomPhoto?: string[] | any;
+  roomLocate?: string;
+  roomDesc?: string | any;
+  roomFeature?: string[] | any;
+}
+export interface IHotel extends ListType {
   _id?: string | any;
   room_name: string;
   room_type: string;
@@ -44,7 +55,10 @@ export interface IAdmin {
     };
   };
 }
-
+export type ImageUp = {
+  public_id: string;
+  url: string;
+};
 /*
 * {
     "_id": "6340310c93c547c2b6a64420",

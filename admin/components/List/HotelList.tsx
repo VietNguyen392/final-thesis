@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { Table, ScrollArea, Button, Drawer, Modal, Image } from '@mantine/core';
+import {
+  Table,
+  ScrollArea,
+  Button,
+  Drawer,
+  Modal,
+  Image,
+  Box,
+} from '@mantine/core';
 import useStyles from 'hooks/useStyles';
-
-import { IHotel } from 'utils/interface';
+import { Carousel } from '@mantine/carousel';
 import { FormEditRoom } from '../form';
-import { deleteRoom, getHotelList } from 'utils';
+import { deleteRoom, getHotelList, IHotel, ListType } from 'utils';
 import { showNotification } from '@mantine/notifications';
 import { IconTrash, IconBallpen } from '@tabler/icons';
 import Loading from '../common/loading';
-const HotelList = () => {
+interface ListProps {
+  listData?: IHotel[];
+  onGetId: (roomId: string) => void;
+}
+
+const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
   const [state, setState] = useState({
-    roomList: [],
     openDrawer: false,
     scrolled: false,
     openModal: false,
     roomID: '',
   });
-  const { roomList, openDrawer, scrolled, openModal, roomID } = state;
+  const { openDrawer, scrolled, openModal, roomID } = state;
   const { classes, cx } = useStyles();
-  const { data } = useSWR('get-roomList', getHotelList);
-  if (!data) return <Loading />;
-  const { mutate } = useSWRConfig();
-
   const handleConfirmDelete = (id: string) => {
     setState((o) => ({ ...o, openModal: true, roomID: id }));
   };
@@ -38,43 +45,47 @@ const HotelList = () => {
     }
   };
 
-  const list = data?.data?.map((item: IHotel) => (
-    <tr key={item._id}>
-      <td>{item.room_name}</td>
-      <td>{item.room_type}</td>
-      <td>{item.room_price}</td>
-      <td>{item.location}</td>
-      <td>{item.featured.join(',')}</td>
+  const list = listData?.map((item: ListType) => (
+    <tr key={item.roomID}>
+      <td>{item.roomName}</td>
+      <td>{item.roomType}</td>
+      <td>{item.roomPrice}</td>
+      <td>{item.roomLocate}</td>
+      <td>{item.roomFeature}</td>
       <td>
-        {/*<img alt='photo' src={item.photo}/>*/}
-        {item.photo.map((n, index) => {
-          return (
-            <Image
-              src={n}
-              key={index}
-              radius="md"
-              alt="photo"
-              width={200}
-              height={120}
-            />
-          );
-        })}
+        {/* <Carousel sx={{ width: 200, height: 120 }} loop>
+          {item.roomPhoto?.map((n: any, index: number) => {
+            return (
+              <Carousel.Slide key={index}>
+                <Image
+                  src={n}
+                  radius="md"
+                  alt="photo"
+                  width={200}
+                  height={120}
+                />
+              </Carousel.Slide>
+            );
+          })}
+        </Carousel> */}
       </td>
       <td>
         <div
           dangerouslySetInnerHTML={{
-            __html: item.desc,
+            __html: item.roomDesc,
           }}
         />
       </td>
+
       <td>
-        <Button onClick={() => setState((o) => ({ ...o, openDrawer: true }))}>
+        <Button
+          onClick={() => setState((o) => ({ ...o, openDrawer: true }))}
+          sx={{ marginRight: 4 }}
+        >
           <IconBallpen />
           Edit
         </Button>
-      </td>
-      <td>
-        <Button color="red" onClick={() => handleConfirmDelete(item._id)}>
+        <Button color="red" onClick={() => onGetId(item.roomID)}>
           <IconTrash />
           Delete
         </Button>
@@ -82,7 +93,7 @@ const HotelList = () => {
     </tr>
   ));
   return (
-    <div>
+    <Box>
       <ScrollArea
         sx={{ height: 300 }}
         onScrollPositionChange={({ y }) =>
@@ -91,17 +102,19 @@ const HotelList = () => {
       >
         <Table sx={{ minWidth: 700 }}>
           <thead
-            className={cx(classes.header, { [classes.scrolled]: scrolled })}
+            className={cx(classes.tableHeader, {
+              [classes.scrolled]: scrolled,
+            })}
           >
             <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>Distance</th>
-              <th>Image</th>
-              <th>Feature</th>
-              <th>Description</th>
+              <th>Tên</th>
+              <th>Hạng</th>
+              <th>Giá</th>
+              <th>Vị trí</th>
+              <th>Dịch vụ</th>
+              <th>Gallery</th>
+              <th>Mô tả</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>{list}</tbody>
@@ -119,10 +132,10 @@ const HotelList = () => {
         transitionDuration={250}
         transitionTimingFunction="ease"
       >
-        <FormEditRoom
+        {/* <FormEditRoom
           data={data?.data}
           submitEdit={(e) => console.log({ ...e })}
-        />
+        /> */}
       </Drawer>
       <Modal
         opened={openModal}
@@ -152,7 +165,7 @@ const HotelList = () => {
           </Button>
         </div>
       </Modal>
-    </div>
+    </Box>
   );
 };
 

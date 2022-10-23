@@ -1,4 +1,4 @@
-import FormAddHotel from './FormAddHotel';
+import HotelForm from './HotelForm';
 import FormEditRoom from './form-edit-room';
 import FormLogin from './form-login';
-export { FormLogin, FormAddHotel, FormEditRoom };
+export { FormLogin, HotelForm, FormEditRoom };
