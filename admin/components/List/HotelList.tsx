@@ -4,10 +4,9 @@ import {
   Table,
   ScrollArea,
   Button,
-  Drawer,
-  Modal,
   Image,
   Box,
+  TypographyStylesProvider,
 } from '@mantine/core';
 import useStyles from 'hooks/useStyles';
 import { Carousel } from '@mantine/carousel';
@@ -19,67 +18,56 @@ import Loading from '../common/loading';
 interface ListProps {
   listData?: IHotel[];
   onGetId: (roomId: string) => void;
+  onGetIdEdit: (id: string, data: any) => void;
 }
 
-const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
+const HotelList: React.FC<ListProps> = ({ listData, onGetId, onGetIdEdit }) => {
   const [state, setState] = useState({
-    openDrawer: false,
     scrolled: false,
-    openModal: false,
-    roomID: '',
   });
-  const { openDrawer, scrolled, openModal, roomID } = state;
+  const { scrolled } = state;
   const { classes, cx } = useStyles();
-  const handleConfirmDelete = (id: string) => {
-    setState((o) => ({ ...o, openModal: true, roomID: id }));
-  };
-  const handleDelete = async (ID: string) => {
-    const result = await deleteRoom(ID);
-    if (result) {
-      showNotification({
-        title: 'Thông báo',
-        message: 'Xóa thành công',
-        color: 'blue',
-      });
-      setState((o) => ({ ...o, openModal: false }));
-    }
-  };
 
-  const list = listData?.map((item: ListType) => (
+  const list = listData?.map((item: ListType, index: number) => (
     <tr key={item.roomID}>
+      <td>{index + 1}</td>
       <td>{item.roomName}</td>
       <td>{item.roomType}</td>
       <td>{item.roomPrice}</td>
       <td>{item.roomLocate}</td>
       <td>{item.roomFeature}</td>
       <td>
-        {/* <Carousel sx={{ width: 200, height: 120 }} loop>
-          {item.roomPhoto?.map((n: any, index: number) => {
-            return (
-              <Carousel.Slide key={index}>
-                <Image
-                  src={n}
-                  radius="md"
-                  alt="photo"
-                  width={200}
-                  height={120}
-                />
-              </Carousel.Slide>
-            );
-          })}
-        </Carousel> */}
+        {item.roomPhoto && (
+          <Carousel sx={{ width: 200, height: 120 }} loop>
+            {item.roomPhoto?.map((n: any, index: number) => {
+              return (
+                <Carousel.Slide key={index}>
+                  <Image
+                    src={n}
+                    radius="md"
+                    alt="photo"
+                    width={200}
+                    height={120}
+                  />
+                </Carousel.Slide>
+              );
+            })}
+          </Carousel>
+        )}
       </td>
       <td>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: item.roomDesc,
-          }}
-        />
+        <TypographyStylesProvider>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: item.roomDesc,
+            }}
+          />
+        </TypographyStylesProvider>
       </td>
 
       <td>
         <Button
-          onClick={() => setState((o) => ({ ...o, openDrawer: true }))}
+          onClick={() => onGetIdEdit(item.roomID, item)}
           sx={{ marginRight: 4 }}
         >
           <IconBallpen />
@@ -107,6 +95,7 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
             })}
           >
             <tr>
+              <th>STT</th>
               <th>Tên</th>
               <th>Hạng</th>
               <th>Giá</th>
@@ -120,51 +109,6 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
           <tbody>{list}</tbody>
         </Table>
       </ScrollArea>
-      <Drawer
-        opened={openDrawer}
-        onClose={() => setState((o) => ({ ...o, openDrawer: false }))}
-        title="Edit"
-        padding="xl"
-        size="xl"
-        overlayOpacity={0.55}
-        overlayBlur={3}
-        transition="rotate-left"
-        transitionDuration={250}
-        transitionTimingFunction="ease"
-      >
-        {/* <FormEditRoom
-          data={data?.data}
-          submitEdit={(e) => console.log({ ...e })}
-        /> */}
-      </Drawer>
-      <Modal
-        opened={openModal}
-        onClose={() => setState((o) => ({ ...o, openModal: false }))}
-        title="Xác nhận"
-        centered
-        size={'xs'}
-        withCloseButton={false}
-        sx={{ textAlign: 'center' }}
-      >
-        Bạn có chắc chắn xóa
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Button
-            color={'gray'}
-            onClick={() => setState((o) => ({ ...o, openModal: false }))}
-          >
-            Hủy
-          </Button>
-          <Button color={'red'} onClick={() => handleDelete(roomID)}>
-            Xóa
-          </Button>
-        </div>
-      </Modal>
     </Box>
   );
 };

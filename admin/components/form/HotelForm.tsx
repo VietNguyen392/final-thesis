@@ -18,6 +18,7 @@ import {
 } from '@mantine/core';
 import UploadImage from '../common/UploadImage';
 import TextEdit from '../common/TextEdit';
+
 import {
   createHotel,
   getFeatureList,
@@ -25,6 +26,8 @@ import {
   IHotel,
   getHotelList,
   deleteRoom,
+  updateRoom,
+  ListType,
 } from 'utils';
 import { FileWithPath } from '@mantine/dropzone';
 import { HotelList } from '../List';
@@ -33,13 +36,15 @@ type ftList = {
 };
 const HotelForm = () => {
   const [state, setState] = useState({
-    roomList: [] as IHotel[],
     img: [] as FileWithPath[],
     rowID: '',
     openModal: false,
+    isEdit: false,
+    isLoadImg: false,
   });
-  const { img, roomList, rowID, openModal } = state;
+  const { img, rowID, openModal, isEdit, isLoadImg } = state;
   const [searchFeatures, setSearchFeatures] = useState('');
+
   const form = useForm<IHotel>({
     initialValues: {
       room_name: '',
@@ -64,10 +69,18 @@ const HotelForm = () => {
   });
 
   const handleImageUp = async (img: File[]) => {
-    setState((p) => ({ ...p, img: img }));
-    const res = await imageUpload(img);
-    const urls = res?.map((i) => i.url);
-    form.setFieldValue('photo', urls);
+    try {
+      setState((p) => ({ ...p, img: img, isLoadImg: true }));
+      const res = await imageUpload(img);
+      const urls = res?.map((i) => i.url);
+      form.setFieldValue('photo', urls);
+    } catch (error: any) {
+      showNotification({
+        color: 'red',
+        title: 'Thông báo',
+        message: `${error.response.data.msg}`,
+      });
+    }
   };
 
   async function handleCreateRoom(data: IHotel) {
@@ -83,7 +96,7 @@ const HotelForm = () => {
       setState((p) => ({
         ...p,
         img: [],
-        roomList: [res?.data as IHotel, ...roomList],
+        isLoadImg: false,
       }));
       mutate('get-roomList');
     } catch (error: any) {
@@ -94,21 +107,15 @@ const HotelForm = () => {
       });
     }
   }
+  async function handleEdit(id: any, editData: IHotel) {
+    setState((o) => ({ ...o, rowID: id }));
+
+    console.log('id:', id);
+  }
   const handleConfirmDelete = (id: string) => {
     setState((o) => ({ ...o, openModal: true, rowID: id }));
   };
-  const handleDelete = async (ID: string) => {
-    const result = await deleteRoom(ID);
-    if (result) {
-      showNotification({
-        title: 'Thông báo',
-        message: 'Xóa thành công',
-        color: 'blue',
-      });
-      setState((o) => ({ ...o, openModal: false }));
-      mutate('get-roomList');
-    }
-  };
+
   const listRoom = data?.data?.map((item: IHotel) => {
     return {
       roomID: item._id,
@@ -121,7 +128,18 @@ const HotelForm = () => {
       roomFeature: item.featured,
     };
   });
-
+  const handleDelete = async (ID: string) => {
+    const result = await deleteRoom(ID);
+    if (result) {
+      showNotification({
+        title: 'Thông báo',
+        message: 'Xóa thành công',
+        color: 'blue',
+      });
+      setState((o) => ({ ...o, openModal: false }));
+      mutate('get-roomList');
+    }
+  };
   return (
     <Box>
       <Stack>
@@ -181,7 +199,7 @@ const HotelForm = () => {
           <UploadImage
             image={previews}
             onUpload={(files) => handleImageUp(files)}
-            // isLoad={loadImg}
+            isLoad={isLoadImg}
           />
           <Box style={{ paddingTop: '10px' }}>
             <TextEdit {...form.getInputProps('desc')} />
@@ -195,7 +213,11 @@ const HotelForm = () => {
         <Text size={'xl'} weight={700}>
           Danh sách
         </Text>
-        <HotelList listData={listRoom} onGetId={handleConfirmDelete} />
+        <HotelList
+          listData={listRoom}
+          onGetId={handleConfirmDelete}
+          onGetIdEdit={() => handleEdit(rowID, listRoom)}
+        />
       </Stack>
       <Modal
         opened={openModal}

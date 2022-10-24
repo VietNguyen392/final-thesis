@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import { routes } from './routes';
 import { encode, ParsedUrlQuery } from 'querystring';
-import { ILogin, IHotel, ImageUp } from './interface';
+import { ILogin, IHotel, ImageUp, ListType } from './interface';
 import { TokenType } from './interface';
 const instance = axios.create({
   baseURL: process.env.API_URL,
@@ -60,7 +60,10 @@ export const getHotelList = async () => {
 export async function deleteRoom(id: string) {
   return await instance.delete(routes.api.hotel + '/' + id);
 }
-export const updateRoom = async (id: ParsedUrlQuery, data: IHotel) => {
+export const updateRoom = async (
+  id: ParsedUrlQuery,
+  data: Partial<IHotel | ListType>,
+) => {
   return await instance.patch(routes.api.hotel + '/' + encode(id), data);
 };
 export const getFeatureList = async () => {

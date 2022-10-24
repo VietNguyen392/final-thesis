@@ -7,10 +7,12 @@ import {
   IconLayoutDashboard,
   IconBrandBooking,
   IconBuildingSkyscraper,
+  IconAdjustmentsAlt,
 } from '@tabler/icons';
 import useStyles from 'hooks/useStyles';
 import { useAuth } from 'hooks';
-import { routes } from 'utils/routes';
+import { routes, Navigations } from 'utils';
+
 const navigations = [
   {
     id: 1,
@@ -35,6 +37,12 @@ const navigations = [
     link: routes.manageBooking,
     label: 'quản lý đặt phòng',
     icon: IconBrandBooking,
+  },
+  {
+    id: 5,
+    link: routes.setting,
+    label: 'Cấu hình',
+    icon: IconAdjustmentsAlt,
   },
 ];
 type TypeNav = {

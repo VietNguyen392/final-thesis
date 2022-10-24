@@ -5,7 +5,7 @@ export const routes = {
   manageRoom: '/manageRoom',
   manageHotel: '/manageHotel',
   manageBooking: '/manageBooking',
-  setting: '/setting',
+  setting: '/Config',
   stat: '/stat',
   api: {
     login: '/api/login',
