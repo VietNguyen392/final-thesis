@@ -39,6 +39,7 @@ const BookingController = {
       const { active_code } = req.body;
       const decoded = <IDecodedToken>jwt.verify(active_code, `${process.env.ACTIVE_TOKEN_SECRET}`);
       const { newBooking } = decoded;
+      console.log(newBooking);
 
       if (!newBooking) return res.status(400).send({ msg: 'Invalid ' });
 

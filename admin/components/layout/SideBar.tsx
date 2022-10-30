@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Navbar, Avatar, Text, Group, UnstyledButton } from '@mantine/core';
 import {
   IconDoor,
@@ -26,12 +27,12 @@ const navigations = [
     label: 'quản lý khách sạn',
     icon: IconBuildingSkyscraper,
   },
-  {
-    id: 3,
-    link: routes.manageRoom,
-    label: 'quản lý phòng',
-    icon: IconDoor,
-  },
+  // {
+  //   id: 3,
+  //   link: routes.manageRoom,
+  //   label: 'quản lý phòng',
+  //   icon: IconDoor,
+  // },
   {
     id: 4,
     link: routes.manageBooking,
@@ -41,7 +42,7 @@ const navigations = [
   {
     id: 5,
     link: routes.setting,
-    label: 'Cấu hình',
+    label: 'Cài đặt',
     icon: IconAdjustmentsAlt,
   },
 ];
@@ -49,21 +50,17 @@ type TypeNav = {
   onClose: () => void;
 };
 export function NavbarChild({ onClose }: TypeNav) {
-  const [state, setState] = useState({
-    active: 1,
-  });
-  const { active } = state;
   const { deAuthenticate } = useAuth();
+  const router = useRouter();
 
   const { classes, cx } = useStyles();
   const links = navigations.map((item) => (
     <span
       className={cx(classes.link, {
-        [classes.linkActive]: item.id === active,
+        [classes.linkActive]: item.link === router.pathname,
       })}
       onClick={(event: React.MouseEvent<HTMLSpanElement>) => {
         event.preventDefault();
-        setState((o) => ({ ...o, active: item.id }));
         onClose();
       }}
       key={item.id}
@@ -81,12 +78,7 @@ export function NavbarChild({ onClose }: TypeNav) {
       <Navbar.Section className={classes.footer}>
         <div className={classes.user}>
           <Group>
-            <Avatar
-              src={
-                'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
-              }
-              radius="xl"
-            />
+            <Avatar radius="xl" />
             <div style={{ flex: 1 }}>
               <Text>Admin</Text>
               <Text>admin@ad.com</Text>

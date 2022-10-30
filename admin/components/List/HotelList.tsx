@@ -7,26 +7,33 @@ import {
   Image,
   Box,
   TypographyStylesProvider,
+  Drawer,
+  Portal,
 } from '@mantine/core';
 import useStyles from 'hooks/useStyles';
 import { Carousel } from '@mantine/carousel';
 import { FormEditRoom } from '../form';
-import { deleteRoom, getHotelList, IHotel, ListType } from 'utils';
+import { deleteRoom, getHotelList, IHotel, ListType, updateRoom } from 'utils';
 import { showNotification } from '@mantine/notifications';
 import { IconTrash, IconBallpen } from '@tabler/icons';
 import Loading from '../common/loading';
 interface ListProps {
-  listData?: IHotel[];
+  listData: IHotel[];
   onGetId: (roomId: string) => void;
-  onGetIdEdit: (id: string, data: any) => void;
 }
 
-const HotelList: React.FC<ListProps> = ({ listData, onGetId, onGetIdEdit }) => {
+const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
   const [state, setState] = useState({
     scrolled: false,
+    editRow: {} as IHotel,
+    open: false,
   });
-  const { scrolled } = state;
+  const { scrolled, editRow, open } = state;
   const { classes, cx } = useStyles();
+  const takeRowEdit = (id: string) => {
+    const filterRow = listData?.filter((i: any) => i.roomID === id);
+    setState((p) => ({ ...p, editRow: filterRow[0], open: !open }));
+  };
 
   const list = listData?.map((item: ListType, index: number) => (
     <tr key={item.roomID}>
@@ -65,16 +72,19 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId, onGetIdEdit }) => {
         </TypographyStylesProvider>
       </td>
 
-      <td>
+      <td style={{ textAlign: 'center' }}>
         <Button
-          onClick={() => onGetIdEdit(item.roomID, item)}
+          onClick={() => takeRowEdit(item.roomID)}
           sx={{ marginRight: 4 }}
+          leftIcon={<IconBallpen />}
         >
-          <IconBallpen />
           Edit
         </Button>
-        <Button color="red" onClick={() => onGetId(item.roomID)}>
-          <IconTrash />
+        <Button
+          color="red"
+          onClick={() => onGetId(item.roomID)}
+          leftIcon={<IconTrash />}
+        >
           Delete
         </Button>
       </td>
@@ -109,6 +119,17 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId, onGetIdEdit }) => {
           <tbody>{list}</tbody>
         </Table>
       </ScrollArea>
+      <Drawer
+        opened={open}
+        onClose={() => setState((p) => ({ ...p, open: !open }))}
+        size="xl"
+        padding={'sm'}
+      >
+        <FormEditRoom
+          data={editRow}
+          closeDawer={() => setState((p) => ({ ...p, open: !open }))}
+        />
+      </Drawer>
     </Box>
   );
 };

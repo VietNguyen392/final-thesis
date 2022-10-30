@@ -17,8 +17,9 @@ const Home: NextPage = () => {
     <>
       <Box>
         <Stack>
-          <StatCard length={userList} listName="user" />
-          <StatCard length={hotelList} listName="Hotel" />
+          <StatCard length={userList} listName="Người dùng" />
+          <StatCard length={hotelList} listName="Phòng" />
+          <StatCard length={12} listName="Lịch đặt phòng" />
         </Stack>
       </Box>
     </>

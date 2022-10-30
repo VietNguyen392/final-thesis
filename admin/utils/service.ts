@@ -60,12 +60,7 @@ export const getHotelList = async () => {
 export async function deleteRoom(id: string) {
   return await instance.delete(routes.api.hotel + '/' + id);
 }
-export const updateRoom = async (
-  id: ParsedUrlQuery,
-  data: Partial<IHotel | ListType>,
-) => {
-  return await instance.patch(routes.api.hotel + '/' + encode(id), data);
-};
+
 export const getFeatureList = async () => {
   const res = await instance.get('api/get-company');
   return res.data;

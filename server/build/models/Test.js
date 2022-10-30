@@ -13,8 +13,8 @@ const testSchema = new mongoose_1.default.Schema(
       require: true,
     },
     director_name: {
-      type: String,
-      require: true,
+      type: Number,
+      require: false,
     },
   },
   { timestamps: true },

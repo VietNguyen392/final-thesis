@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 type TestType = {
   company_name: string;
-  director_name: string;
+  director_name: number;
 };
 const testSchema = new mongoose.Schema(
   {
@@ -10,8 +10,8 @@ const testSchema = new mongoose.Schema(
       require: true,
     },
     director_name: {
-      type: String,
-      require: true,
+      type: Number,
+      require: false,
     },
   },
   { timestamps: true },

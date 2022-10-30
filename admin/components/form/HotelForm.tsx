@@ -21,12 +21,11 @@ import TextEdit from '../common/TextEdit';
 
 import {
   createHotel,
-  getFeatureList,
+  getData,
   imageUpload,
   IHotel,
   getHotelList,
   deleteRoom,
-  updateRoom,
   ListType,
 } from 'utils';
 import { FileWithPath } from '@mantine/dropzone';
@@ -41,8 +40,9 @@ const HotelForm = () => {
     openModal: false,
     isEdit: false,
     isLoadImg: false,
+    featureList: [],
   });
-  const { img, rowID, openModal, isEdit, isLoadImg } = state;
+  const { img, rowID, openModal, isEdit, isLoadImg, featureList } = state;
   const [searchFeatures, setSearchFeatures] = useState('');
 
   const form = useForm<IHotel>({
@@ -107,11 +107,7 @@ const HotelForm = () => {
       });
     }
   }
-  async function handleEdit(id: any, editData: IHotel) {
-    setState((o) => ({ ...o, rowID: id }));
 
-    console.log('id:', id);
-  }
   const handleConfirmDelete = (id: string) => {
     setState((o) => ({ ...o, openModal: true, rowID: id }));
   };
@@ -129,17 +125,38 @@ const HotelForm = () => {
     };
   });
   const handleDelete = async (ID: string) => {
-    const result = await deleteRoom(ID);
-    if (result) {
-      showNotification({
-        title: 'Thông báo',
-        message: 'Xóa thành công',
-        color: 'blue',
-      });
-      setState((o) => ({ ...o, openModal: false }));
-      mutate('get-roomList');
+    try {
+      const result = await deleteRoom(ID);
+      if (result) {
+        showNotification({
+          title: 'Thông báo',
+          message: 'Xóa thành công',
+          color: 'blue',
+        });
+        setState((o) => ({ ...o, openModal: false }));
+        mutate('get-roomList');
+      }
+    } catch (error: any) {
+      showNotification({ title: 'Lỗi', message: error.data.msg, color: 'red' });
     }
   };
+  useEffect(() => {
+    const controller = new AbortController();
+    getData('/api/get-company').then((res) =>
+      setState((p) => ({
+        ...p,
+        featureList: res?.data?.map((x: any) => {
+          return {
+            // ftId: x._id,
+            label: x?.company_name,
+            value: x?.company_name,
+          };
+        }),
+      })),
+    );
+    return () => controller.abort();
+  }, []);
+
   return (
     <Box>
       <Stack>
@@ -184,15 +201,15 @@ const HotelForm = () => {
                   {...form.getInputProps('room_price')}
                 />
 
-                {/* <MultiSelect
-                data={featureList}
-                clearable
-                searchable
-                searchValue={searchFeatures}
-                onSearchChange={setSearchFeatures}
-                {...form.getInputProps('featured')}
-                label="Dịch vụ"
-              /> */}
+                <MultiSelect
+                  data={featureList}
+                  clearable
+                  searchable
+                  searchValue={searchFeatures}
+                  onSearchChange={setSearchFeatures}
+                  {...form.getInputProps('featured')}
+                  label="Dịch vụ"
+                />
               </Box>
             </Grid.Col>
           </Grid>
@@ -213,11 +230,7 @@ const HotelForm = () => {
         <Text size={'xl'} weight={700}>
           Danh sách
         </Text>
-        <HotelList
-          listData={listRoom}
-          onGetId={handleConfirmDelete}
-          onGetIdEdit={() => handleEdit(rowID, listRoom)}
-        />
+        <HotelList listData={listRoom} onGetId={handleConfirmDelete} />
       </Stack>
       <Modal
         opened={openModal}

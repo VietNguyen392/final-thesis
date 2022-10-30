@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextInput,
   Button,
@@ -7,37 +7,69 @@ import {
   Paper,
   Grid,
   Select,
-  List,
-  Text,
-  MultiSelect,
   NumberInput,
-  FileInput,
   Image,
-  SimpleGrid,
-  useMantineTheme,
   Textarea,
+  MultiSelect,
+  ScrollArea,
 } from '@mantine/core';
-
-import { IHotel } from 'utils';
+import useSWR from 'swr';
+import { IHotel, patchData, getData } from 'utils';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons';
 import TextEdit from '../common/TextEdit';
 import { useForm } from '@mantine/form';
+
 interface FormProps {
-  data: IHotel;
-  submitEdit: (data: any) => void;
+  data: any;
+  closeDawer: () => void;
 }
-const FormEditRoom: React.FC<FormProps> = ({ data, submitEdit }) => {
+const FormEditRoom: React.FC<FormProps> = ({ data, closeDawer }) => {
+  const [ftList, setFtList] = useState([]);
+  const [searchFeatures, setSearchFeatures] = useState('');
   const form = useForm({
     initialValues: {
       data,
     },
   });
+  const { mutate } = useSWR('get-roomList');
+  async function editRoom(value: any) {
+    try {
+      const res = await patchData(`/api/hotel/${data.roomID}`, value);
+      if (res.status === 200) {
+        showNotification({
+          title: 'Thành công',
+          message: 'Success',
+          color: 'blue',
+        });
+        closeDawer();
+        await mutate('get-roomList');
+      }
+    } catch (error: any) {
+      showNotification({ title: 'Lỗi', message: error.data.msg, color: 'red' });
+    }
+  }
+  useEffect(() => {
+    const controller = new AbortController();
+    getData('/api/get-company').then((res) =>
+      setFtList(
+        res?.data?.map((x: any) => {
+          return {
+            // ftId: x._id,
+            label: x?.company_name,
+            value: x?.company_name,
+          };
+        }),
+      ),
+    );
+    return () => controller.abort();
+  }, []);
+
   return (
     <Paper
       component="form"
-      onSubmit={form.onSubmit((value) => submitEdit(value))}
+      onSubmit={form.onSubmit((value) => editRoom(value))}
     >
       <Grid grow>
         <Grid.Col span={4}>
@@ -46,6 +78,7 @@ const FormEditRoom: React.FC<FormProps> = ({ data, submitEdit }) => {
               label="Tên phòng"
               {...form.getInputProps('room_name')}
               withAsterisk
+              defaultValue={data.roomName}
             />
             <Select
               label="Hạng Phòng"
@@ -55,6 +88,7 @@ const FormEditRoom: React.FC<FormProps> = ({ data, submitEdit }) => {
                 { value: 'Luxury', label: 'Cao cấp' },
               ]}
               {...form.getInputProps('room_type')}
+              defaultValue={data.roomType}
             />
             <Select
               data={[
@@ -65,6 +99,7 @@ const FormEditRoom: React.FC<FormProps> = ({ data, submitEdit }) => {
               label="Hướng Phòng"
               {...form.getInputProps('location')}
               withAsterisk
+              defaultValue={data.roomLocate}
             />
           </Box>
         </Grid.Col>
@@ -73,70 +108,31 @@ const FormEditRoom: React.FC<FormProps> = ({ data, submitEdit }) => {
             <NumberInput
               label="Giá tiền"
               {...form.getInputProps('room_price')}
+              defaultValue={data.roomPrice}
             />
-
-            <Textarea {...form.getInputProps('featured')} label="Dịch vụ" />
+            <MultiSelect
+              data={ftList}
+              clearable
+              searchable
+              searchValue={searchFeatures}
+              onSearchChange={setSearchFeatures}
+              {...form.getInputProps('featured')}
+              label="Dịch vụ"
+              defaultValue={data.roomFeature}
+            />
           </Box>
         </Grid.Col>
       </Grid>
-      {/*<Box sx={{ paddingTop: '10px' }}>*/}
-      {/*  <Dropzone*/}
-      {/*    multiple*/}
-      {/*    onDrop={setImg}*/}
-      {/*    onReject={() =>*/}
-      {/*      showNotification({*/}
-      {/*        title: 'Lỗi',*/}
-      {/*        message: 'không hỗ trợ',*/}
-      {/*        color: 'red',*/}
-      {/*      })*/}
-      {/*    }*/}
-      {/*    accept={IMAGE_MIME_TYPE}*/}
-      {/*    maxSize={1024 * 1024}*/}
-      {/*  >*/}
-      {/*    <Group*/}
-      {/*      position="center"*/}
-      {/*      spacing="xl"*/}
-      {/*      style={{ minHeight: 220, pointerEvents: 'none' }}*/}
-      {/*    >*/}
-      {/*      <Dropzone.Accept>*/}
-      {/*        <IconUpload*/}
-      {/*          size={50}*/}
-      {/*          stroke={1.5}*/}
-      {/*          color={*/}
-      {/*            theme.colors[theme.primaryColor][*/}
-      {/*              theme.colorScheme === 'dark' ? 4 : 6*/}
-      {/*            ]*/}
-      {/*          }*/}
-      {/*        />*/}
-      {/*      </Dropzone.Accept>*/}
-      {/*      <Dropzone.Reject>*/}
-      {/*        <IconX*/}
-      {/*          size={50}*/}
-      {/*          stroke={1.5}*/}
-      {/*          color={theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6]}*/}
-      {/*        />*/}
-      {/*      </Dropzone.Reject>*/}
-      {/*      <Dropzone.Idle>*/}
-      {/*        <IconPhoto size={50} stroke={1.5} />*/}
-      {/*      </Dropzone.Idle>*/}
-
-      {/*      <div>*/}
-      {/*        <Text size="xl" inline>*/}
-      {/*          Tải ảnh lên*/}
-      {/*        </Text>*/}
-      {/*      </div>*/}
-      {/*    </Group>*/}
-      {/*  </Dropzone>*/}
-      {/*  <SimpleGrid*/}
-      {/*    cols={4}*/}
-      {/*    breakpoints={[{ maxWidth: 'sm', cols: 1 }]}*/}
-      {/*    mt={previews.length > 0 ? 'xl' : 0}*/}
-      {/*  >*/}
-      {/*    {previews}*/}
-      {/*  </SimpleGrid>*/}
-      {/*</Box>*/}
+      {/* <Box>
+        {
+      data.roomPhoto?.map((img:any,index:number)=><Image src={img}key={index}/>)
+    }
+      </Box> */}
       <Box style={{ paddingTop: '10px' }}>
-        <TextEdit {...form.getInputProps('desc')} />
+        <TextEdit
+          {...form.getInputProps('desc')}
+          defaultValue={data.roomDesc}
+        />
       </Box>
       <Button style={{ width: '100%', marginTop: '10px' }} type="submit">
         Sửa
