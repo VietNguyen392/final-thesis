@@ -1,6 +1,23 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Button, Form, Input, message } from "antd";
+import { userLogin, reset } from "features/auth/authSlice";
 const FormLogin = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isSuccess } = useSelector((state) => state.auth);
+  const [form] = Form.useForm();
+  const handleLogin = async (value) => {
+    dispatch(userLogin(value)).then(() => form.resetFields());
+  };
+  React.useEffect(() => {
+    if (user || isSuccess) {
+      navigate("/");
+      message.success("Login succes");
+    }
+    dispatch(reset());
+  }, [user, navigate, dispatch, isSuccess]);
   return (
     <Form
       name="login-form"
@@ -10,6 +27,8 @@ const FormLogin = () => {
         email: "",
         password: "",
       }}
+      form={form}
+      onFinish={handleLogin}
     >
       <Form.Item
         label="Email"

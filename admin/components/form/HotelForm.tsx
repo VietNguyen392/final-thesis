@@ -72,6 +72,12 @@ const HotelForm = () => {
     try {
       setState((p) => ({ ...p, img: img, isLoadImg: true }));
       const res = await imageUpload(img);
+      if (res)
+        showNotification({
+          title: 'Thông báo',
+          message: 'Tải thành công',
+          color: 'blue',
+        });
       const urls = res?.map((i) => i.url);
       form.setFieldValue('photo', urls);
     } catch (error: any) {

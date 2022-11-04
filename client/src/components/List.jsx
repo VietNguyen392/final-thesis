@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { getAPI } from "service";
-import { List, Card, Image } from "antd";
+import RoomInfo from "./RoomInfo";
+import { List, Card, Image, Modal } from "antd";
+import { useQuery } from "react-query";
+
 const ListItem = () => {
   const [state, setState] = useState({
     dataList: [],
   });
+
   const { dataList } = state;
   const { Meta } = Card;
   useEffect(() => {
@@ -17,11 +21,13 @@ const ListItem = () => {
             rName: x.room_name,
             avatar: x.photo,
             desc: x.desc,
+            price: x.room_price,
           };
         }),
       }))
     );
   }, []);
+
   return (
     <div>
       <List
@@ -45,8 +51,8 @@ const ListItem = () => {
               <Meta
                 title={item.rName}
                 style={{ textTransform: "capitalize" }}
-                description={item.desc.slice(0, 10)}
               />
+              <p>{item.price}$/perNight</p>
             </Card>
           </List.Item>
         )}

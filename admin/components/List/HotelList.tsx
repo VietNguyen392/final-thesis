@@ -13,7 +13,7 @@ import {
 import useStyles from 'hooks/useStyles';
 import { Carousel } from '@mantine/carousel';
 import { FormEditRoom } from '../form';
-import { deleteRoom, getHotelList, IHotel, ListType, updateRoom } from 'utils';
+import { deleteRoom, getHotelList, IHotel, ListType } from 'utils';
 import { showNotification } from '@mantine/notifications';
 import { IconTrash, IconBallpen } from '@tabler/icons';
 import Loading from '../common/loading';

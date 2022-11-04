@@ -66,7 +66,7 @@ const UserController = {
             code: 0,
             _id: newUser.id,
             name: newUser.fullName,
-            token: (0, genToken_1.generateActiveToken)(newUser._id),
+            // token: generateActiveToken(newUser._id),
           });
         } else {
           res.status(400).send({ msg: 'Error' });

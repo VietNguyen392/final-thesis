@@ -6,10 +6,13 @@ import {
   ShopOutlined,
   GlobalOutlined,
   LockOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
 import AuthPage from "./AuthPage";
+import { useSelector } from "react-redux";
 export default function NavBar() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   const links = [
     {
@@ -32,13 +35,15 @@ export default function NavBar() {
     {
       label: (
         <Link to="hotel">
-          <GlobalOutlined /> Địa Điểm
+          <ShoppingCartOutlined /> Đặt lịch
         </Link>
       ),
       key: "hotel",
     },
     {
-      label: (
+      label: user ? (
+        "logout"
+      ) : (
         <Button
           type="text"
           onClick={() => setIsOpen(true)}

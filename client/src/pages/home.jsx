@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Banner } from "../components/common";
-import { Space, Col, Row, Modal, Button } from "antd";
-
-import BookingBar from "../components/bookingBar";
-import ListItem from "../components/List";
+import { Banner, HomeWelComeText } from "components/common";
+import { Space, Col, Row, Modal, Button, Typography } from "antd";
+import { WelComeText } from "styles/components";
+import ListItem from "components/List";
+import HomeList from "components/HomeList";
 const Home = () => {
   return (
     <>
       <Banner />
-      <Space style={{ margin: "20px" }}>
-        <Row gutter={12}>
-          <BookingBar />
-        </Row>
-      </Space>
-      <Space className="container">
-        <ListItem />
-      </Space>
+      <div className="container">
+        <HomeWelComeText />
+        <div style={{ marginTop: "10px" }}>
+          <HomeList />
+        </div>
+        {/* <Space style={{ margin: "20px" }}>
+          <ListItem />
+        </Space> */}
+      </div>
     </>
   );
 };

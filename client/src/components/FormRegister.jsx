@@ -1,8 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Form, Input, message, Row, Col, Radio, Select } from "antd";
-import { AntCloudOutlined } from "@ant-design/icons";
-import { postAPI } from "../service";
+
+import { Button, Form, Input, message, Row, Col, Radio } from "antd";
+
+import { postAPI } from "service";
+
 const FormRegister = (props) => {
   const [form] = Form.useForm();
   const onSubmitForm = async (value) => {
@@ -17,6 +18,7 @@ const FormRegister = (props) => {
       })
       .finally(() => {
         form.resetFields();
+        window.close();
       });
   };
   return (
@@ -30,7 +32,6 @@ const FormRegister = (props) => {
           password: "",
           gender: "",
           phoneNumber: "",
-          avatar: "",
           address: "",
         }}
         form={form}
@@ -111,9 +112,6 @@ const FormRegister = (props) => {
             >
               <Input type="number" min="1" />
             </Form.Item>{" "}
-            <Form.Item label="Ảnh đại diện" name="avatar">
-              <Input type="file" />
-            </Form.Item>
           </Col>
         </Row>
         <Form.Item

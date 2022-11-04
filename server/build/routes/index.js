@@ -14,7 +14,7 @@ const middleware_1 = require('../middleware');
 const routes = express_1.default.Router();
 const initWebRoute = (app) => {
   //*User routes
-  routes.post('/api/create-user', utils_1.validRegister, controller_1.UserController.createUser);
+  routes.post('/api/create-user', controller_1.UserController.createUser);
   routes.get('/api/user', controller_1.UserController.getAllUser);
   routes
     .route('/api/user/:id')

@@ -7,7 +7,7 @@ import { authenticate } from '../middleware';
 const routes = express.Router();
 export const initWebRoute = (app: any) => {
   //*User routes
-  routes.post('/api/create-user', validRegister, UserController.createUser);
+  routes.post('/api/create-user', UserController.createUser);
   routes.get('/api/user', UserController.getAllUser);
   routes
     .route('/api/user/:id')

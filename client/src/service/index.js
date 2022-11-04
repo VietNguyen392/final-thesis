@@ -1,6 +1,4 @@
 import axios from "axios";
-// const api_url='https://web-api-vnjp.onrender.com'
-// const api_url = "http://localhost:4040";
 export const postAPI = async (url, data, token) => {
   const res = await axios.post(`/api/${url}`, data, {
     headers: { Authorization: token },
@@ -35,4 +33,3 @@ export const putAPI = async (url, data, token) => {
 
   return res;
 };
-// ${api_url}

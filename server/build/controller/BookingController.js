@@ -79,6 +79,7 @@ const BookingController = {
           `${process.env.ACTIVE_TOKEN_SECRET}`,
         );
         const { newBooking } = decoded;
+        console.log(newBooking);
         if (!newBooking) return res.status(400).send({ msg: 'Invalid ' });
         const booking = yield Booking_1.default.findOne({ room: newBooking.room });
         if (booking) return res.status(400).json({ msg: 'Booking already create' });

@@ -12,7 +12,7 @@ const Main = ({ children }) => {
       <Header>
         <NavBar />
       </Header>
-      <Content className="container">{children}</Content>
+      <Content>{children}</Content>
       <Footer>
         Build with React and Ant design by{" "}
         <a href="mailto:nghoangviet2000@hotmail.com">Nguyễn Hoàng Việt</a> ©
