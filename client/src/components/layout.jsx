@@ -1,7 +1,5 @@
 import React from "react";
 import { Layout, BackTop } from "antd";
-import Loading from "./loading";
-import { Link } from "react-router-dom";
 import { UpOutlined } from "@ant-design/icons";
 import NavBar from "./header";
 const { Header, Footer, Content } = Layout;

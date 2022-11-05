@@ -4,22 +4,20 @@ import { Button, Form, Input, message, Row, Col, Radio } from "antd";
 
 import { postAPI } from "service";
 
-const FormRegister = (props) => {
+const FormRegister = () => {
   const [form] = Form.useForm();
   const onSubmitForm = async (value) => {
-    const res = await postAPI("register", value)
-      .then(() => {
-        if (res.status === 200) {
-          message.success(res?.response?.data?.msg);
-        }
-      })
-      .catch((res) => {
-        return message.error(res?.response?.data?.msg);
-      })
-      .finally(() => {
-        form.resetFields();
-        window.close();
-      });
+    try {
+      const res = await postAPI("register", value)
+      if(res.status===200){
+        message.success('Đăng ký thành công, hãy kiểm tra hòm mail của bạn')
+        form.resetFields()
+        window.close()
+      }
+    } catch (error) {
+      message.error(error.response.data.msg)
+    }
+      
   };
   return (
     <div>

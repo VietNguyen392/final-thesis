@@ -4,7 +4,6 @@ import { Menu, Modal, Button } from "antd";
 import {
   HomeOutlined,
   ShopOutlined,
-  GlobalOutlined,
   LockOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
@@ -12,8 +11,9 @@ import AuthPage from "./AuthPage";
 import { useSelector } from "react-redux";
 export default function NavBar() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [select, setSelect] = React.useState("home");
   const { user } = useSelector((state) => state.auth);
-
+  console.log(user);
   const links = [
     {
       label: (
@@ -58,9 +58,17 @@ export default function NavBar() {
 
   return (
     <>
-      <Menu theme="dark" mode="horizontal" items={links} />
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        items={links}
+        onClick={(e) => setSelect(e.key)}
+        selectedKeys={[select]}
+        style={{ position: "sticky" }}
+      />
+
       <Modal open={isOpen} onCancel={() => setIsOpen(false)} footer={null}>
-        <AuthPage />
+        <AuthPage  />
       </Modal>
     </>
   );

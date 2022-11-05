@@ -8,7 +8,7 @@ const FormLogin = () => {
   const dispatch = useDispatch();
   const { user, isSuccess } = useSelector((state) => state.auth);
   const [form] = Form.useForm();
-  const handleLogin = async (value) => {
+  const handleLogin = (value) => {
     dispatch(userLogin(value)).then(() => form.resetFields());
   };
   React.useEffect(() => {
