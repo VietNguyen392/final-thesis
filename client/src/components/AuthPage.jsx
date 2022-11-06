@@ -4,7 +4,6 @@ import FormLogin from "./FormLogin";
 import FormRegister from "./FormRegister";
 
 const AuthPage = () => {
-  
   return (
     <div>
       <Tabs

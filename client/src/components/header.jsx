@@ -1,19 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Modal, Button } from "antd";
+import { Menu, Modal, Button, message } from "antd";
 import {
   HomeOutlined,
-  ShopOutlined,
   LockOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import AuthPage from "./AuthPage";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { userLogout } from "features/auth/authSlice";
 export default function NavBar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [select, setSelect] = React.useState("home");
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
+  const handleLogout = () => {
+    try {
+      dispatch(userLogout(user.access_token));
+    } catch (error) {
+      message.error(error);
+    }
+  };
   const links = [
     {
       label: (
@@ -25,15 +32,6 @@ export default function NavBar() {
     },
     {
       label: (
-        <Link to="room">
-          <ShopOutlined />
-          Khách Sạn
-        </Link>
-      ),
-      key: "room",
-    },
-    {
-      label: (
         <Link to="hotel">
           <ShoppingCartOutlined /> Đặt lịch
         </Link>
@@ -42,7 +40,7 @@ export default function NavBar() {
     },
     {
       label: user ? (
-        "logout"
+        <Button onClick={handleLogout}>Đăng xuất</Button>
       ) : (
         <Button
           type="text"
@@ -68,7 +66,7 @@ export default function NavBar() {
       />
 
       <Modal open={isOpen} onCancel={() => setIsOpen(false)} footer={null}>
-        <AuthPage  />
+        <AuthPage />
       </Modal>
     </>
   );

@@ -8,16 +8,15 @@ const FormRegister = () => {
   const [form] = Form.useForm();
   const onSubmitForm = async (value) => {
     try {
-      const res = await postAPI("register", value)
-      if(res.status===200){
-        message.success('Đăng ký thành công, hãy kiểm tra hòm mail của bạn')
-        form.resetFields()
-        window.close()
+      const res = await postAPI("register", value);
+      if (res.status === 200) {
+        message.success("Đăng ký thành công, hãy kiểm tra hòm mail của bạn");
+        form.resetFields();
+        window.close();
       }
     } catch (error) {
-      message.error(error.response.data.msg)
+      message.error(error.response.data.msg);
     }
-      
   };
   return (
     <div>

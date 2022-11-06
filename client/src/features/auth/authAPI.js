@@ -1,4 +1,5 @@
 import { postAPI, getAPI } from "service";
+import { checkToken } from "utils";
 const AuthAction = {
   login: async (data) => {
     try {
@@ -11,5 +12,24 @@ const AuthAction = {
       console.log(error);
     }
   },
+  logout: async (token) => {
+    const expire = checkToken(token);
+    const access_token = expire ? expire : token;
+    try {
+      localStorage.removeItem("user");
+      await getAPI("logout", access_token);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
+export async function refreshToken() {
+  const isLogin = localStorage.getItem("user");
+  if (!isLogin) return;
+  try {
+    await getAPI("rf-token");
+  } catch (error) {
+    console.log(error);
+  }
+}
 export default AuthAction;
