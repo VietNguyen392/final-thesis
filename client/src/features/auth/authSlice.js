@@ -8,7 +8,7 @@ const initialState = {
   isLoading: false,
   token: null,
 };
-export const userLogin = createAsyncThunk(
+export const login = createAsyncThunk(
   "auth/login",
   async (user, thunkAPI) => {
     try {
@@ -19,7 +19,7 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
-export const userLogout = createAsyncThunk(
+export const logout = createAsyncThunk(
   "auth/logout",
   async (token, thunkAPI) => {
     try {
@@ -42,20 +42,20 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(userLogin.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(userLogin.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
       })
-      .addCase(userLogin.rejected, (state) => {
+      .addCase(login.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
         state.user = null;
       })
-      .addCase(userLogout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state, action) => {
         state.user = null;
       });
   },

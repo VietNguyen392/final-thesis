@@ -2,14 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Form, Input, message } from "antd";
-import { userLogin, reset } from "features/auth/authSlice";
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { login, reset } from "features/auth/authSlice";
 const FormLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, isSuccess } = useSelector((state) => state.auth);
   const [form] = Form.useForm();
   const handleLogin = (value) => {
-    dispatch(userLogin(value)).then(() => form.resetFields());
+    dispatch(login(value)).then(() => form.resetFields());
   };
   React.useEffect(() => {
     if (user || isSuccess) {
@@ -29,6 +30,7 @@ const FormLogin = () => {
       }}
       form={form}
       onFinish={handleLogin}
+
     >
       <Form.Item
         label="Email"
@@ -40,7 +42,7 @@ const FormLogin = () => {
           },
         ]}
       >
-        <Input type="email" />
+        <Input  prefix={<UserOutlined className="site-form-item-icon" />} type="email" placeholder={'Nhập Email'} />
       </Form.Item>
       <Form.Item
         label="Mật khẩu"
@@ -52,7 +54,7 @@ const FormLogin = () => {
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password  prefix={<LockOutlined className="site-form-item-icon" />} placeholder={'Nhập mật khẩu'}/>
       </Form.Item>
       <Form.Item
         wrapperCol={{
@@ -60,7 +62,7 @@ const FormLogin = () => {
           span: 6,
         }}
       >
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit"  >
           Đăng nhập
         </Button>
       </Form.Item>

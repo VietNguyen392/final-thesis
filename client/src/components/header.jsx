@@ -6,17 +6,15 @@ import {
   LockOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import AuthPage from "./AuthPage";
 import { useSelector, useDispatch } from "react-redux";
-import { userLogout } from "features/auth/authSlice";
+import { logout } from "features/auth/authSlice";
 export default function NavBar() {
-  const [isOpen, setIsOpen] = React.useState(false);
   const [select, setSelect] = React.useState("home");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const handleLogout = () => {
     try {
-      dispatch(userLogout(user.access_token));
+      dispatch(logout(user.access_token));
     } catch (error) {
       message.error(error);
     }
@@ -39,16 +37,12 @@ export default function NavBar() {
       key: "hotel",
     },
     {
-      label: user ? (
-        <Button onClick={handleLogout}>Đăng xuất</Button>
-      ) : (
-        <Button
-          type="text"
-          onClick={() => setIsOpen(true)}
-          style={{ color: "#fff" }}
-        >
-          <LockOutlined /> Đăng nhập/Đăng ký
-        </Button>
+      label: (
+        <Link to={"auth"}>
+          {" "}
+          <LockOutlined />
+          Đăng nhập/Đăng ký
+        </Link>
       ),
       key: "auth",
     },
@@ -64,10 +58,6 @@ export default function NavBar() {
         selectedKeys={[select]}
         style={{ position: "sticky" }}
       />
-
-      <Modal open={isOpen} onCancel={() => setIsOpen(false)} footer={null}>
-        <AuthPage />
-      </Modal>
     </>
   );
 }

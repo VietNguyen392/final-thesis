@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Notfound from "pages";
 const generatePage = (name) => {
-  const component = () => require(`./pages/${name}`).default;
+  const component = () => require(`./pages/${name.toLowerCase()}`).default;
 
   try {
     return React.createElement(component());
