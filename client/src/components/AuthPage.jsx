@@ -9,6 +9,7 @@ const AuthPage = () => {
       <Tabs
         defaultActiveKey="1"
         centered
+        type="card"
         items={[
           {
             label: "Đăng nhập",

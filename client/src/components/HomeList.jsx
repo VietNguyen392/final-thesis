@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { Image, Typography, Row } from "antd";
+import { Image, Typography, Row, Empty } from "antd";
 import { getAPI } from "service";
 import { HomeItemWrapper } from "styles/components";
 import Loading from "./loading";
@@ -10,9 +10,10 @@ const HomeList = () => {
     const res = await getAPI("hotel");
     return res.data;
   }
-  const { data, isFetching } = useQuery("get-list", getHotel);
-  const limmitList = data?.data?.slice(0, 4);
+  const { data, isFetching,isError } = useQuery("get-list", getHotel);
+  const limmitList = data?.data
   if (isFetching) return <Loading />;
+  if(isError)return <Empty/>
   return (
     <Row
       wrap

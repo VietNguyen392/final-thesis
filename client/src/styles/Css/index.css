@@ -396,3 +396,6 @@ template {
     width: 1140px;
   }
 }
+.ant-layout-header{
+  background-color: #fff !important;
+}

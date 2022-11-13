@@ -1,17 +1,20 @@
 import React from "react";
-import { Button, Modal, Calendar } from "antd";
+import { Button, Modal, Calendar, Tag, Image } from "antd";
+import { CustomTag } from "styles/components";
+import { timeBetween } from "utils";
+import BookingBar from "components/bookingBar";
+import HomeList from "components/HomeList";
+
+
+
 const Hotel = () => {
-  const onPanelChange = (value, mode) => {
-    console.log(value, mode);
-  };
 
   return (
     <div>
-      <Calendar
-        fullscreen={false}
-        onPanelChange={onPanelChange}
-        onChange={(e) => console.log(e)}
-      />
+      <div className={"container"}>
+        <BookingBar />
+        <HomeList />
+      </div>
     </div>
   );
 };

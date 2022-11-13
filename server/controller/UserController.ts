@@ -137,7 +137,9 @@ const UserController = {
       );
       return res.send('Đăng Xuất!');
     } catch (error: any) {
+      console.log(error);
       return res.status(500).send({ msg: error.message });
+      
     }
   },
   refreshToken: async (req: Request, res: Response) => {

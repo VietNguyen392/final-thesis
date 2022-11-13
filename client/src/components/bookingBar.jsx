@@ -20,7 +20,7 @@ import {
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
-const BookingBar = () => {
+const BookingBar = (props) => {
   const getDateValue = (ranges) => {
     const valueOfInput1 = ranges[0].format();
     const valueOfInput2 = ranges[1].format();
@@ -28,13 +28,6 @@ const BookingBar = () => {
   return (
     <Card>
       <Row gutter={16}>
-        <Col>
-          <Input
-            prefix={<GlobalOutlined />}
-            placeholder="Nhập địa điểm bạn muốn tới ?"
-            type="text"
-          />
-        </Col>
         <Col>
           <RangePicker onChange={getDateValue} />
         </Col>
@@ -53,15 +46,6 @@ const BookingBar = () => {
             type="number"
             placeholder="Trẻ nhỏ"
             prefix={<UserOutlined />}
-            min="1"
-            style={{ width: "120px" }}
-          />
-        </Col>
-        <Col>
-          <Input
-            type="number"
-            placeholder="Phòng"
-            prefix={<GoldOutlined />}
             min="1"
             style={{ width: "120px" }}
           />

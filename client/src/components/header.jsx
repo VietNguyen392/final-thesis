@@ -1,23 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Modal, Button, message } from "antd";
+import { Menu, Avatar } from "antd";
 import {
   HomeOutlined,
-  LockOutlined,
   ShoppingCartOutlined,
+  UserOutlined,
+  LogoutOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "features/auth/authSlice";
+import User from "./User";
 export default function NavBar() {
   const [select, setSelect] = React.useState("home");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const handleLogout = () => {
-    try {
-      dispatch(logout(user.access_token));
-    } catch (error) {
-      message.error(error);
-    }
+  const onLogout = async () => {
+    if (!user.access_token) return;
+    dispatch(logout(user.access_token));
   };
   const links = [
     {
@@ -36,22 +36,47 @@ export default function NavBar() {
       ),
       key: "hotel",
     },
-    {
-      label: (
-        <Link to={"auth"}>
-          {" "}
-          <LockOutlined />
-          Đăng nhập/Đăng ký
-        </Link>
-      ),
-      key: "auth",
-    },
+    user
+      ? {
+          label: (
+            <>
+              <Avatar src={user.user.avatar} icon={<UserOutlined />} />
+              <span style={{ textTransform: "capitalize", margin: 10 }}>
+                {user.user.fullName}
+              </span>
+            </>
+          ),
+          children: [
+            {
+              label:<Link to='/profile'> <UserOutlined />Thông Tin</Link>,
+            },
+            {
+              label: (
+                <Link to="/" onClick={onLogout}>
+                  <LogoutOutlined style={{ marginRight: 5 }} />
+                  Đăng xuất
+                </Link>
+              ),
+            },
+          ],
+          key: "auth",
+        }
+      : {
+          label: (
+            <Link to={"auth"}>
+              {" "}
+              <LoginOutlined style={{ marginRight: 5 }} />
+              Đăng nhập/Đăng ký
+            </Link>
+          ),
+          key: "auth",
+        },
   ];
 
   return (
     <>
       <Menu
-        theme="dark"
+        // theme="dark"
         mode="horizontal"
         items={links}
         onClick={(e) => setSelect(e.key)}

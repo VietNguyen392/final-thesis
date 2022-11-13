@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Tag } from "antd";
 export const WelComeText = styled.div`
   text-align: center;
 `;
@@ -14,3 +15,9 @@ export const ItemContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
 `;
+export const CustomTag = styled(Tag)`
+  width: 100px;
+  background: #2fc6c9;
+  border-radius: 30px;
+`;
+export const BookingBodyPage = styled.div``;

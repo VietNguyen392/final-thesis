@@ -37,7 +37,7 @@ export const handleUserLogin = async (user: IUser, password: string, res: Respon
 
   res.cookie('refreshtoken', refresh_token, {
     httpOnly: true,
-    path: `/api/rf_token`,
+    path: `/api/rf-token`,
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
   });
 

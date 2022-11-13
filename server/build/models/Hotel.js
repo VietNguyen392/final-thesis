@@ -1,46 +1,41 @@
-'use strict';
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, '__esModule', { value: true });
-const mongoose_1 = __importDefault(require('mongoose'));
-const hotelSchema = new mongoose_1.default.Schema(
-  {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importDefault(require("mongoose"));
+const hotelSchema = new mongoose_1.default.Schema({
     room_name: {
-      type: String,
-      require: true,
+        type: String,
+        require: true,
     },
     room_type: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     location: {
-      type: String,
+        type: String,
     },
     photo: {
-      type: [String],
+        type: [String],
     },
     room_price: {
-      type: Number,
+        type: Number,
     },
     rating: {
-      type: Number,
-      min: 0,
-      max: 6,
+        type: Number,
+        min: 0,
+        max: 6,
     },
     cheap: {
-      type: String,
+        type: String,
     },
     desc: {
-      type: String,
+        type: String,
     },
     featured: {
-      type: [String],
-      default: false,
+        type: [String],
+        default: false,
     },
-  },
-  { timestamps: true },
-);
+}, { timestamps: true });
 exports.default = mongoose_1.default.model('Hotel', hotelSchema);

@@ -8,17 +8,18 @@ const initialState = {
   isLoading: false,
   token: null,
 };
-export const login = createAsyncThunk(
-  "auth/login",
-  async (user, thunkAPI) => {
-    try {
-      return await AuthAction.login(user);
-    } catch (error) {
-      const msg = error.res.data.msg;
-      return thunkAPI.rejectWithValue(msg);
-    }
+export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
+  try {
+    return await AuthAction.login(user);
+  } catch (error) {
+    const msg = error.res.data.msg;
+    return thunkAPI.rejectWithValue(msg);
   }
-);
+});
+export const refreshToken = createAsyncThunk("auth/rfToken", async () => {
+  const res = await AuthAction.refreshToken();
+  return res.data;
+});
 export const logout = createAsyncThunk(
   "auth/logout",
   async (token, thunkAPI) => {
@@ -39,6 +40,9 @@ export const authSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
     },
+    refreshTokens: (state, action) => {
+      state.token = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -56,9 +60,13 @@ export const authSlice = createSlice({
         state.user = null;
       })
       .addCase(logout.fulfilled, (state, action) => {
-        state.user = null;
-      });
+        state.token = action.payload;
+        state.user=null
+      })
+     .addCase(refreshToken.fulfilled,(state,action)=>{
+        state.token=action.payload
+      })
   },
 });
-export const { reset } = authSlice.actions;
+export const { reset, refreshTokens } = authSlice.actions;
 export default authSlice.reducer;
