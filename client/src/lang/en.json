@@ -11,7 +11,21 @@
   "navbar": {
     "home": "Home",
     "booking": "Make reservation",
-    "auth": "Login/Register"
+    "auth": "Login/Register",
+    "info":"Info",
+    "logout":"Logout"
   },
-  "test": "es"
+  "noti":{
+    "empty":"Please input field"
+  },
+  "signup":{
+    "name":"Full Name",
+    "address":"Address",
+    "gender":"Gender",
+    "phone":"Phone Number",
+    "m":"Male",
+    "f":"Female",
+    "o":"Other"
+  }
+  
 }

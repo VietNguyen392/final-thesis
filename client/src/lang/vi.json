@@ -11,7 +11,21 @@
   "navbar": {
     "home": "Trang chủ",
     "booking": "Đặt phòng",
-    "auth": "Đăng nhập/Đăng ký"
+    "auth": "Đăng nhập/Đăng ký",
+    "info":"Thông tin",
+    "logout":"Đăng xuất"
   },
-  "test": "thử"
+  "noti":{
+    "empty":"Hãy nhập vào ô"
+  },
+  "signup":{
+    "name":"Họ&tên",
+    "address":"Địa chỉ",
+    "gender":"Giới tính",
+    "phone":"Số điện thoại",
+    "m":"Nam",
+    "f":"Nữ",
+    "o":"Khác"
+  }
+  
 }

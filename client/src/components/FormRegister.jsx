@@ -1,11 +1,12 @@
 import React from "react";
 
 import { Button, Form, Input, message, Row, Col, Radio } from "antd";
-
+import { useTranslation } from "react-i18next";
 import { postAPI } from "service";
 
 const FormRegister = () => {
   const [form] = Form.useForm();
+  const { t } = useTranslation();
   const onSubmitForm = async (value) => {
     try {
       const res = await postAPI("register", value);
@@ -44,12 +45,12 @@ const FormRegister = () => {
         >
           <Col span={12}>
             <Form.Item
-              label="Tên Tài Khoản"
+              label={t("signup.name")}
               name="fullName"
               rules={[
                 {
                   required: true,
-                  message: "Hãy nhập tên tài khoản",
+                  message: t("noti.empty"),
                 },
               ]}
             >
@@ -61,71 +62,71 @@ const FormRegister = () => {
               rules={[
                 {
                   required: true,
-                  message: "Hãy nhập Email",
+                  message: t("noti.empty"),
                 },
               ]}
             >
               <Input type={"email"} />
             </Form.Item>
             <Form.Item
-              label="Giới tính"
+              label={t("signup.gender")}
               name="gender"
               rules={[
                 {
                   required: true,
-                  message: "Hãy chọn giới tính",
+                  message: t("noti.empty"),
                 },
               ]}
             >
               <Radio.Group>
-                <Radio value="male">Nam</Radio>
-                <Radio value="female">Nữ</Radio>
-                <Radio value="other">Khác</Radio>
+                <Radio value="male">{t("signup.m")}</Radio>
+                <Radio value="female">{t("signup.f")}</Radio>
+                <Radio value="other">{t("signup.o")}</Radio>
               </Radio.Group>
             </Form.Item>{" "}
           </Col>
           <Col span={12}>
             <Form.Item
-              label="Địa chỉ"
+              label={t("signup.address")}
               name="address"
               rules={[
                 {
                   required: true,
-                  message: "Hãy nhập địa chỉ",
+                  message: t("noti.empty"),
                 },
               ]}
             >
               <Input type="text" />
             </Form.Item>{" "}
             <Form.Item
-              label="Số điện thoại"
+              label={t("signup.phone")}
               name="phoneNumber"
               rules={[
                 {
                   required: true,
-                  message: "Hãy nhập số điện thoại",
+                  message: t("noti.empty"),
                 },
               ]}
             >
               <Input type="number" min="1" />
             </Form.Item>{" "}
+            <Form.Item
+              label={t('common.password')}
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: t('noti.empty'),
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
           </Col>
         </Row>
-        <Form.Item
-          label="Mật khẩu"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Hãy nhập mật khẩu",
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-            Đăng ký
+            {t('common.signup')}
           </Button>
         </Form.Item>
       </Form>

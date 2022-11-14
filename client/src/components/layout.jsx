@@ -12,8 +12,7 @@ const Main = ({ children }) => {
       </Header>
       <Content>{children}</Content>
       <Footer>
-        Build with React and Ant design by{" "}
-        <a href="mailto:nghoangviet2000@hotmail.com">Nguyễn Hoàng Việt</a> ©
+       
         <BackTop>
           <div
             style={{

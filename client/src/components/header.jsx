@@ -24,13 +24,12 @@ export default function NavBar() {
   const { t } = useTranslation();
   const onChangeLanguage = (e) => {
     i18n.changeLanguage(e);
-    console.log(e);
   };
   const links = [
     {
       label: (
         <Link to="/">
-          <HomeOutlined /> Trang chủ
+          <HomeOutlined /> {t('navbar.home')}
         </Link>
       ),
       key: "home",
@@ -38,7 +37,7 @@ export default function NavBar() {
     {
       label: (
         <Link to="hotel">
-          <ShoppingCartOutlined /> Đặt lịch
+          <ShoppingCartOutlined /> {t('navbar.booking')}
         </Link>
       ),
       key: "hotel",
@@ -59,7 +58,7 @@ export default function NavBar() {
                 <Link to="/profile">
                   {" "}
                   <UserOutlined />
-                  Thông Tin
+                  {t('navbar.info')}
                 </Link>
               ),
             },
@@ -67,7 +66,7 @@ export default function NavBar() {
               label: (
                 <Link to="/" onClick={onLogout}>
                   <LogoutOutlined style={{ marginRight: 5 }} />
-                  Đăng xuất
+                 {t('navbar.logout')}
                 </Link>
               ),
             },
@@ -79,29 +78,29 @@ export default function NavBar() {
             <Link to={"auth"}>
               {" "}
               <LoginOutlined style={{ marginRight: 5 }} />
-              Đăng nhập/Đăng ký
+             {t('navbar.auth')}
             </Link>
           ),
           key: "auth",
         },
-    // {
-    //   label: (
-    //     <Select
-    //       defaultValue={"vi"}
-    //       onChange={onChangeLanguage}
-    //       options={[
-    //         {
-    //           value: "vi",
-    //           label: t("common.vi"),
-    //         },
-    //         {
-    //           value: "en",
-    //           label: t("common.en"),
-    //         },
-    //       ]}
-    //     />
-    //   ),
-    // },
+    {
+      label: (
+        <Select
+          defaultValue={"vn"}
+          onChange={onChangeLanguage}
+          options={[
+            {
+              value: "vn",
+              label:'Tiếng Việt',
+            },
+            {
+              value: "en",
+              label: 'EngLish',
+            },
+          ]}
+        />
+      ),
+    },
   ];
 
   return (
