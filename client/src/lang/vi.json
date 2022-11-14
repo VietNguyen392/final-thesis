@@ -1,0 +1,17 @@
+{
+  "common": {
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "password": "Mật khẩu",
+    "forgot": "Quên mật khẩu",
+    "confirm": "Xác nhận",
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh"
+  },
+  "navbar": {
+    "home": "Trang chủ",
+    "booking": "Đặt phòng",
+    "auth": "Đăng nhập/Đăng ký"
+  },
+  "test": "thử"
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Avatar } from "antd";
+import { Menu, Avatar, Select } from "antd";
 import {
   HomeOutlined,
   ShoppingCartOutlined,
@@ -10,7 +10,9 @@ import {
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "features/auth/authSlice";
-import User from "./User";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
+
 export default function NavBar() {
   const [select, setSelect] = React.useState("home");
   const dispatch = useDispatch();
@@ -18,6 +20,11 @@ export default function NavBar() {
   const onLogout = async () => {
     if (!user.access_token) return;
     dispatch(logout(user.access_token));
+  };
+  const { t } = useTranslation();
+  const onChangeLanguage = (e) => {
+    i18n.changeLanguage(e);
+    console.log(e);
   };
   const links = [
     {
@@ -48,7 +55,13 @@ export default function NavBar() {
           ),
           children: [
             {
-              label:<Link to='/profile'> <UserOutlined />Thông Tin</Link>,
+              label: (
+                <Link to="/profile">
+                  {" "}
+                  <UserOutlined />
+                  Thông Tin
+                </Link>
+              ),
             },
             {
               label: (
@@ -71,6 +84,24 @@ export default function NavBar() {
           ),
           key: "auth",
         },
+    // {
+    //   label: (
+    //     <Select
+    //       defaultValue={"vi"}
+    //       onChange={onChangeLanguage}
+    //       options={[
+    //         {
+    //           value: "vi",
+    //           label: t("common.vi"),
+    //         },
+    //         {
+    //           value: "en",
+    //           label: t("common.en"),
+    //         },
+    //       ]}
+    //     />
+    //   ),
+    // },
   ];
 
   return (

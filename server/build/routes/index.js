@@ -25,6 +25,8 @@ const initWebRoute = (app) => {
     routes.post('/api/register', utils_1.validRegister, controller_1.UserController.register);
     routes.post('/api/active-account', controller_1.UserController.activeAccount);
     routes.get('/api/rf-token', controller_1.UserController.refreshToken);
+    routes.post('/api/forgot-password', controller_1.UserController.forgotPass);
+    routes.patch('/api/reset-password', controller_1.UserController.resetPass);
     //*Hotel routes
     routes.route('/api/hotel').post(controller_1.HotelController.createHotel).get(controller_1.HotelController.getHotel);
     routes

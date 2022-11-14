@@ -1,0 +1,17 @@
+{
+  "common": {
+    "login": "Login",
+    "signup": "Register",
+    "password": "Password",
+    "forgot": "Forgot Password",
+    "confirm": "Confirm",
+    "vi": "Vietnamese",
+    "en": "English"
+  },
+  "navbar": {
+    "home": "Home",
+    "booking": "Make reservation",
+    "auth": "Login/Register"
+  },
+  "test": "es"
+}

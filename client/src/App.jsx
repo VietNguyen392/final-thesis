@@ -8,10 +8,10 @@ import Render from "./Render";
 import { refreshToken } from "features/auth/authSlice";
 
 const App = () => {
-const dispatch=useDispatch()
-useEffect(()=>{
-  dispatch(refreshToken())
-},[dispatch])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshToken());
+  }, [dispatch]);
   return (
     <React.Fragment>
       <Main>

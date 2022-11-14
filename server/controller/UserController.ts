@@ -192,16 +192,29 @@ const UserController = {
   forgotPass: async (req: Request, res: Response) => {
     try {
       const { email } = req.body;
+      if(Object.keys(req.body).length === 0)return res.status(400).send({msg:'Error'})
       const user = await Users.findOne({ email });
       if (!user) return res.status(400).send({ msg: 'Tài khoản không tồn tại' });
-      const access_token = generateAccessToken({ id: user._id });
-      const url = `${process.env.SERVER_URL}/reset_password/${access_token}`;
-      if (validateEmail(email)) {
-        await sendMail(email, url, 'Quên mật khẩu?', user.fullName);
-        return res.send({ msg: 'Thành công!,hãy kiểm tra hòm thư của bạn' });
-      }
+      return res.status(200).json({
+        msg:'Thành công',
+        id:user._id
+      })
     } catch (error: any) {
       return res.status(500).send({ msg: error.message });
+    }
+  },
+  resetPass:async(req:IReqAuth,res:Response)=>{
+    try {
+      const {password,id}=req.body
+      const passwordHash=await bcrypt.hash(password,12)
+      if(!id)return res.status(400).send({msg:'Invalid'})
+      await Users.findOneAndUpdate({_id:id},{
+        password:passwordHash
+      })
+      res.send({msg:'Success'})
+    } catch (error:any) {
+      return res.status(500).send({msg:error.message})
+
     }
   },
 };

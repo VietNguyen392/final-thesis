@@ -61,11 +61,11 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state, action) => {
         state.token = action.payload;
-        state.user=null
+        state.user = null;
       })
-     .addCase(refreshToken.fulfilled,(state,action)=>{
-        state.token=action.payload
-      })
+      .addCase(refreshToken.fulfilled, (state, action) => {
+        state.token = action.payload;
+      });
   },
 });
 export const { reset, refreshTokens } = authSlice.actions;

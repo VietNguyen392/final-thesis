@@ -211,15 +211,30 @@ const UserController = {
     forgotPass: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const { email } = req.body;
+            if (Object.keys(req.body).length === 0)
+                return res.status(400).send({ msg: 'Error' });
             const user = yield User_1.default.findOne({ email });
             if (!user)
                 return res.status(400).send({ msg: 'Tài khoản không tồn tại' });
-            const access_token = (0, genToken_1.generateAccessToken)({ id: user._id });
-            const url = `${process.env.SERVER_URL}/reset_password/${access_token}`;
-            if ((0, utils_1.validateEmail)(email)) {
-                yield (0, sendEmail_1.default)(email, url, 'Quên mật khẩu?', user.fullName);
-                return res.send({ msg: 'Thành công!,hãy kiểm tra hòm thư của bạn' });
-            }
+            return res.status(200).json({
+                msg: 'Thành công',
+                id: user._id
+            });
+        }
+        catch (error) {
+            return res.status(500).send({ msg: error.message });
+        }
+    }),
+    resetPass: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const { password, id } = req.body;
+            const passwordHash = yield bcrypt_1.default.hash(password, 12);
+            if (!id)
+                return res.status(400).send({ msg: 'Invalid' });
+            yield User_1.default.findOneAndUpdate({ _id: id }, {
+                password: passwordHash
+            });
+            res.send({ msg: 'Success' });
         }
         catch (error) {
             return res.status(500).send({ msg: error.message });

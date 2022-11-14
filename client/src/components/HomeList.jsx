@@ -10,10 +10,10 @@ const HomeList = () => {
     const res = await getAPI("hotel");
     return res.data;
   }
-  const { data, isFetching,isError } = useQuery("get-list", getHotel);
-  const limmitList = data?.data
+  const { data, isFetching, isError } = useQuery("get-list", getHotel);
+  const limmitList = data?.data;
   if (isFetching) return <Loading />;
-  if(isError)return <Empty/>
+  if (isError) return <Empty />;
   return (
     <Row
       wrap

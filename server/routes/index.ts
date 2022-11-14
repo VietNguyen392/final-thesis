@@ -20,6 +20,8 @@ export const initWebRoute = (app: any) => {
   routes.post('/api/register', validRegister, UserController.register);
   routes.post('/api/active-account', UserController.activeAccount);
   routes.get('/api/rf-token', UserController.refreshToken);
+  routes.post('/api/forgot-password',UserController.forgotPass)
+  routes.patch('/api/reset-password',UserController.resetPass)
   //*Hotel routes
   routes.route('/api/hotel').post(HotelController.createHotel).get(HotelController.getHotel);
   routes

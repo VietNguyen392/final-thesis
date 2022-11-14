@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "antd/dist/antd.min.css";
 import "./styles/Css/index.css";
 import App from "./App";
+import "./i18n";
 const queryClient = new QueryClient();
 const container = document.getElementById("root");
 const root = createRoot(container);
