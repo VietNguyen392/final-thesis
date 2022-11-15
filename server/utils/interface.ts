@@ -67,7 +67,7 @@ export interface IHistory extends Document {
 }
 export interface IBooking extends Document {
   room: string;
-  hotel: string;
+  email:string
   user: string;
   date: object;
   _doc: object;

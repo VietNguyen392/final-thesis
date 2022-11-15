@@ -19,8 +19,7 @@ const AuthAction = {
     const isLogin = localStorage.getItem("user");
     if (!isLogin) return;
     try {
-      const res = await getAPI("rf-token");
-      return res.data;
+      return await getAPI("rf-token");
     } catch (error) {
       console.log(error);
     }

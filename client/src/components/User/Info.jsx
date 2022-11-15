@@ -13,10 +13,6 @@ import { useTranslation } from "react-i18next";
 const { Title, Text } = Typography;
 const { Option } = Select;
 function Info() {
-  const [state, setState] = React.useState({
-    isOpen: false,
-  });
-  const { isOpen } = state;
   const { user } = useSelector((state) => state.auth);
   const { t } = useTranslation();
   const data = user.user;

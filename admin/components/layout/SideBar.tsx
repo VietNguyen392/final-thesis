@@ -51,12 +51,8 @@ type TypeNav = {
 };
 export function NavbarChild({ onClose }: TypeNav) {
   const router = useRouter();
-  const [user, logout, auth] = useAuth(
-    (state) => [state.user, state.logout, state.auth],
-    shallow,
-  );
-  console.log(user, auth);
-  const data = user.user;
+  const auth=useAuth() 
+  const data = auth.user.user;
   const { classes, cx } = useStyles();
   const links = navigations.map((item) => (
     <span
@@ -84,13 +80,13 @@ export function NavbarChild({ onClose }: TypeNav) {
           <Group>
             <Avatar radius="xl" />
             <div style={{ flex: 1 }}>
-              <Text>{data.fullName}</Text>
-              <Text>{data.email}</Text>
+              {/* <Text>{data.fullName}</Text>
+              <Text>{data.email}</Text> */}
             </div>
             <IconLogout
               size={15}
               stroke={1.5}
-              onClick={() => logout(user.access_token)}
+              onClick={() => auth.logout(auth.user.access_token)}
             />
           </Group>
         </div>

@@ -38,7 +38,7 @@ const sendMail = (to, url, txt, userName) => __awaiter(void 0, void 0, void 0, f
        
            <p>Nếu nút trên không hoạt động ,vui lòng nhấn vào link bên dưới &#9759;</p>
        
-           <a>${url}</a>
+           <div>${url}</div>
            </div>`,
         };
         const result = yield tranport.sendMail(mailOptions);

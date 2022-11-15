@@ -10,7 +10,7 @@ const bookingSchema = new mongoose_1.default.Schema({
         type: [Date],
     },
     room: { type: mongoose_1.default.Types.ObjectId, ref: 'Room' },
-    hotel: { type: mongoose_1.default.Types.ObjectId, ref: 'Hotel' },
+    email: { type: String, require: true },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('Booking', bookingSchema);
 // export default

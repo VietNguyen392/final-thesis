@@ -21,8 +21,6 @@ const FormLogin = () => {
     (state) => [state.login, state.user, state.auth],
     shallow,
   );
-  // console.log(user);
-
   const onSubmit = (data: ILogin) => {
     login(data);
   };
@@ -30,13 +28,8 @@ const FormLogin = () => {
     if (auth) {
       router.push(routes.home);
     }
-  }, [auth, router]);
-  // if (user.role !== 'admin')
-  //   return showNotification({
-  //     title: 'Thông báo',
-  //     message: `You do not have permision !`,
-  //     color: 'red',
-  //   });
+  }, [auth, router,user]);
+
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>
       <div className={classes.wrapper}>

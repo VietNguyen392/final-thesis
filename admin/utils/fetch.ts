@@ -5,7 +5,10 @@ export const postData = async (url: string, data: object) => {
 };
 
 export const getData = async (url: string) => {
-  const res = await instance.get(url, { signal: controller.signal });
+  const res = await instance.get(url, {
+    signal: controller.signal,
+    
+  });
   return res.data;
 };
 export const patchData = async (url: string, data: object) => {

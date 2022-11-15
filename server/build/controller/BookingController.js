@@ -20,20 +20,18 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const BookingController = {
     newBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { user, date, room, hotel } = req.body;
-            const isExist = yield Booking_1.default.findOne({ room });
-            if (isExist)
-                return res.status(500).send({ msg: 'Room already booking' });
+            const { date, room, email } = req.body;
+            // const isExist = await Booking.findOne({ room });
+            // if (isExist) return res.status(500).send({ msg: 'Room already booking' });
             const booking = yield Booking_1.default.create({
-                user,
                 date,
                 room,
-                hotel,
+                email
             });
             const active_code = (0, genToken_1.generateActiveToken)({ booking });
             const url = `${process.env.APP_URL}/active/${active_code}`;
-            if ((0, utils_1.validateEmail)(user)) {
-                (0, sendEmail_1.default)(user, url, 'Xác nhận đặt phòng', user);
+            if ((0, utils_1.validateEmail)(email)) {
+                (0, sendEmail_1.default)(email, url, 'Xác nhận đặt phòng', email);
                 return res.send({ msg: 'Success' });
             }
             res.json({
@@ -44,6 +42,7 @@ const BookingController = {
             });
         }
         catch (e) {
+            console.log(e);
             res.status(500).send({ msg: 'Error' });
         }
     }),

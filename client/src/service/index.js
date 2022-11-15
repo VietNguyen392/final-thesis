@@ -6,8 +6,10 @@ export const postAPI = async (url, data, token) => {
   return res;
 };
 export const getAPI = async (url, token) => {
+  const controller = new AbortController();
   const res = await axios.get(`/api/${url}`, {
     headers: { Authorization: token },
+    signal: controller.signal,
   });
 
   return res;

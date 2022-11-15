@@ -24,7 +24,7 @@ const sendMail = async (to: string, url: string, txt: string, userName: string) 
        
            <p>Nếu nút trên không hoạt động ,vui lòng nhấn vào link bên dưới &#9759;</p>
        
-           <a>${url}</a>
+           <div>${url}</div>
            </div>`,
     };
     const result = await tranport.sendMail(mailOptions);

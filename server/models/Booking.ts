@@ -8,7 +8,7 @@ const bookingSchema = new mongoose.Schema(
       type: [Date],
     },
     room: { type: mongoose.Types.ObjectId, ref: 'Room' },
-    hotel: { type: mongoose.Types.ObjectId, ref: 'Hotel' },
+    email: { type: String, require:true },
   },
   { timestamps: true },
 );

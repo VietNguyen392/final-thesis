@@ -24,7 +24,7 @@ const FormLogin = () => {
     dispatch(reset());
   }, [user, navigate, dispatch, isSuccess]);
   return (
-    <div style={{ padding: "0 28em" }}>
+    <div>
       <Form
         name="login-form"
         className="login-form"

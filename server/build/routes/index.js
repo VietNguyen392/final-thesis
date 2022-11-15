@@ -37,8 +37,8 @@ const initWebRoute = (app) => {
     //*Room routes
     routes.post('api/create-room', controller_1.RoomController.createRoom);
     //*Booking routes
-    routes.post('api/new-booking', controller_1.BookingController.newBooking);
-    routes.post('api/active-booking', controller_1.BookingController.activeBooking);
+    routes.post('/api/new-booking', controller_1.BookingController.newBooking);
+    routes.post('/api/active-booking', controller_1.BookingController.activeBooking);
     //*Test routes
     routes.post('/api/create-company', TestController_1.default.createTest);
     routes.get('/api/get-company', TestController_1.default.getTest);

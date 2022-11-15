@@ -161,7 +161,6 @@ const UserController = {
             return res.send('Đăng Xuất!');
         }
         catch (error) {
-            console.log(error);
             return res.status(500).send({ msg: error.message });
         }
     }),

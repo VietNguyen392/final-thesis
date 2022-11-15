@@ -9,19 +9,18 @@ import { io } from '../index';
 const BookingController = {
   newBooking: async (req: Request, res: Response) => {
     try {
-      const { user, date, room, hotel } = req.body;
-      const isExist = await Booking.findOne({ room });
-      if (isExist) return res.status(500).send({ msg: 'Room already booking' });
+      const {  date, room,email} = req.body;
+      // const isExist = await Booking.findOne({ room });
+      // if (isExist) return res.status(500).send({ msg: 'Room already booking' });
       const booking = await Booking.create({
-        user,
         date,
         room,
-        hotel,
+        email
       });
       const active_code = generateActiveToken({ booking });
       const url = `${process.env.APP_URL}/active/${active_code}`;
-      if (validateEmail(user)) {
-        sendMail(user, url, 'Xác nhận đặt phòng', user);
+      if (validateEmail(email)) {
+        sendMail(email, url, 'Xác nhận đặt phòng', email);
         return res.send({ msg: 'Success' });
       }
       res.json({
@@ -31,7 +30,10 @@ const BookingController = {
         active_code,
       });
     } catch (e: any) {
+      console.log(e);
+      
       res.status(500).send({ msg: 'Error' });
+
     }
   },
   activeBooking: async (req: Request, res: Response) => {
