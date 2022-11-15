@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import StatCard from 'components/common/StatCard';
-import { useAuth, useDataLength } from 'hooks';
+import { useDataLength } from 'hooks';
 import {
   SimpleGrid,
   Box,
@@ -12,7 +12,6 @@ import {
 import { getUserById } from 'utils';
 const Home: NextPage = () => {
   const { userList, hotelList } = useDataLength();
-
   return (
     <>
       <Box>

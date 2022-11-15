@@ -12,20 +12,20 @@
     "home": "Trang chủ",
     "booking": "Đặt phòng",
     "auth": "Đăng nhập/Đăng ký",
-    "info":"Thông tin",
-    "logout":"Đăng xuất"
+    "info": "Thông tin",
+    "logout": "Đăng xuất"
   },
-  "noti":{
-    "empty":"Hãy nhập vào ô"
+  "noti": {
+    "empty": "Hãy nhập vào ô"
   },
-  "signup":{
-    "name":"Họ&tên",
-    "address":"Địa chỉ",
-    "gender":"Giới tính",
-    "phone":"Số điện thoại",
-    "m":"Nam",
-    "f":"Nữ",
-    "o":"Khác"
-  }
-  
+  "signup": {
+    "name": "Họ & tên",
+    "address": "Địa chỉ",
+    "gender": "Giới tính",
+    "phone": "Số điện thoại",
+    "m": "Nam",
+    "f": "Nữ",
+    "o": "Khác"
+  },
+  "info": "Thông tin"
 }

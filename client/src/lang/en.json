@@ -12,20 +12,19 @@
     "home": "Home",
     "booking": "Make reservation",
     "auth": "Login/Register",
-    "info":"Info",
-    "logout":"Logout"
+    "info": "Info",
+    "logout": "Logout"
   },
-  "noti":{
-    "empty":"Please input field"
+  "noti": {
+    "empty": "Please input field"
   },
-  "signup":{
-    "name":"Full Name",
-    "address":"Address",
-    "gender":"Gender",
-    "phone":"Phone Number",
-    "m":"Male",
-    "f":"Female",
-    "o":"Other"
+  "signup": {
+    "name": "Full Name",
+    "address": "Address",
+    "gender": "Gender",
+    "phone": "Phone Number",
+    "m": "Male",
+    "f": "Female",
+    "o": "Other"
   }
-  
 }

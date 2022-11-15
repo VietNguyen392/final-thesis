@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Image, Typography, Row, Empty } from "antd";
 import { getAPI } from "service";
@@ -46,7 +47,7 @@ const HomeList = () => {
                   level={3}
                   style={{ textTransform: "capitalize" }}
                 >
-                  {item.room_name}
+                  <Link to={`/detail/${item._id}`}>{item.room_name}</Link>
                 </Typography.Title>
               </div>
               <div className="paragarph">

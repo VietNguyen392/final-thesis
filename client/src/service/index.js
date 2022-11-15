@@ -26,3 +26,9 @@ export const deleteAPI = async (url, token) => {
 
   return res;
 };
+export const putAPI = async (url, data, token) => {
+  const res = await axios.put(`/api/${url}`, data, {
+    headers: { Authorization: token },
+  });
+  return res;
+};

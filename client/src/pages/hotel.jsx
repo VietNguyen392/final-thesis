@@ -5,9 +5,7 @@ import { timeBetween } from "utils";
 import BookingBar from "components/bookingBar";
 import HomeList from "components/HomeList";
 
-
 const Hotel = () => {
- 
   return (
     <div>
       <div className={"container"}>

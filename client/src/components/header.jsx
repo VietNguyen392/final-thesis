@@ -29,19 +29,19 @@ export default function NavBar() {
     {
       label: (
         <Link to="/">
-          <HomeOutlined /> {t('navbar.home')}
+          <HomeOutlined /> {t("navbar.home")}
         </Link>
       ),
       key: "home",
     },
-    {
-      label: (
-        <Link to="hotel">
-          <ShoppingCartOutlined /> {t('navbar.booking')}
-        </Link>
-      ),
-      key: "hotel",
-    },
+    // {
+    //   label: (
+    //     <Link to="hotel">
+    //       <ShoppingCartOutlined /> {t('navbar.booking')}
+    //     </Link>
+    //   ),
+    //   key: "hotel",
+    // },
     user
       ? {
           label: (
@@ -58,7 +58,7 @@ export default function NavBar() {
                 <Link to="/profile">
                   {" "}
                   <UserOutlined />
-                  {t('navbar.info')}
+                  {t("navbar.info")}
                 </Link>
               ),
             },
@@ -66,7 +66,7 @@ export default function NavBar() {
               label: (
                 <Link to="/" onClick={onLogout}>
                   <LogoutOutlined style={{ marginRight: 5 }} />
-                 {t('navbar.logout')}
+                  {t("navbar.logout")}
                 </Link>
               ),
             },
@@ -78,7 +78,7 @@ export default function NavBar() {
             <Link to={"auth"}>
               {" "}
               <LoginOutlined style={{ marginRight: 5 }} />
-             {t('navbar.auth')}
+              {t("navbar.auth")}
             </Link>
           ),
           key: "auth",
@@ -91,11 +91,11 @@ export default function NavBar() {
           options={[
             {
               value: "vn",
-              label:'Tiếng Việt',
+              label: "Tiếng Việt",
             },
             {
               value: "en",
-              label: 'EngLish',
+              label: "EngLish",
             },
           ]}
         />

@@ -12,7 +12,6 @@ const Main = ({ children }) => {
       </Header>
       <Content>{children}</Content>
       <Footer>
-       
         <BackTop>
           <div
             style={{

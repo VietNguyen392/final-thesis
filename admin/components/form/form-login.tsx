@@ -2,27 +2,41 @@ import React, { useEffect } from 'react';
 import { useForm, zodResolver } from '@mantine/form';
 import { Paper, TextInput, PasswordInput, Button, Title } from '@mantine/core';
 import { IconLogin } from '@tabler/icons';
-import { useStyles, useAuth } from 'hooks';
+import { useStyles } from 'hooks';
 import { useRouter } from 'next/router';
 import { emailRegex, routes, ILogin, loginSchema } from 'utils';
+import { useAuth } from 'hooks';
+import shallow from 'zustand/shallow';
+import { showNotification } from '@mantine/notifications';
+
 const FormLogin = () => {
   const router = useRouter();
-  const { authenticate, user, isAuth } = useAuth();
   const { classes } = useStyles();
   const form = useForm({
     initialValues: { email: '', password: '' },
     validate: zodResolver(loginSchema),
   });
+
+  const [login, user, auth] = useAuth(
+    (state) => [state.login, state.user, state.auth],
+    shallow,
+  );
+  // console.log(user);
+
   const onSubmit = (data: ILogin) => {
-    authenticate(data);
+    login(data);
   };
   useEffect(() => {
-    if (isAuth) {
-      if (user?.user?.user?.role === 'admin') {
-        router.push(routes.home);
-      }
+    if (auth) {
+      router.push(routes.home);
     }
-  }, [isAuth, router]);
+  }, [auth, router]);
+  // if (user.role !== 'admin')
+  //   return showNotification({
+  //     title: 'Thông báo',
+  //     message: `You do not have permision !`,
+  //     color: 'red',
+  //   });
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>
       <div className={classes.wrapper}>

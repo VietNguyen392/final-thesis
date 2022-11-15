@@ -111,12 +111,12 @@ const FormRegister = () => {
               <Input type="number" min="1" />
             </Form.Item>{" "}
             <Form.Item
-              label={t('common.password')}
+              label={t("common.password")}
               name="password"
               rules={[
                 {
                   required: true,
-                  message: t('noti.empty'),
+                  message: t("noti.empty"),
                 },
               ]}
             >
@@ -126,7 +126,7 @@ const FormRegister = () => {
         </Row>
         <Form.Item>
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-            {t('common.signup')}
+            {t("common.signup")}
           </Button>
         </Form.Item>
       </Form>

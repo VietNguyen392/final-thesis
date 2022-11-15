@@ -9,7 +9,7 @@ import {
   Text,
 } from '@mantine/core';
 import { useRouter } from 'next/router';
-import { useAuth } from 'hooks';
+
 import { IconUserCircle } from '@tabler/icons';
 import { NavbarChild } from './SideBar';
 import { routes } from 'utils';
@@ -17,13 +17,9 @@ import ScrollTop from 'components/common/ScrollTop';
 const AppLayout = ({ children }: { children?: ReactNode }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useMantineTheme();
-  const { isAuth } = useAuth();
+
   const router = useRouter();
-  useEffect(() => {
-    if (isAuth) {
-      router.replace(routes.login);
-    }
-  }, [isAuth, router]);
+
   return (
     <>
       <AppShell

@@ -9,7 +9,7 @@ import {
   TypographyStylesProvider,
   Drawer,
   Portal,
-  Tooltip
+  Tooltip,
 } from '@mantine/core';
 import useStyles from 'hooks/useStyles';
 import { Carousel } from '@mantine/carousel';
@@ -74,25 +74,24 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
       </td>
 
       <td style={{ textAlign: 'center' }}>
-      <Tooltip label='Sửa'color={'blue'} withArrow>
-      
-        <Button
-          onClick={() => takeRowEdit(item.roomID)}
-          sx={{ marginRight: 4 }}
-          leftIcon={<IconBallpen />}
-        >
-          Edit
-        </Button>
-      </Tooltip>
-     <Tooltip label='Xóa'color={'red'}withArrow>
-        <Button
-          color="red"
-          onClick={() => onGetId(item.roomID)}
-          leftIcon={<IconTrash />}
-        >
-          Delete
-        </Button>
-     </Tooltip>
+        <Tooltip label="Sửa" color={'blue'} withArrow>
+          <Button
+            onClick={() => takeRowEdit(item.roomID)}
+            sx={{ marginRight: 4 }}
+            leftIcon={<IconBallpen />}
+          >
+            Edit
+          </Button>
+        </Tooltip>
+        <Tooltip label="Xóa" color={'red'} withArrow>
+          <Button
+            color="red"
+            onClick={() => onGetId(item.roomID)}
+            leftIcon={<IconTrash />}
+          >
+            Delete
+          </Button>
+        </Tooltip>
       </td>
     </tr>
   ));

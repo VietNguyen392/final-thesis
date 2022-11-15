@@ -126,7 +126,7 @@ const UserController = {
     }
   },
   logout: async (req: IReqAuth, res: Response) => {
-    if (!req.user) return res.status(400).send({ msg: 'Invalid' });
+    if (!req.user) return res.status(400).send({ msg: 'Invalid' }); 
     try {
       res.clearCookie('refreshtoken', { path: '/api/rf-token' });
       await Users.findOneAndUpdate(
@@ -137,9 +137,7 @@ const UserController = {
       );
       return res.send('Đăng Xuất!');
     } catch (error: any) {
-      console.log(error);
       return res.status(500).send({ msg: error.message });
-      
     }
   },
   refreshToken: async (req: Request, res: Response) => {

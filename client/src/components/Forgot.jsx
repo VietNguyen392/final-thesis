@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Typography, Button, message, Form } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { patchAPI, postAPI } from "service";
+import { putAPI, postAPI } from "service";
 
 function Forgot(props) {
   const { success } = props;
@@ -27,7 +27,7 @@ function Forgot(props) {
   }
   async function handleResetPassword(value) {
     try {
-      const res = await patchAPI("reset-password", value);
+      const res = await putAPI("reset-password", value);
       if (res.status === 200) {
         message.success(res.data.msg);
         success();

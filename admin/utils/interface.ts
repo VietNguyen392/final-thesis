@@ -59,21 +59,13 @@ export type ImageUp = {
   public_id: string;
   url: string;
 };
-/*
-* {
-    "_id": "6340310c93c547c2b6a64420",
-    "fullName": "admin",
-    "email": "admin@ad.com",
-    "password": "",
-    "gender": "male",
-    "phoneNumber": "03215465565",
-    "avatar": "",
-    "address": "việt nam",
-    "role": "admin",
-    "type": "register",
-    "createdAt": "2022-10-07T14:00:44.995Z",
-    "updatedAt": "2022-10-16T07:43:35.200Z",
-    "__v": 0
+
+export interface User extends ILogin {
+  _id?: string;
+  fullName: string;
+  gender: string;
+  phoneNumber: string;
+  address: string;
+  role: string;
+  avatar?: string;
 }
-*
-* */

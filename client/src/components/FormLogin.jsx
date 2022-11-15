@@ -12,7 +12,7 @@ const FormLogin = () => {
   const dispatch = useDispatch();
   const { user, isSuccess } = useSelector((state) => state.auth);
   const [form] = Form.useForm();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const handleLogin = (value) => {
     dispatch(login(value)).then(() => form.resetFields());
   };
@@ -34,14 +34,14 @@ const FormLogin = () => {
         }}
         form={form}
         onFinish={handleLogin}
-        layout='vertical'
+        layout="vertical"
       >
         <Form.Item
           name="email"
           rules={[
             {
               required: true,
-              message:`${t('noti.empty')} Email !`,
+              message: `${t("noti.empty")} Email !`,
             },
           ]}
         >
@@ -56,19 +56,19 @@ const FormLogin = () => {
           rules={[
             {
               required: true,
-              message: `${t('noti.empty')} ${t('common.password')} !`,
+              message: `${t("noti.empty")} ${t("common.password")} !`,
             },
           ]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder={t('common.password')}
+            placeholder={t("common.password")}
           />
         </Form.Item>
         <Form.Item>
-          <Button onClick={() => setOpen(true)} type='link'>
-            {t('common.forgot')}
+          <Button onClick={() => setOpen(true)} type="link">
+            {t("common.forgot")}
           </Button>
         </Form.Item>
 
@@ -79,7 +79,7 @@ const FormLogin = () => {
             className="login-form-button"
             style={{ width: "100%" }}
           >
-            {t('common.login')}
+            {t("common.login")}
           </Button>
         </Form.Item>
       </Form>

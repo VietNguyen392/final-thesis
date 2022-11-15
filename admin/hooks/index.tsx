@@ -1,5 +1,4 @@
-import useAuth from './useAuth';
 import useStyles from './useStyles';
-
+import useAuth from './useAuth';
 import { useDataLength } from './useDataLength';
-export { useAuth, useStyles, useDataLength };
+export { useStyles, useDataLength, useAuth };

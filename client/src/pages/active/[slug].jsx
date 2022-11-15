@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { message } from "antd";
-import { postAPI } from "../../service";
+import { postAPI } from "service";
 export default function Active() {
   const [state, setState] = React.useState({
     success: "",

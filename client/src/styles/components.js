@@ -21,3 +21,10 @@ export const CustomTag = styled(Tag)`
   border-radius: 30px;
 `;
 export const BookingBodyPage = styled.div``;
+export const Contained = styled.div`
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+`;
