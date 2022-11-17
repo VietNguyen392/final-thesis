@@ -9,8 +9,9 @@ const bookingSchema = new mongoose.Schema(
     },
     room: { type: mongoose.Types.ObjectId, ref: 'Room' },
     email: { type: String, require:true },
+    billing:{type:Number}
   },
   { timestamps: true },
 );
 export default mongoose.model<IBooking>('Booking', bookingSchema);
-// export default
+

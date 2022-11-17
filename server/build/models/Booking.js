@@ -11,6 +11,6 @@ const bookingSchema = new mongoose_1.default.Schema({
     },
     room: { type: mongoose_1.default.Types.ObjectId, ref: 'Room' },
     email: { type: String, require: true },
+    billing: { type: Number }
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('Booking', bookingSchema);
-// export default

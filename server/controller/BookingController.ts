@@ -18,7 +18,7 @@ const BookingController = {
         email
       });
       const active_code = generateActiveToken({ booking });
-      const url = `${process.env.APP_URL}/active/${active_code}`;
+      const url = `${process.env.APP_URL}/active-booking/${active_code}`;
       if (validateEmail(email)) {
         sendMail(email, url, 'Xác nhận đặt phòng', email);
         return res.send({ msg: 'Success' });
