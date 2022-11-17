@@ -9,29 +9,29 @@ import { io } from '../index';
 const BookingController = {
   newBooking: async (req: Request, res: Response) => {
     try {
-      const {  date, room,email} = req.body;
-      // const isExist = await Booking.findOne({ room });
-      // if (isExist) return res.status(500).send({ msg: 'Room already booking' });
+      const {  start_date, room,email,end_date,user} = req.body;
       const booking = await Booking.create({
-        date,
+        start_date,
+        end_date,
         room,
-        email
+        email,
+        user
       });
-      const active_code = generateActiveToken({ booking });
-      const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-      if (validateEmail(email)) {
-        sendMail(email, url, 'Xác nhận đặt phòng', email);
-        return res.send({ msg: 'Success' });
-      }
+      const newBooking=new Booking(booking)
+      await newBooking.save()
+      // const active_code = generateActiveToken({ booking });
+      // const url = `${process.env.APP_URL}/active-booking/${active_code}`;
+      // if (validateEmail(email)) {
+      //   sendMail(email, url, 'Xác nhận đặt phòng', email);
+      //   return res.send({ msg: 'Success' });
+      // }
       res.json({
         status: 200,
         msg: 'Success',
         data: booking,
-        active_code,
+        // active_code,
       });
     } catch (e: any) {
-      console.log(e);
-      
       res.status(500).send({ msg: 'Error' });
 
     }
@@ -59,5 +59,12 @@ const BookingController = {
       });
     }
   },
+  getAllBooking:async(req:Request,res:Response)=>{
+    try{
+      const data=await Booking.find().sort('-createAt')
+      if (!data) res.status(404).send({ msg: 'not found' });
+      res.json({ data });
+    }catch(e:any){res.status(500).send({msg: e})}
+  }
 };
 export default BookingController;

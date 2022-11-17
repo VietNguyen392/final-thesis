@@ -13,36 +13,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Booking_1 = __importDefault(require("../models/Booking"));
-const sendEmail_1 = __importDefault(require("../config/sendEmail"));
-const genToken_1 = require("../config/genToken");
-const utils_1 = require("../utils");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const BookingController = {
     newBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { date, room, email } = req.body;
-            // const isExist = await Booking.findOne({ room });
-            // if (isExist) return res.status(500).send({ msg: 'Room already booking' });
+            const { start_date, room, email, end_date, user } = req.body;
             const booking = yield Booking_1.default.create({
-                date,
+                start_date,
+                end_date,
                 room,
-                email
+                email,
+                user
             });
-            const active_code = (0, genToken_1.generateActiveToken)({ booking });
-            const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-            if ((0, utils_1.validateEmail)(email)) {
-                (0, sendEmail_1.default)(email, url, 'Xác nhận đặt phòng', email);
-                return res.send({ msg: 'Success' });
-            }
+            const newBooking = new Booking_1.default(booking);
+            yield newBooking.save();
+            // const active_code = generateActiveToken({ booking });
+            // const url = `${process.env.APP_URL}/active-booking/${active_code}`;
+            // if (validateEmail(email)) {
+            //   sendMail(email, url, 'Xác nhận đặt phòng', email);
+            //   return res.send({ msg: 'Success' });
+            // }
             res.json({
                 status: 200,
                 msg: 'Success',
                 data: booking,
-                active_code,
+                // active_code,
             });
         }
         catch (e) {
-            console.log(e);
             res.status(500).send({ msg: 'Error' });
         }
     }),
@@ -68,5 +66,16 @@ const BookingController = {
             });
         }
     }),
+    getAllBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const data = yield Booking_1.default.find().sort('-createAt');
+            if (!data)
+                res.status(404).send({ msg: 'not found' });
+            res.json({ data });
+        }
+        catch (e) {
+            res.status(500).send({ msg: e });
+        }
+    })
 };
 exports.default = BookingController;

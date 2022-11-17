@@ -69,7 +69,9 @@ export interface IBooking extends Document {
   room: string;
   email:string
   user: string;
-  date: object;
+  start_date: Date|object;
+  end_date: Date|object;
+  billing:number
   _doc: object;
 }
 export interface INoti extends Document {

@@ -39,6 +39,7 @@ const initWebRoute = (app) => {
     //*Booking routes
     routes.post('/api/new-booking', controller_1.BookingController.newBooking);
     routes.post('/api/active-booking', controller_1.BookingController.activeBooking);
+    routes.get('/api/get-all-booking', controller_1.BookingController.getAllBooking);
     //*Test routes
     routes.post('/api/create-company', TestController_1.default.createTest);
     routes.get('/api/get-company', TestController_1.default.getTest);

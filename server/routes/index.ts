@@ -34,6 +34,7 @@ export const initWebRoute = (app: any) => {
   //*Booking routes
   routes.post('/api/new-booking', BookingController.newBooking);
   routes.post('/api/active-booking', BookingController.activeBooking);
+  routes.get('/api/get-all-booking',BookingController.getAllBooking)
   //*Test routes
   routes.post('/api/create-company', TestController.createTest);
   routes.get('/api/get-company', TestController.getTest);
