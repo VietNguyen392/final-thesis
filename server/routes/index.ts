@@ -20,8 +20,8 @@ export const initWebRoute = (app: any) => {
   routes.post('/api/register', validRegister, UserController.register);
   routes.post('/api/active-account', UserController.activeAccount);
   routes.get('/api/rf-token', UserController.refreshToken);
-  routes.post('/api/forgot-password',UserController.forgotPass)
-  routes.put('/api/reset-password',UserController.resetPass)
+  routes.post('/api/forgot-password', UserController.forgotPass);
+  routes.put('/api/reset-password', UserController.resetPass);
   //*Hotel routes
   routes.route('/api/hotel').post(HotelController.createHotel).get(HotelController.getHotel);
   routes
@@ -34,7 +34,9 @@ export const initWebRoute = (app: any) => {
   //*Booking routes
   routes.post('/api/new-booking', BookingController.newBooking);
   routes.post('/api/active-booking', BookingController.activeBooking);
-  routes.get('/api/get-all-booking',BookingController.getAllBooking)
+  routes.get('/api/get-all-booking', BookingController.getAllBooking);
+  routes.get('/api/get-user-booking/:id', BookingController.getBookingByUser);
+  routes.put('/api/change-booking-status/:id', BookingController.updateBookingStatus);
   //*Test routes
   routes.post('/api/create-company', TestController.createTest);
   routes.get('/api/get-company', TestController.getTest);

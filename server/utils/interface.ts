@@ -67,11 +67,12 @@ export interface IHistory extends Document {
 }
 export interface IBooking extends Document {
   room: string;
-  email:string
+  email: string;
   user: string;
-  start_date: Date|object;
-  end_date: Date|object;
-  billing:number
+  start_date: Date | object;
+  end_date: Date | object;
+  billing: number;
+  status: string;
   _doc: object;
 }
 export interface INoti extends Document {

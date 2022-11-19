@@ -126,7 +126,7 @@ const UserController = {
     }
   },
   logout: async (req: IReqAuth, res: Response) => {
-    if (!req.user) return res.status(400).send({ msg: 'Invalid' });     
+    if (!req.user) return res.status(400).send({ msg: 'Invalid' });
     try {
       res.clearCookie('refreshtoken', { path: '/api/rf-token' });
       await Users.findOneAndUpdate(
@@ -190,29 +190,31 @@ const UserController = {
   forgotPass: async (req: Request, res: Response) => {
     try {
       const { email } = req.body;
-      if(Object.keys(req.body).length === 0)return res.status(400).send({msg:'Error'})
+      if (Object.keys(req.body).length === 0) return res.status(400).send({ msg: 'Error' });
       const user = await Users.findOne({ email });
       if (!user) return res.status(400).send({ msg: 'Tài khoản không tồn tại' });
       return res.status(200).json({
-        msg:'Thành công',
-        id:user._id
-      })
+        msg: 'Thành công',
+        id: user._id,
+      });
     } catch (error: any) {
       return res.status(500).send({ msg: error.message });
     }
   },
-  resetPass:async(req:IReqAuth,res:Response)=>{
+  resetPass: async (req: IReqAuth, res: Response) => {
     try {
-      const {password,id}=req.body
-      const passwordHash=await bcrypt.hash(password,12)
-      if(!id)return res.status(400).send({msg:'Invalid'})
-      await Users.findOneAndUpdate({_id:id},{
-        password:passwordHash
-      })
-      res.send({msg:'Success'})
-    } catch (error:any) {
-      return res.status(500).send({msg:error.message})
-
+      const { password, id } = req.body;
+      const passwordHash = await bcrypt.hash(password, 12);
+      if (!id) return res.status(400).send({ msg: 'Invalid' });
+      await Users.findOneAndUpdate(
+        { _id: id },
+        {
+          password: passwordHash,
+        },
+      );
+      res.send({ msg: 'Success' });
+    } catch (error: any) {
+      return res.status(500).send({ msg: error.message });
     }
   },
 };

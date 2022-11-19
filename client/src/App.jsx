@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Main from "components/layout";
-// import { Home, Room, Hotel, Notfound, About, Active  from './pages';
-// import Loading from './components/loading';
 import Render from "./Render";
-import { refreshToken } from "features/auth/authSlice";
+import Loading from "components/loading";
 
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(refreshToken());
-  }, [dispatch]);
   return (
-    <React.Fragment>
+    <React.Suspense fallback={<Loading />}>
       <Main>
         <Routes>
           <Route path="/" element={<Render />} />
@@ -21,7 +14,7 @@ const App = () => {
           <Route path="/:page/:slug" element={<Render />} />
         </Routes>
       </Main>
-    </React.Fragment>
+    </React.Suspense>
   );
 };
 

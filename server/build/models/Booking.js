@@ -14,6 +14,7 @@ const bookingSchema = new mongoose_1.default.Schema({
         type: Date,
     },
     email: { type: String, require: true },
-    billing: { type: Number }
+    billing: { type: Number },
+    status: { type: String, default: 'pending' },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('Booking', bookingSchema);

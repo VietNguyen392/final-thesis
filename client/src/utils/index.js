@@ -1,5 +1,4 @@
 import jwt_decode from "jwt-decode";
-import { getAPI } from "service";
 import axios from "axios";
 export async function checkToken(token) {
   const decode = jwt_decode(token);

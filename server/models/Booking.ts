@@ -8,14 +8,13 @@ const bookingSchema = new mongoose.Schema(
     start_date: {
       type: Date,
     },
-      end_date: {
+    end_date: {
       type: Date,
     },
-    email: { type: String, require:true },
-    billing:{type:Number}
+    email: { type: String, require: true },
+    billing: { type: Number },
+    status: { type: String, default: 'pending' },
   },
   { timestamps: true },
 );
 export default mongoose.model<IBooking>('Booking', bookingSchema);
-
-

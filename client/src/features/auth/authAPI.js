@@ -25,9 +25,9 @@ const AuthAction = {
     }
   },
   logout: async (token) => {
-    // const expire = await checkToken(token);
-    // console.log(expire);
-    // const new_token = expire ? expire : token;
+    const expire = await checkToken(token);
+    console.log(expire);
+    const new_token = expire ? expire : token;
     try {
       const res = await getAPI("logout", token);
       if (res.status === 200) {

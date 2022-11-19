@@ -4,6 +4,7 @@ import { Typography, Row, Col, Tag, Drawer, Modal, Button } from "antd";
 import { getAPI } from "service";
 import { useSelector } from "react-redux";
 import FormLogin from "components/FormLogin";
+import FormBooking from "components/FormBooking";
 import { useTranslation } from "react-i18next";
 const { Title, Text } = Typography;
 const DetailRoom = () => {
@@ -68,7 +69,7 @@ const DetailRoom = () => {
             open={open}
             onClose={() => setState((p) => ({ ...p, open: false }))}
           >
-            make here
+            <FormBooking />
           </Drawer>
         ) : (
           <Modal

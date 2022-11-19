@@ -12,25 +12,11 @@ const HotelController = {
       const isExist = await Hotel.findOne({ room_name });
       if (isExist) return res.status(500).send({ msg: 'Hotel already exist' });
       const newHotel = await Hotel.create({
-        room_name,
-        room_type,
-        location,
-        photo,
-        room_price,
-        rating,
-        desc,
-        featured,
+        ...req.body,
       });
       if (newHotel) {
         res.status(200).json({
-          _id: newHotel.id,
-          name: newHotel.room_name,
-          type: newHotel.room_type,
-          price: newHotel.room_price,
-          locate: newHotel.location,
-          description: newHotel.desc,
-          gallery: newHotel.photo,
-          features: newHotel.featured,
+          data: newHotel,
         });
       } else {
         res.status(400).send({ msg: 'error' });

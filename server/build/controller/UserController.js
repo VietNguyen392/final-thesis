@@ -217,7 +217,7 @@ const UserController = {
                 return res.status(400).send({ msg: 'Tài khoản không tồn tại' });
             return res.status(200).json({
                 msg: 'Thành công',
-                id: user._id
+                id: user._id,
             });
         }
         catch (error) {
@@ -231,7 +231,7 @@ const UserController = {
             if (!id)
                 return res.status(400).send({ msg: 'Invalid' });
             yield User_1.default.findOneAndUpdate({ _id: id }, {
-                password: passwordHash
+                password: passwordHash,
             });
             res.send({ msg: 'Success' });
         }
