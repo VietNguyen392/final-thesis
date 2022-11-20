@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAPI } from "service";
+import { GET } from "service";
 import RoomInfo from "./RoomInfo";
 import { List, Card, Image, Modal } from "antd";
 import { useQuery } from "react-query";
@@ -12,7 +12,7 @@ const ListItem = () => {
   const { dataList } = state;
   const { Meta } = Card;
   useEffect(() => {
-    getAPI("hotel").then((res) =>
+    GET("hotel").then((res) =>
       setState((p) => ({
         ...p,
         dataList: res?.data?.data?.map((x) => {
@@ -27,15 +27,16 @@ const ListItem = () => {
       }))
     );
   }, []);
-
+const sortData=dataList.sort((a,b)=>a.price-b.price)
   return (
     <div>
+    <input type="checkbox"onChange={()=>dataList.sort((a,b)=>b.price-a.price)} />
       <List
         grid={{
           gutter: 16,
           column: 4,
         }}
-        dataSource={dataList}
+        dataSource={sortData}
         renderItem={(item) => (
           <List.Item>
             <Card

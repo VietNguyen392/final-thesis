@@ -28,3 +28,10 @@ export const Contained = styled.div`
   margin-right: auto;
   margin-left: auto;
 `;
+export const FilterBar=styled.fieldset`
+width: 100%;
+border:1px solid #0cdcc3;
+border-radius: 10px;
+padding: 10px;
+margin:20px 0
+`

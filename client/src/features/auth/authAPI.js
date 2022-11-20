@@ -1,11 +1,11 @@
-import { postAPI, getAPI } from "service";
+import { POST, GET } from "service";
 import { checkToken } from "utils";
 import { message, notification } from "antd";
 
 const AuthAction = {
   login: async (data) => {
     try {
-      const res = await postAPI("login", data);
+      const res = await POST("login", data);
       if (res.status === 200) {
         localStorage.setItem("user", JSON.stringify(res.data));
         message.success(res.data.msg);
@@ -19,17 +19,16 @@ const AuthAction = {
     const isLogin = localStorage.getItem("user");
     if (!isLogin) return;
     try {
-      return await getAPI("rf-token");
+      return await GET("rf-token");
     } catch (error) {
       console.log(error);
     }
   },
   logout: async (token) => {
-    const expire = await checkToken(token);
-    console.log(expire);
-    const new_token = expire ? expire : token;
+    // const expire = await checkToken(token);
+    // const new_token = expire ? expire : token;
     try {
-      const res = await getAPI("logout", token);
+      const res = await GET("logout", token);
       if (res.status === 200) {
         message.success("Đăng xuất thành công");
         localStorage.removeItem("user");

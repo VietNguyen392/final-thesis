@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Typography, Row, Col, Tag, Drawer, Modal, Button } from "antd";
-import { getAPI } from "service";
+import { Typography, Row, Col, Drawer, Modal, Button } from "antd";
+import { GET } from "service";
 import { useSelector } from "react-redux";
 import FormLogin from "components/FormLogin";
 import FormBooking from "components/FormBooking";
@@ -19,7 +19,7 @@ const DetailRoom = () => {
   React.useEffect(() => {
     const controller = new AbortController();
     if (slug) {
-      getAPI(`/hotel/${slug}`).then((res) =>
+      GET(`/hotel/${slug}`).then((res) =>
         setState((p) => ({ ...p, room: res.data.room }))
       );
     }
@@ -62,7 +62,9 @@ const DetailRoom = () => {
             <p key={index}>{i}</p>
           ))}
           <label>Giá</label>
-          <Tag>{room.room_price} $</Tag>
+          <Typography.Text style={{ fontSize: "25px", fontWeight: 700 }}>
+            {room.room_price} $
+          </Typography.Text>
         </Col>
         {user ? (
           <Drawer

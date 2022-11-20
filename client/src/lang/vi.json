@@ -6,7 +6,15 @@
     "forgot": "Quên mật khẩu",
     "confirm": "Xác nhận",
     "vi": "Tiếng Việt",
-    "en": "Tiếng Anh"
+    "en": "Tiếng Anh",
+    "price":"Giá",
+    "feature":"Dịch vụ",
+    "filter":"Lọc theo",
+    "decrease":"Giá thấp tới cao",
+    "increase":"Giá cao xuống thấp",
+    "byPrice":"Theo giá",
+    "byService":"Theo dịch vụ",
+    "byLocate":"Theo vị trí"
   },
   "navbar": {
     "home": "Trang chủ",

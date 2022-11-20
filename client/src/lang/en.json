@@ -6,7 +6,15 @@
     "forgot": "Forgot Password",
     "confirm": "Confirm",
     "vi": "Vietnamese",
-    "en": "English"
+    "en": "English",
+    "price":"Price",
+    "feature":"Serivce",
+    "filter":"Filter by",
+    "decrease":"Price from low to high ",
+    "increase":"Price from high to low",
+    "byPrice":"By Price",
+    "byService":"By Room Serivce",
+    "byLocate":"By Room Locate"
   },
   "navbar": {
     "home": "Home",

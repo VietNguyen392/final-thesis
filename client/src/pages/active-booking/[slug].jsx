@@ -1,5 +1,5 @@
 import React from "react";
-import { postAPI } from "service";
+import { POST } from "service";
 import { useParams } from "react-router-dom";
 import { notification } from "antd";
 const ActiveBooking = () => {
@@ -11,7 +11,7 @@ const ActiveBooking = () => {
   const { slug } = useParams();
   React.useEffect(() => {
     if (slug) {
-      postAPI("active-booking", { active_code: slug })
+      POST("active-booking", { active_code: slug })
         .then((res) => setState((o) => ({ ...o, success: res.data.msg })))
         .catch((errors) =>
           setState((o) => ({ ...o, error: errors.res.data.msg }))

@@ -2,14 +2,14 @@ import React from "react";
 
 import { Button, Form, Input, message, Row, Col, Radio } from "antd";
 import { useTranslation } from "react-i18next";
-import { postAPI } from "service";
+import { POST } from "service";
 
 const FormRegister = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
   const onSubmitForm = async (value) => {
     try {
-      const res = await postAPI("register", value);
+      const res = await POST("register", value);
       if (res.status === 200) {
         message.success("Đăng ký thành công, hãy kiểm tra hòm mail của bạn");
         form.resetFields();
