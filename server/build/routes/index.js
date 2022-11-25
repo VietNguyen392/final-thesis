@@ -34,14 +34,15 @@ const initWebRoute = (app) => {
         .get(controller_1.HotelController.getRoomById)
         .patch(controller_1.HotelController.editHotel)
         .delete(controller_1.HotelController.deleteHotel);
-    //*Room routes
-    routes.post('api/create-room', controller_1.RoomController.createRoom);
     //*Booking routes
     routes.post('/api/new-booking', controller_1.BookingController.newBooking);
     routes.post('/api/active-booking', controller_1.BookingController.activeBooking);
     routes.get('/api/get-all-booking', controller_1.BookingController.getAllBooking);
     routes.get('/api/get-user-booking/:id', controller_1.BookingController.getBookingByUser);
     routes.put('/api/change-booking-status/:id', controller_1.BookingController.updateBookingStatus);
+    routes.get('/api/get-room-booking/:id', controller_1.BookingController.getBookingByRoom);
+    routes.delete('/api/delete-booking/:id', controller_1.BookingController.deleteBooking),
+        routes.delete('/api/deleteAll-booking', controller_1.BookingController.deleteAllBooking);
     //*Test routes
     routes.post('/api/create-company', TestController_1.default.createTest);
     routes.get('/api/get-company', TestController_1.default.getTest);

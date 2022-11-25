@@ -4,7 +4,7 @@ import { IBooking } from '../utils';
 const bookingSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Types.ObjectId, ref: 'User' },
-    room: { type: mongoose.Types.ObjectId, ref: 'Room' },
+    room: { type: mongoose.Types.ObjectId, ref: 'Hotel' },
     start_date: {
       type: Date,
     },
@@ -14,6 +14,7 @@ const bookingSchema = new mongoose.Schema(
     email: { type: String, require: true },
     billing: { type: Number },
     status: { type: String, default: 'pending' },
+    quantity: { type: Number, min: 0, max: 4 },
   },
   { timestamps: true },
 );

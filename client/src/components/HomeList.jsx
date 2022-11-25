@@ -22,17 +22,10 @@ const HomeList = () => {
   const roomList = data?.data;
   if (isFetching) return <Loading />;
   if (isError) return <Empty />;
-  const sortIncrease = () => {
-    roomList.sort((a, b) => a.room_price - b.room_price);
-  };
-  const sortDecrease = () => {
-    roomList.sort((a, b) => b.room_price - a.room_price).reverse();
-   
-  };
-
+  // const tang=roomList.sort((a,b)=>a.room_price-b.room_price)
   return (
     <>
-      <FilterBar>
+      {/*<FilterBar>
         <legend>{t("common.filter")}</legend>
         <Row
           wrap
@@ -62,6 +55,7 @@ const HomeList = () => {
           </Col>
         </Row>
       </FilterBar>
+      */}
       <Row
         wrap
         justify="space-between"

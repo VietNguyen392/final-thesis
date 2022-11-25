@@ -14,24 +14,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Booking_1 = __importDefault(require("../models/Booking"));
-const sendEmail_1 = __importDefault(require("../config/sendEmail"));
 const genToken_1 = require("../config/genToken");
-const utils_1 = require("../utils");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const middleware_1 = require("../middleware");
 const BookingController = {
     newBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        if (!req.user)
-            return res.status(400).send({ msg: 'Invalid' });
+        // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
         try {
-            const { start_date, room, email, end_date, user, billing } = req.body;
+            const { start_date, room, email, end_date, user, billing, quantity } = req.body;
             const booking = yield Booking_1.default.create(Object.assign({}, req.body));
             const active_code = (0, genToken_1.generateActiveToken)({ booking });
             const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-            if ((0, utils_1.validateEmail)(email)) {
-                (0, sendEmail_1.default)(email, url, 'Xác nhận đặt phòng', email);
-                return res.send({ msg: 'Success' });
-            }
+            const new_Booking = new Booking_1.default(booking);
+            yield new_Booking.save();
+            // if (validateEmail(email)) {
+            //   sendMail(email, url, 'Xác nhận đặt phòng', email);
+            //   return res.send({ msg: 'Success' });
+            // }
             res.json({
                 status: 200,
                 msg: 'Success',
@@ -50,12 +49,11 @@ const BookingController = {
             const { newBooking } = decoded;
             if (!newBooking)
                 return res.status(400).send({ msg: 'Invalid ' });
-            const isBooking = yield Booking_1.default.find({
-                start_date: newBooking.start_date,
-                end_date: newBooking.end_date,
+            /*const isBooking = await Booking.find({
+              start_date: newBooking.start_date,
+              end_date: newBooking.end_date,
             });
-            if (isBooking)
-                return res.status(400).json({ msg: 'Booking already create' });
+            if (isBooking) return res.status(400).json({ msg: 'Booking already create' });*/
             const new_Booking = new Booking_1.default(newBooking);
             yield new_Booking.save();
             res.json({ msg: 'Success', data: new_Booking });
@@ -91,8 +89,7 @@ const BookingController = {
         }
     }),
     getBookingByUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        if (!req.user)
-            return res.json({ status: 404, msg: 'Invalid' });
+        // if (!req.user) return res.json({ status: 404, msg: 'Invalid' });
         const { limit, skip } = (0, middleware_1.Pagination)(req);
         try {
             const data = yield Booking_1.default.aggregate([
@@ -150,6 +147,86 @@ const BookingController = {
         }
         catch (e) {
             res.json({ status: 500, meg: e.message });
+        }
+    }),
+    getBookingByRoom: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { limit, skip } = (0, middleware_1.Pagination)(req);
+        try {
+            const data = yield Booking_1.default.aggregate([
+                {
+                    $facet: {
+                        totalData: [
+                            {
+                                $match: {
+                                    room: new mongoose_1.default.Types.ObjectId(req.params.id),
+                                },
+                            },
+                            {
+                                $lookup: {
+                                    from: 'users',
+                                    let: { user_id: '$user' },
+                                    pipeline: [
+                                        { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
+                                        { $project: { password: 0 } },
+                                    ],
+                                    as: 'user',
+                                },
+                            },
+                            { $unwind: '$user' },
+                            { $sort: { createdAt: -1 } },
+                            { $skip: skip },
+                            { $limit: limit },
+                        ],
+                        totalCount: [
+                            {
+                                $match: {
+                                    room: new mongoose_1.default.Types.ObjectId(req.params.id),
+                                },
+                            },
+                            { $count: 'count' },
+                        ],
+                    },
+                },
+                {
+                    $project: {
+                        count: { $arrayElemAt: ['$totalCount.count', 0] },
+                        totalData: 1,
+                    },
+                },
+            ]);
+            const booking = data[0].totalData;
+            const count = data[0].count;
+            let total = 0;
+            if (count % limit === 0) {
+                total = count / limit;
+            }
+            else {
+                total = Math.floor(count / limit) + 1;
+            }
+            res.send({ booking, total });
+        }
+        catch (e) {
+            return res.json({ status: 500, msg: e });
+        }
+    }),
+    deleteBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const booking = yield Booking_1.default.findByIdAndDelete(req.params.id);
+            if (!booking)
+                return res.status(404).send({ msg: 'Not Found' });
+            res.json({ msg: 'delete success' });
+        }
+        catch (error) {
+            return res.json({ status: 500, msg: error });
+        }
+    }),
+    deleteAllBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield Booking_1.default.deleteMany();
+            res.status(200).send({ msg: 'delete all booking success' });
+        }
+        catch (error) {
+            return res.json({ status: 500, msg: error });
         }
     }),
 };

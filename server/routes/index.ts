@@ -1,5 +1,5 @@
 import express from 'express';
-import { UserController, HotelController, RoomController, BookingController } from '../controller';
+import { UserController, HotelController, BookingController } from '../controller';
 import TestController from '../controller/TestController';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
@@ -29,14 +29,15 @@ export const initWebRoute = (app: any) => {
     .get(HotelController.getRoomById)
     .patch(HotelController.editHotel)
     .delete(HotelController.deleteHotel);
-  //*Room routes
-  routes.post('api/create-room', RoomController.createRoom);
   //*Booking routes
   routes.post('/api/new-booking', BookingController.newBooking);
   routes.post('/api/active-booking', BookingController.activeBooking);
   routes.get('/api/get-all-booking', BookingController.getAllBooking);
   routes.get('/api/get-user-booking/:id', BookingController.getBookingByUser);
   routes.put('/api/change-booking-status/:id', BookingController.updateBookingStatus);
+  routes.get('/api/get-room-booking/:id', BookingController.getBookingByRoom);
+  routes.delete('/api/delete-booking/:id',BookingController.deleteBooking),
+  routes.delete('/api/deleteAll-booking',BookingController.deleteAllBooking)
   //*Test routes
   routes.post('/api/create-company', TestController.createTest);
   routes.get('/api/get-company', TestController.getTest);

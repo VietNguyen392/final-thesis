@@ -73,6 +73,7 @@ export interface IBooking extends Document {
   end_date: Date | object;
   billing: number;
   status: string;
+  quantity: number;
   _doc: object;
 }
 export interface INoti extends Document {

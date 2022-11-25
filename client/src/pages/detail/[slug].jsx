@@ -61,7 +61,7 @@ const DetailRoom = () => {
           {room.featured?.map((i, index) => (
             <p key={index}>{i}</p>
           ))}
-          <label>Giá</label>
+          <label>Giá: </label>
           <Typography.Text style={{ fontSize: "25px", fontWeight: 700 }}>
             {room.room_price} $
           </Typography.Text>
