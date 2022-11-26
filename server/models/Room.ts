@@ -1,6 +1,6 @@
-import mongoose, { mongo } from 'mongoose';
-import { IHotel } from '../utils';
-const hotelSchema = new mongoose.Schema(
+import mongoose from 'mongoose';
+import { IRoom } from '../utils';
+const roomSchema = new mongoose.Schema(
   {
     room_name: {
       type: String,
@@ -37,4 +37,4 @@ const hotelSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-export default mongoose.model<IHotel>('Hotel', hotelSchema);
+export default mongoose.model<IRoom>('Room', roomSchema);

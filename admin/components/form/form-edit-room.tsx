@@ -14,7 +14,7 @@ import {
   ScrollArea,
 } from '@mantine/core';
 import useSWR from 'swr';
-import { IHotel, patchData, getData } from 'utils';
+import { IRoom, PATCH, GET, routes } from 'utils';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons';
@@ -36,7 +36,7 @@ const FormEditRoom: React.FC<FormProps> = ({ data, closeDawer }) => {
   const { mutate } = useSWR('get-roomList');
   async function editRoom(value: any) {
     try {
-      const res = await patchData(`/api/hotel/${data.roomID}`, value);
+      const res = await PATCH(`${routes.api.room}/${data.roomID}`, value);
       if (res.status === 200) {
         showNotification({
           title: 'Thành công',
@@ -52,13 +52,12 @@ const FormEditRoom: React.FC<FormProps> = ({ data, closeDawer }) => {
   }
   useEffect(() => {
     const controller = new AbortController();
-    getData('/api/get-company').then((res) =>
+    GET(routes.api.service).then((res) =>
       setFtList(
         res?.data?.map((x: any) => {
           return {
-            // ftId: x._id,
-            label: x?.company_name,
-            value: x?.company_name,
+            label: x?.service_name,
+            value: x?.service_name,
           };
         }),
       ),
@@ -83,9 +82,9 @@ const FormEditRoom: React.FC<FormProps> = ({ data, closeDawer }) => {
             <Select
               label="Hạng Phòng"
               data={[
-                { value: 'Normal', label: 'Bình dân' },
-                { value: 'Medium', label: 'Trung bình' },
-                { value: 'Luxury', label: 'Cao cấp' },
+                { value: 'Bình dân', label: 'Bình dân' },
+                { value: 'Trung bình', label: 'Trung bình' },
+                { value: 'Cao cấp', label: 'Cao cấp' },
               ]}
               {...form.getInputProps('room_type')}
               defaultValue={data.roomType}
@@ -123,11 +122,6 @@ const FormEditRoom: React.FC<FormProps> = ({ data, closeDawer }) => {
           </Box>
         </Grid.Col>
       </Grid>
-      {/* <Box>
-        {
-      data.roomPhoto?.map((img:any,index:number)=><Image src={img}key={index}/>)
-    }
-      </Box> */}
       <Box style={{ paddingTop: '10px' }}>
         <TextEdit
           {...form.getInputProps('desc')}

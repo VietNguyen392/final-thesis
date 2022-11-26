@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { routes } from 'utils/routes';
-import { getAllUserProfile, getHotelList } from 'utils/service';
+import { getAllUserProfile, getRoomList } from 'utils/service';
 export const useDataLength = () => {
   const [state, setState] = useState({
     userList: [],
@@ -21,7 +21,7 @@ export const useDataLength = () => {
     });
   }, []);
   useEffect(() => {
-    getHotelList().then((res) => {
+    getRoomList().then((res) => {
       setState((o) => ({
         ...o,
         hotelList: res?.data?.map((item: any) => {

@@ -23,24 +23,18 @@ const navigations = [
   },
   {
     id: 2,
-    link: routes.manageHotel,
+    link: routes.manageRoom,
     label: 'quản lý khách sạn',
     icon: IconBuildingSkyscraper,
   },
-  // {
-  //   id: 3,
-  //   link: routes.manageRoom,
-  //   label: 'quản lý phòng',
-  //   icon: IconDoor,
-  // },
   {
-    id: 4,
+    id: 3,
     link: routes.manageBooking,
     label: 'quản lý đặt phòng',
     icon: IconBrandBooking,
   },
   {
-    id: 5,
+    id: 4,
     link: routes.setting,
     label: 'Cài đặt',
     icon: IconAdjustmentsAlt,

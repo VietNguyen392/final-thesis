@@ -1,6 +1,6 @@
 import express from 'express';
-import { UserController, HotelController, BookingController } from '../controller';
-import TestController from '../controller/TestController';
+import { UserController, RoomController, BookingController } from '../controller';
+import ServiceController from '../controller/ServiceController';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
 
@@ -23,12 +23,12 @@ export const initWebRoute = (app: any) => {
   routes.post('/api/forgot-password', UserController.forgotPass);
   routes.put('/api/reset-password', UserController.resetPass);
   //*Hotel routes
-  routes.route('/api/hotel').post(HotelController.createHotel).get(HotelController.getHotel);
+  routes.route('/api/room').post(RoomController.createRoom).get(RoomController.getRoom);
   routes
-    .route('/api/hotel/:id')
-    .get(HotelController.getRoomById)
-    .patch(HotelController.editHotel)
-    .delete(HotelController.deleteHotel);
+    .route('/api/room/:id')
+    .get(RoomController.getRoomById)
+    .patch(RoomController.editRoom)
+    .delete(RoomController.deleteRoom);
   //*Booking routes
   routes.post('/api/new-booking', BookingController.newBooking);
   routes.post('/api/active-booking', BookingController.activeBooking);
@@ -36,13 +36,17 @@ export const initWebRoute = (app: any) => {
   routes.get('/api/get-user-booking/:id', BookingController.getBookingByUser);
   routes.put('/api/change-booking-status/:id', BookingController.updateBookingStatus);
   routes.get('/api/get-room-booking/:id', BookingController.getBookingByRoom);
-  routes.delete('/api/delete-booking/:id',BookingController.deleteBooking),
-  routes.delete('/api/deleteAll-booking',BookingController.deleteAllBooking)
-  //*Test routes
-  routes.post('/api/create-company', TestController.createTest);
-  routes.get('/api/get-company', TestController.getTest);
-  routes.patch('/api/edit-company/:id', TestController.editTest);
-  routes.delete('/api/delete-company/:id', TestController.deleteTest);
+  routes.delete('/api/delete-booking/:id', BookingController.deleteBooking),
+    routes.delete('/api/deleteAll-booking', BookingController.deleteAllBooking);
+  //*Service routes
+  routes
+    .route('/api/service')
+    .post(ServiceController.createService)
+    .get(ServiceController.getService);
+  routes
+    .route('/api/service/:id')
+    .patch(ServiceController.editService)
+    .delete(ServiceController.deleteService);
 
   return app.use('/', routes);
 };

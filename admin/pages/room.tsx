@@ -1,9 +1,10 @@
 import React from 'react';
-import HotelForm from 'components/form/HotelForm';
+import RoomForm from 'components/form/RoomForm';
 const ManageHotel = () => {
+  
   return (
     <div>
-      <HotelForm />
+      <RoomForm />
     </div>
   );
 };

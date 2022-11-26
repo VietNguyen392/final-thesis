@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.initWebRoute = void 0;
 const express_1 = __importDefault(require("express"));
 const controller_1 = require("../controller");
-const TestController_1 = __importDefault(require("../controller/TestController"));
+const ServiceController_1 = __importDefault(require("../controller/ServiceController"));
 const utils_1 = require("../utils");
 const middleware_1 = require("../middleware");
 const routes = express_1.default.Router();
@@ -28,12 +28,12 @@ const initWebRoute = (app) => {
     routes.post('/api/forgot-password', controller_1.UserController.forgotPass);
     routes.put('/api/reset-password', controller_1.UserController.resetPass);
     //*Hotel routes
-    routes.route('/api/hotel').post(controller_1.HotelController.createHotel).get(controller_1.HotelController.getHotel);
+    routes.route('/api/room').post(controller_1.RoomController.createRoom).get(controller_1.RoomController.getRoom);
     routes
-        .route('/api/hotel/:id')
-        .get(controller_1.HotelController.getRoomById)
-        .patch(controller_1.HotelController.editHotel)
-        .delete(controller_1.HotelController.deleteHotel);
+        .route('/api/room/:id')
+        .get(controller_1.RoomController.getRoomById)
+        .patch(controller_1.RoomController.editRoom)
+        .delete(controller_1.RoomController.deleteRoom);
     //*Booking routes
     routes.post('/api/new-booking', controller_1.BookingController.newBooking);
     routes.post('/api/active-booking', controller_1.BookingController.activeBooking);
@@ -43,11 +43,15 @@ const initWebRoute = (app) => {
     routes.get('/api/get-room-booking/:id', controller_1.BookingController.getBookingByRoom);
     routes.delete('/api/delete-booking/:id', controller_1.BookingController.deleteBooking),
         routes.delete('/api/deleteAll-booking', controller_1.BookingController.deleteAllBooking);
-    //*Test routes
-    routes.post('/api/create-company', TestController_1.default.createTest);
-    routes.get('/api/get-company', TestController_1.default.getTest);
-    routes.patch('/api/edit-company/:id', TestController_1.default.editTest);
-    routes.delete('/api/delete-company/:id', TestController_1.default.deleteTest);
+    //*Service routes
+    routes
+        .route('/api/service')
+        .post(ServiceController_1.default.createService)
+        .get(ServiceController_1.default.getService);
+    routes
+        .route('/api/service/:id')
+        .patch(ServiceController_1.default.editService)
+        .delete(ServiceController_1.default.deleteService);
     return app.use('/', routes);
 };
 exports.initWebRoute = initWebRoute;

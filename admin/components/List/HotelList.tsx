@@ -14,19 +14,19 @@ import {
 import useStyles from 'hooks/useStyles';
 import { Carousel } from '@mantine/carousel';
 import { FormEditRoom } from '../form';
-import { deleteRoom, getHotelList, IHotel, ListType } from 'utils';
+import { deleteRoom, getRoomList, IRoom, ListType } from 'utils';
 import { showNotification } from '@mantine/notifications';
 import { IconTrash, IconBallpen } from '@tabler/icons';
 import Loading from '../common/loading';
 interface ListProps {
-  listData: IHotel[];
+  listData: IRoom[];
   onGetId: (roomId: string) => void;
 }
 
 const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
   const [state, setState] = useState({
     scrolled: false,
-    editRow: {} as IHotel,
+    editRow: {} as IRoom,
     open: false,
   });
   const { scrolled, editRow, open } = state;
@@ -43,7 +43,7 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
       <td>{item.roomType}</td>
       <td>{item.roomPrice}</td>
       <td>{item.roomLocate}</td>
-      <td>{item.roomFeature}</td>
+      <td>{item.roomFeature.join(',')}</td>
       <td>
         {item.roomPhoto && (
           <Carousel sx={{ width: 200, height: 120 }} loop>

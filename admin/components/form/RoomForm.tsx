@@ -20,20 +20,18 @@ import UploadImage from '../common/UploadImage';
 import TextEdit from '../common/TextEdit';
 
 import {
-  createHotel,
-  getData,
+  GET,
+  POST,
   imageUpload,
-  IHotel,
-  getHotelList,
-  deleteRoom,
-  ListType,
+  IRoom,
+  routes,
+  DELETE,
+  getRoomList,
 } from 'utils';
 import { FileWithPath } from '@mantine/dropzone';
 import { HotelList } from '../List';
-type ftList = {
-  company_name: string;
-};
-const HotelForm = () => {
+
+const RoomForm = () => {
   const [state, setState] = useState({
     img: [] as FileWithPath[],
     rowID: '',
@@ -42,10 +40,10 @@ const HotelForm = () => {
     isLoadImg: false,
     featureList: [],
   });
-  const { img, rowID, openModal, isEdit, isLoadImg, featureList } = state;
+  const { img, rowID, openModal, isLoadImg, featureList } = state;
   const [searchFeatures, setSearchFeatures] = useState('');
 
-  const form = useForm<IHotel>({
+  const form = useForm<IRoom>({
     initialValues: {
       room_name: '',
       room_type: '',
@@ -56,7 +54,7 @@ const HotelForm = () => {
       featured: [],
     },
   });
-  const { data, mutate } = useSWR('get-roomList', getHotelList);
+  const { data, mutate } = useSWR('get-roomList', getRoomList);
   const previews = img.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     return (
@@ -72,12 +70,14 @@ const HotelForm = () => {
     try {
       setState((p) => ({ ...p, img: img, isLoadImg: true }));
       const res = await imageUpload(img);
-      if (res)
+      if (res) {
         showNotification({
           title: 'Thông báo',
           message: 'Tải thành công',
           color: 'blue',
         });
+        setState((p) => ({ ...p, isLoadImg: false }));
+      }
       const urls = res?.map((i) => i.url);
       form.setFieldValue('photo', urls);
     } catch (error: any) {
@@ -89,9 +89,9 @@ const HotelForm = () => {
     }
   };
 
-  async function handleCreateRoom(data: IHotel) {
+  async function handleCreateRoom(data: IRoom) {
     try {
-      const res = await createHotel(data);
+      const res = await POST(routes.api.room, data);
       if (res.status === 200)
         showNotification({
           title: 'Thông báo',
@@ -118,7 +118,7 @@ const HotelForm = () => {
     setState((o) => ({ ...o, openModal: true, rowID: id }));
   };
 
-  const listRoom = data?.data?.map((item: IHotel) => {
+  const listRoom = data?.data?.map((item: IRoom) => {
     return {
       roomID: item._id,
       roomName: item.room_name,
@@ -132,7 +132,7 @@ const HotelForm = () => {
   });
   const handleDelete = async (ID: string) => {
     try {
-      const result = await deleteRoom(ID);
+      const result = await DELETE(`${routes.api.room}/${ID}`);
       if (result) {
         showNotification({
           title: 'Thông báo',
@@ -148,14 +148,13 @@ const HotelForm = () => {
   };
   useEffect(() => {
     const controller = new AbortController();
-    getData('/api/get-company').then((res) =>
+    GET(routes.api.service).then((res) =>
       setState((p) => ({
         ...p,
         featureList: res?.data?.map((x: any) => {
           return {
-            // ftId: x._id,
-            label: x?.company_name,
-            value: x?.company_name,
+            label: x?.service_name,
+            value: x?.service_name,
           };
         }),
       })),
@@ -182,9 +181,9 @@ const HotelForm = () => {
                 <Select
                   label="Hạng Phòng"
                   data={[
-                    { value: 'Normal', label: 'Bình dân' },
-                    { value: 'Medium', label: 'Trung bình' },
-                    { value: 'Luxury', label: 'Cao cấp' },
+                    { value: 'Bình dân', label: 'Bình dân' },
+                    { value: 'Trung Bình', label: 'Trung bình' },
+                    { value: 'Cao Cấp', label: 'Cao cấp' },
                   ]}
                   {...form.getInputProps('room_type')}
                 />
@@ -270,4 +269,4 @@ const HotelForm = () => {
   );
 };
 
-export default HotelForm;
+export default RoomForm;

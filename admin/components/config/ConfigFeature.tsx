@@ -14,12 +14,12 @@ import {
   IconTrash,
   IconPlaystationX,
 } from '@tabler/icons';
-import { postData, getData, patchData, deleteData } from 'utils';
+import { POST, GET, PATCH, DELETE, routes } from 'utils';
 import { showNotification } from '@mantine/notifications';
 type ftType = {
   _id?: string;
-  company_name: string;
-  director_name: string;
+  service_name: string;
+  service_price: string;
   edit?: boolean;
 };
 const ConfigFeature = () => {
@@ -41,21 +41,21 @@ const ConfigFeature = () => {
   async function postFeatured(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      await postData('/api/create-company', {
-        company_name: nameRef.current?.value,
-        director_name: priceRef.current?.value,
+      await POST(routes.api.service, {
+        service_name: nameRef.current?.value,
+        service_price: priceRef.current?.value,
       });
       (e.target as HTMLFormElement).reset();
       const controller = new AbortController();
-      getData('/api/get-company')
+      GET(routes.api.service)
         .then((res) =>
           setState((p) => ({
             ...p,
             featureList: res?.data?.map((x: any) => {
               return {
                 ftId: x._id,
-                ftName: x.company_name,
-                ftPrice: x.director_name,
+                ftName: x.service_name,
+                ftPrice: x.service_price,
               };
             }),
           })),
@@ -72,8 +72,8 @@ const ConfigFeature = () => {
     row.edit = !row.edit;
     setState((p) => ({
       ...p,
-      ftName: row.company_name,
-      ftPrice: row.director_name,
+      ftName: row.service_name,
+      ftPrice: row.service_price,
     }));
   };
   const handleEditValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,21 +81,21 @@ const ConfigFeature = () => {
     setEditValue({ ...editValue, [name]: value });
   };
   async function updateFeatured(id: string) {
-    await patchData(`/api/edit-company/${id}`, {
+    await PATCH(`${routes.api.service}/${id}`, {
       company_name: editValue.ftName || ftName,
       director_name: editValue.ftPrice || ftPrice,
     });
     setEditValue((p) => ({ ...p, ftName: '', ftPrice: '' }));
     const controller = new AbortController();
-    getData('/api/get-company')
+    GET(routes.api.service)
       .then((res) =>
         setState((p) => ({
           ...p,
           featureList: res?.data?.map((x: any) => {
             return {
               ftId: x._id,
-              ftName: x.company_name,
-              ftPrice: x.director_name,
+              ftName: x.service_name,
+              ftPrice: x.service_name,
             };
           }),
         })),
@@ -103,7 +103,7 @@ const ConfigFeature = () => {
       .finally(() => controller.abort());
   }
   async function deleteFeatured(id: string) {
-    const res = await deleteData(`/api/delete-company/${id}`);
+    const res = await DELETE(`${routes.api.service}/${id}`);
     if (res.status === 200)
       setState((p) => ({
         ...p,
@@ -116,14 +116,14 @@ const ConfigFeature = () => {
 
   useEffect(() => {
     const controller = new AbortController();
-    getData('/api/get-company').then((res) =>
+    GET(routes.api.service).then((res) =>
       setState((p) => ({
         ...p,
         featureList: res?.data?.map((x: any) => {
           return {
             ftId: x._id,
-            ftName: x.company_name,
-            ftPrice: x.director_name,
+            ftName: x.service_name,
+            ftPrice: x.service_price,
             edit: false,
           };
         }),

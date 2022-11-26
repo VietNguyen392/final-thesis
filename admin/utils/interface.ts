@@ -29,7 +29,7 @@ export interface ListType {
   roomDesc?: string | any;
   roomFeature?: string[] | any;
 }
-export interface IHotel extends ListType {
+export interface IRoom extends ListType {
   _id?: string | any;
   room_name: string;
   room_type: string;

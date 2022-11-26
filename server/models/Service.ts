@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
-type TestType = {
-  company_name: string;
-  director_name: number;
+type ServiceType = {
+  service_name: string;
+  service_price: number;
 };
-const testSchema = new mongoose.Schema(
+const serviceSchema = new mongoose.Schema(
   {
-    company_name: {
+    service_name: {
       type: String,
       require: true,
     },
-    director_name: {
+    service_price: {
       type: Number,
       require: false,
     },
   },
   { timestamps: true },
 );
-export default mongoose.model<TestType>('TestModel', testSchema);
+export default mongoose.model<ServiceType>('Services', serviceSchema);

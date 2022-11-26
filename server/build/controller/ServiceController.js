@@ -13,19 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Service_1 = __importDefault(require("../models/Service"));
-const TestController = {
-    createTest: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const ServiceController = {
+    createService: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { company_name, director_name } = req.body;
-            const newTest = yield Service_1.default.create({
-                company_name,
-                director_name,
-            });
-            if (newTest) {
+            const { service_name, service_price } = req.body;
+            const newService = yield Service_1.default.create(Object.assign({}, req.body));
+            if (newService) {
                 res.status(200).json({
                     code: 0,
-                    _id: newTest.id,
-                    name: newTest.company_name,
+                    data: newService
                 });
             }
             else {
@@ -36,7 +32,7 @@ const TestController = {
             res.status(500).send({ msg: 'Server error' });
         }
     }),
-    getTest: (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    getService: (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const data = yield Service_1.default.find().sort('-createdAt');
             if (!data)
@@ -47,24 +43,21 @@ const TestController = {
             return res.status(500).send({ msg: error.message });
         }
     }),
-    editTest: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    editService: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { company_name, director_name } = req.body;
-            const updateTest = yield Service_1.default.findOneAndUpdate({ _id: req.params.id }, {
-                company_name,
-                director_name,
-            }, { new: true });
+            const { service_name, service_price } = req.body;
+            const updateTest = yield Service_1.default.findOneAndUpdate({ _id: req.params.id }, Object.assign({}, req.body), { new: true });
             res.json({ msg: 'update success', updateTest });
         }
         catch (err) {
             return res.status(500).send({ msg: 'Sever error' });
         }
     }),
-    deleteTest: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    deleteService: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const test = yield Service_1.default.findByIdAndDelete(req.params.id);
-            if (!test)
-                return res.status(404).send({ msg: 'User not found' });
+            const service = yield Service_1.default.findByIdAndDelete(req.params.id);
+            if (!service)
+                return res.status(404).send({ msg: 'Service not found' });
             res.json({ msg: 'delete success' });
         }
         catch (error) {
@@ -72,4 +65,4 @@ const TestController = {
         }
     }),
 };
-exports.default = TestController;
+exports.default = ServiceController;

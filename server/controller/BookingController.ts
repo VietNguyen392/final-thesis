@@ -18,17 +18,13 @@ const BookingController = {
       });
       const active_code = generateActiveToken({ booking });
       const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-      const new_Booking = new Booking(booking);
-
-      await new_Booking.save();
-      // if (validateEmail(email)) {
-      //   sendMail(email, url, 'Xác nhận đặt phòng', email);
-      //   return res.send({ msg: 'Success' });
-      // }
+      if (validateEmail(email)) {
+        sendMail(email, url, 'Xác nhận đặt phòng', email);
+        return res.send({ msg: 'Success' });
+      }
       res.json({
         status: 200,
         msg: 'Success',
-        data: booking,
         active_code,
       });
     } catch (e: any) {
@@ -157,16 +153,16 @@ const BookingController = {
               },
               {
                 $lookup: {
-                  from: 'users',
-                  let: { user_id: '$user' },
+                  from: 'hotels',
+                  let: { hotel_id: '$hotel' },
                   pipeline: [
-                    { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
-                    { $project: { password: 0 } },
+                    { $match: { $expr: { $eq: ['$_id', '$$hotel_id'] } } },
+                    // { $project: { password: 0 } },
                   ],
-                  as: 'user',
+                  as: 'hotel',
                 },
               },
-              { $unwind: '$user' },
+              { $unwind: '$hotel' },
               { $sort: { createdAt: -1 } },
               { $skip: skip },
               { $limit: limit },
@@ -221,4 +217,4 @@ const BookingController = {
     }
   },
 };
-export default BookingController;
+export default BookingController

@@ -13,7 +13,7 @@ export interface IUser extends Document {
   type: string;
   _doc: object;
 }
-export interface IHotel extends Document {
+export interface IRoom extends Document {
   room_name: string;
   room_type: string;
   location: string;

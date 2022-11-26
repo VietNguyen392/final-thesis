@@ -14,7 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Booking_1 = __importDefault(require("../models/Booking"));
+const sendEmail_1 = __importDefault(require("../config/sendEmail"));
 const genToken_1 = require("../config/genToken");
+const utils_1 = require("../utils");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const middleware_1 = require("../middleware");
 const BookingController = {
@@ -25,16 +27,13 @@ const BookingController = {
             const booking = yield Booking_1.default.create(Object.assign({}, req.body));
             const active_code = (0, genToken_1.generateActiveToken)({ booking });
             const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-            const new_Booking = new Booking_1.default(booking);
-            yield new_Booking.save();
-            // if (validateEmail(email)) {
-            //   sendMail(email, url, 'Xác nhận đặt phòng', email);
-            //   return res.send({ msg: 'Success' });
-            // }
+            if ((0, utils_1.validateEmail)(email)) {
+                (0, sendEmail_1.default)(email, url, 'Xác nhận đặt phòng', email);
+                return res.send({ msg: 'Success' });
+            }
             res.json({
                 status: 200,
                 msg: 'Success',
-                data: booking,
                 active_code,
             });
         }
@@ -163,16 +162,16 @@ const BookingController = {
                             },
                             {
                                 $lookup: {
-                                    from: 'users',
-                                    let: { user_id: '$user' },
+                                    from: 'hotels',
+                                    let: { hotel_id: '$hotel' },
                                     pipeline: [
-                                        { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
-                                        { $project: { password: 0 } },
+                                        { $match: { $expr: { $eq: ['$_id', '$$hotel_id'] } } },
+                                        // { $project: { password: 0 } },
                                     ],
-                                    as: 'user',
+                                    as: 'hotel',
                                 },
                             },
-                            { $unwind: '$user' },
+                            { $unwind: '$hotel' },
                             { $sort: { createdAt: -1 } },
                             { $skip: skip },
                             { $limit: limit },

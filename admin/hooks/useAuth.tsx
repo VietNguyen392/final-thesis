@@ -1,6 +1,6 @@
 import React from 'react';
 import create from 'zustand';
-import { getData } from 'utils';
+import { GET } from 'utils';
 import { showNotification } from '@mantine/notifications';
 import { Login, Logout, checkToken } from 'utils/service';
 import { routes } from 'utils/routes';
