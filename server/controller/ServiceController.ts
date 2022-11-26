@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import TestModel from '../models/Test';
+import TestModel from '../models/Service';
 const TestController = {
   createTest: async (req: Request, res: Response) => {
     try {
