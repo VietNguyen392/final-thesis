@@ -28,7 +28,7 @@ const FormLogin = () => {
     if (auth) {
       router.push(routes.home);
     }
-  }, [auth, router,user]);
+  }, [auth, router, user]);
 
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>

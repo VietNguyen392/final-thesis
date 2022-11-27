@@ -30,6 +30,7 @@ import {
 } from 'utils';
 import { FileWithPath } from '@mantine/dropzone';
 import { HotelList } from '../List';
+import ErrorPage from '../common/ErrorPage';
 
 const RoomForm = () => {
   const [state, setState] = useState({
@@ -54,7 +55,7 @@ const RoomForm = () => {
       featured: [],
     },
   });
-  const { data, mutate } = useSWR('get-roomList', getRoomList);
+  const { data, mutate, error } = useSWR('get-roomList', getRoomList);
   const previews = img.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     return (
@@ -235,7 +236,11 @@ const RoomForm = () => {
         <Text size={'xl'} weight={700}>
           Danh sách
         </Text>
-        <HotelList listData={listRoom} onGetId={handleConfirmDelete} />
+        {error ? (
+          <ErrorPage />
+        ) : (
+          <HotelList listData={listRoom} onGetId={handleConfirmDelete} />
+        )}
       </Stack>
       <Modal
         opened={openModal}

@@ -5,7 +5,7 @@ export const POST = async (url: string, data: object) => {
 };
 
 export const GET = async (url: string) => {
-  const res = await instance.get(url)
+  const res = await instance.get(url);
   return res.data;
 };
 export const PATCH = async (url: string, data: object) => {

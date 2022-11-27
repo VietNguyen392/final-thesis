@@ -27,10 +27,13 @@ const ListItem = () => {
       }))
     );
   }, []);
-const sortData=dataList.sort((a,b)=>a.price-b.price)
+  const sortData = dataList.sort((a, b) => a.price - b.price);
   return (
     <div>
-    <input type="checkbox"onChange={()=>dataList.sort((a,b)=>b.price-a.price)} />
+      <input
+        type="checkbox"
+        onChange={() => dataList.sort((a, b) => b.price - a.price)}
+      />
       <List
         grid={{
           gutter: 16,

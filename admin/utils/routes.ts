@@ -13,6 +13,6 @@ export const routes = {
     user: '/api/user/',
     room: '/api/room',
     createUser: '/api/create-user',
-    service:'/api/service',
+    service: '/api/service',
   },
 };

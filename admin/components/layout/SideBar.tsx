@@ -45,7 +45,7 @@ type TypeNav = {
 };
 export function NavbarChild({ onClose }: TypeNav) {
   const router = useRouter();
-  const auth=useAuth() 
+  const auth = useAuth();
   const data = auth.user.user;
   const { classes, cx } = useStyles();
   const links = navigations.map((item) => (

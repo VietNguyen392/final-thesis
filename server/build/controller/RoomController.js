@@ -61,7 +61,7 @@ const RoomController = {
     }),
     editRoom: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { room_name, room_type, city, location, photo, room_price, rating, desc, featured } = req.body;
+            const { room_name, room_type, location, photo, room_price, rating, desc, featured } = req.body;
             const updateRoom = yield Room_1.default.findOneAndUpdate({ _id: req.params.id }, Object.assign({}, req.body), { new: true });
             res.json({ msg: 'update success', updateRoom });
         }

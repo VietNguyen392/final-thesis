@@ -46,7 +46,7 @@ const RoomController = {
   },
   editRoom: async (req: Request, res: Response) => {
     try {
-      const { room_name, room_type, city, location, photo, room_price, rating, desc, featured } =
+      const { room_name, room_type, location, photo, room_price, rating, desc, featured } =
         req.body;
       const updateRoom = await Room.findOneAndUpdate(
         { _id: req.params.id },

@@ -1,31 +1,43 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Typography, Row, Col, Drawer, Modal, Button } from "antd";
+import {
+  Typography,
+  Drawer,
+  Modal,
+  Button,
+  Image,
+  Empty,
+  Divider,
+  Row,
+  Col,
+} from "antd";
 import { GET } from "service";
+import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import FormLogin from "components/FormLogin";
 import FormBooking from "components/FormBooking";
 import { useTranslation } from "react-i18next";
+
+import Loading from "../../components/loading";
 const { Title, Text } = Typography;
 const DetailRoom = () => {
   const [state, setState] = React.useState({
-    room: {},
     open: false,
   });
-  const { room, open } = state;
+  const [visible, setVisible] = React.useState(false);
+  const { open } = state;
   const { slug } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { t } = useTranslation();
-  React.useEffect(() => {
-    const controller = new AbortController();
+  const getDetailRoom = async () => {
     if (slug) {
-      GET(`/hotel/${slug}`).then((res) =>
-        setState((p) => ({ ...p, room: res.data.room }))
-      );
+      const res = await GET(`/room/${slug}`);
+      return res.data.room;
     }
-    return () => controller.abort();
-  }, [slug]);
-
+  };
+  const { data, isFetching, isError } = useQuery("get-detail", getDetailRoom);
+  if (isFetching) return <Loading />;
+  if (isError) return <Empty />;
   return (
     <div className="container">
       <div
@@ -36,55 +48,76 @@ const DetailRoom = () => {
         }}
       >
         <Title level={1} style={{ textTransform: "capitalize" }}>
-          {room.room_name}
+          {data.room_name}
         </Title>
         <Button onClick={() => setState((p) => ({ ...p, open: true }))}>
           {t("navbar.booking")}
         </Button>
       </div>
 
-      <Row justify="space-between" align="center">
+      <Row>
         <Col span={12}>
-          <Text>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: room.desc,
-              }}
-            />
-          </Text>
-          {room.photo?.map((i, index) => (
-            <img src={i} alt="im" style={{ marginTop: 10 }} key={index} />
-          ))}
+          <Title level={1}>Gallery</Title>
+          <Image
+            preview={{ visible: false }}
+            src={data.photo[0]}
+            onClick={() => setVisible(true)}
+            style={{ width: 450 }}
+          />
+          <div style={{ display: "none" }}>
+            <Image.PreviewGroup
+              preview={{ visible, onVisibleChange: (v) => setVisible(v) }}
+            >
+              {data.photo.map((img, index) => (
+                <Image src={img} key={index} />
+              ))}
+            </Image.PreviewGroup>
+          </div>
         </Col>
-        <Col>
-          <label>Dịch vụ</label>
-          {room.featured?.map((i, index) => (
-            <p key={index}>{i}</p>
-          ))}
-          <label>Giá: </label>
-          <Typography.Text style={{ fontSize: "25px", fontWeight: 700 }}>
-            {room.room_price} $
-          </Typography.Text>
+        <Col span={12}>
+          <Title level={2} style={{ marginTop: 43 }}>
+            {t("common.feature")}
+          </Title>
+          <ul>
+            {data.featured?.map((i, index) => (
+              <li key={index} style={{ fontSize: "16px" }}>
+                {i}
+              </li>
+            ))}
+          </ul>
+          <Title level={2}>{t("common.price")} </Title>
+          <Text style={{ fontSize: "25px" }}>{data.room_price} $</Text>
         </Col>
-        {user ? (
-          <Drawer
-            open={open}
-            onClose={() => setState((p) => ({ ...p, open: false }))}
-          >
-            <FormBooking />
-          </Drawer>
-        ) : (
-          <Modal
-            open={open}
-            onClose={() => setState((p) => ({ ...p, open: false }))}
-            onCancel={() => setState((p) => ({ ...p, open: false }))}
-            title={t("common.login")}
-            footer={null}
-          >
-            <FormLogin />
-          </Modal>
-        )}
       </Row>
+      <Divider />
+      <Title level={1} style={{ fontWeight: "bold" }}>
+        {t("common.desc")}
+      </Title>
+      
+        <div
+          dangerouslySetInnerHTML={{
+            __html: data.desc,
+          }}
+        />
+    
+      {user ? (
+        <Drawer
+          open={open}
+          onClose={() => setState((p) => ({ ...p, open: false }))}
+        >
+          <FormBooking />
+        </Drawer>
+      ) : (
+        <Modal
+          open={open}
+          onClose={() => setState((p) => ({ ...p, open: false }))}
+          onCancel={() => setState((p) => ({ ...p, open: false }))}
+          title={t("common.login")}
+          footer={null}
+        >
+          <FormLogin />
+        </Modal>
+      )}
     </div>
   );
 };

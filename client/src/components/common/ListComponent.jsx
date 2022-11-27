@@ -6,27 +6,14 @@ import { useTranslation } from "react-i18next";
 const ListComponent = (props) => {
   const [visible, setVisible] = React.useState(false);
   const { items } = props;
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       {items?.map((item) => (
         <div key={item._id}>
           <HomeItemWrapper>
             <div className="head">
-              <Image
-                preview={{ visible: false }}
-                src={item.photo[0]}
-                onClick={() => setVisible(true)}
-              />
-              <div style={{ display: "none" }}>
-                <Image.PreviewGroup
-                  preview={{ visible, onVisibleChange: (v) => setVisible(v) }}
-                >
-                  {item.photo.map((img, index) => (
-                    <Image src={img} key={index} />
-                  ))}
-                </Image.PreviewGroup>
-              </div>
+              <Image preview={false} src={item.photo[0]} />
             </div>
             <div className="middle">
               <div className="title">
@@ -38,15 +25,6 @@ const ListComponent = (props) => {
                 </Typography.Title>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>
-                  <Typography.Text italic>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: item.desc,
-                      }}
-                    />
-                  </Typography.Text>
-                </span>
                 <span>
                   {t("common.price")}:
                   <Typography.Text
@@ -69,6 +47,16 @@ const ListComponent = (props) => {
           </HomeItemWrapper>
         </div>
       ))}
+      {/* <div style={{ display: "none" }}>
+                <Image.PreviewGroup
+                  preview={{ visible, onVisibleChange: (v) => setVisible(v) }}
+                >
+                  {item.photo.map((img, index) => (
+                    <Image src={img} key={index} />
+                  ))}
+                </Image.PreviewGroup>
+                onClick={() => setVisible(true)}
+              </div>*/}
     </>
   );
 };

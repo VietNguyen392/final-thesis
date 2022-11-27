@@ -66,72 +66,71 @@ const FormEditRoom: React.FC<FormProps> = ({ data, closeDawer }) => {
   }, []);
 
   return (
-    <Paper
-      component="form"
-      onSubmit={form.onSubmit((value) => editRoom(value))}
-    >
-      <Grid grow>
-        <Grid.Col span={4}>
-          <Box>
-            <TextInput
-              label="Tên phòng"
-              {...form.getInputProps('room_name')}
-              withAsterisk
-              defaultValue={data.roomName}
-            />
-            <Select
-              label="Hạng Phòng"
-              data={[
-                { value: 'Bình dân', label: 'Bình dân' },
-                { value: 'Trung bình', label: 'Trung bình' },
-                { value: 'Cao cấp', label: 'Cao cấp' },
-              ]}
-              {...form.getInputProps('room_type')}
-              defaultValue={data.roomType}
-            />
-            <Select
-              data={[
-                { value: 'Hướng ra Biển', label: 'Hướng ra biển' },
-                { value: 'Hướng ra núi', label: 'Hướng ra núi' },
-                { value: 'Hướng ra vịnh', label: 'Hướng ra vịnh ' },
-              ]}
-              label="Hướng Phòng"
-              {...form.getInputProps('location')}
-              withAsterisk
-              defaultValue={data.roomLocate}
-            />
-          </Box>
-        </Grid.Col>
-        <Grid.Col span={4}>
-          <Box>
-            <NumberInput
-              label="Giá tiền"
-              {...form.getInputProps('room_price')}
-              defaultValue={data.roomPrice}
-            />
-            <MultiSelect
-              data={ftList}
-              clearable
-              searchable
-              searchValue={searchFeatures}
-              onSearchChange={setSearchFeatures}
-              {...form.getInputProps('featured')}
-              label="Dịch vụ"
-              defaultValue={data.roomFeature}
-            />
-          </Box>
-        </Grid.Col>
-      </Grid>
-      <Box style={{ paddingTop: '10px' }}>
-        <TextEdit
-          {...form.getInputProps('desc')}
-          defaultValue={data.roomDesc}
-        />
-      </Box>
-      <Button style={{ width: '100%', marginTop: '10px' }} type="submit">
-        Sửa
-      </Button>
-    </Paper>
+    <ScrollArea sx={{ height: 600 }}>
+      <Paper
+        component="form"
+        onSubmit={form.onSubmit((value) => editRoom(value))}
+      >
+        <Grid grow>
+          <Grid.Col span={4}>
+            <Box>
+              <TextInput
+                label="Tên phòng"
+                {...form.getInputProps('room_name')}
+                withAsterisk
+                defaultValue={data.roomName}
+              />
+              <Select
+                label="Hạng Phòng"
+                data={[
+                  { value: 'Bình dân', label: 'Bình dân' },
+                  { value: 'Trung bình', label: 'Trung bình' },
+                  { value: 'Cao cấp', label: 'Cao cấp' },
+                ]}
+                {...form.getInputProps('room_type')}
+                defaultValue={data.roomType}
+              />
+              <Select
+                data={[
+                  { value: 'Hướng ra Biển', label: 'Hướng ra biển' },
+                  { value: 'Hướng ra núi', label: 'Hướng ra núi' },
+                  { value: 'Hướng ra vịnh', label: 'Hướng ra vịnh ' },
+                ]}
+                label="Hướng Phòng"
+                {...form.getInputProps('location')}
+                withAsterisk
+                defaultValue={data.roomLocate}
+              />
+            </Box>
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <Box>
+              <NumberInput
+                label="Giá tiền"
+                {...form.getInputProps('room_price')}
+                defaultValue={data.roomPrice}
+              />
+              <MultiSelect
+                data={ftList}
+                clearable
+                searchable
+                searchValue={searchFeatures}
+                onSearchChange={setSearchFeatures}
+                {...form.getInputProps('featured')}
+                label="Dịch vụ"
+                defaultValue={data.roomFeature}
+              />
+            </Box>
+          </Grid.Col>
+        </Grid>
+        <Box style={{ paddingTop: '10px' }}>
+          <TextEdit {...form.getInputProps('desc')}  />
+        </Box>
+        <Button style={{ width: '100%', marginTop: '10px' }} type="submit">
+          Sửa
+        </Button>
+      </Paper>
+    </ScrollArea>
   );
 };
 
