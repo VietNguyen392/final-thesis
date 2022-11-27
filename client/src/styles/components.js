@@ -35,4 +35,3 @@ export const FilterBar = styled.fieldset`
   padding: 10px;
   margin: 20px 0;
 `;
-

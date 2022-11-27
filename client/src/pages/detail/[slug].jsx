@@ -93,13 +93,13 @@ const DetailRoom = () => {
       <Title level={1} style={{ fontWeight: "bold" }}>
         {t("common.desc")}
       </Title>
-      
-        <div
-          dangerouslySetInnerHTML={{
-            __html: data.desc,
-          }}
-        />
-    
+
+      <div
+        dangerouslySetInnerHTML={{
+          __html: data.desc,
+        }}
+      />
+
       {user ? (
         <Drawer
           open={open}
