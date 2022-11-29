@@ -15,7 +15,8 @@
     "increase": "Price from high to low",
     "byPrice": "By Price",
     "byService": "By Room Serivce",
-    "byLocate": "By Room Locate"
+    "byLocate": "By Room Locate",
+    "make-booking":"Reservation Info"
   },
   "navbar": {
     "home": "Home",

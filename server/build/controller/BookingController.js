@@ -23,7 +23,7 @@ const BookingController = {
     newBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
         try {
-            const { start_date, room, email, end_date, user, billing, quantity } = req.body;
+            const { start_date, room, email, end_date, user, billing, adult_quantity, children_quantity, } = req.body;
             const booking = yield Booking_1.default.create(Object.assign({}, req.body));
             const active_code = (0, genToken_1.generateActiveToken)({ booking });
             const url = `${process.env.APP_URL}/active-booking/${active_code}`;

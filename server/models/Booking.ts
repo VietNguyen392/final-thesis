@@ -14,7 +14,8 @@ const bookingSchema = new mongoose.Schema(
     email: { type: String, require: true },
     billing: { type: Number },
     status: { type: String, default: 'pending' },
-    quantity: { type: Number, min: 0, max: 4 },
+    adult_quantity: { type: Number, min: 0, max: 4 },
+    children_quantity: { type: Number, min: 0, max: 3 },
   },
   { timestamps: true },
 );

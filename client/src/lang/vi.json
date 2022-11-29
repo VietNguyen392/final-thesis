@@ -15,7 +15,8 @@
     "increase": "Giá cao xuống thấp",
     "byPrice": "Theo giá",
     "byService": "Theo dịch vụ",
-    "byLocate": "Theo vị trí"
+    "byLocate": "Theo vị trí",
+    "make-booking":"Thông tin đặt phòng"
   },
   "navbar": {
     "home": "Trang chủ",

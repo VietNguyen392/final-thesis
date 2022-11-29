@@ -12,7 +12,16 @@ const BookingController = {
   newBooking: async (req: IReqAuth, res: Response) => {
     // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
     try {
-      const { start_date, room, email, end_date, user, billing, quantity } = req.body;
+      const {
+        start_date,
+        room,
+        email,
+        end_date,
+        user,
+        billing,
+        adult_quantity,
+        children_quantity,
+      } = req.body;
       const booking = await Booking.create({
         ...req.body,
       });
@@ -124,8 +133,7 @@ const BookingController = {
           },
         },
       ]);
-    
-      
+
       const booking = data[0].totalData;
       const count = data[0].count;
       let total = 0;
@@ -184,8 +192,7 @@ const BookingController = {
           },
         },
       ]);
-    
-      
+
       const booking = data[0].totalData;
       const count = data[0].count;
       let total = 0;
@@ -217,4 +224,4 @@ const BookingController = {
     }
   },
 };
-export default BookingController
+export default BookingController;
