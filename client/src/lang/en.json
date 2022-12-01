@@ -16,7 +16,7 @@
     "byPrice": "By Price",
     "byService": "By Room Serivce",
     "byLocate": "By Room Locate",
-    "make-booking":"Reservation Info"
+    "make-booking": "Reservation Info"
   },
   "navbar": {
     "home": "Home",
@@ -26,7 +26,8 @@
     "logout": "Logout"
   },
   "noti": {
-    "empty": "Please input field"
+    "empty": "Please input field",
+    "success": "Success, please check your mail box"
   },
   "signup": {
     "name": "Full Name",

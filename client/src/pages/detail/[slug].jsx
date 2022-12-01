@@ -36,6 +36,7 @@ const DetailRoom = () => {
     }
   };
   const { data, isFetching, isError } = useQuery("get-detail", getDetailRoom);
+
   if (isFetching) return <Loading />;
   if (isError) return <Empty />;
   return (
@@ -104,8 +105,9 @@ const DetailRoom = () => {
         <Drawer
           open={open}
           onClose={() => setState((p) => ({ ...p, open: false }))}
+          width={500}
         >
-          <FormBooking />
+          <FormBooking roomID={data._id} roomPrice={data.room_price} />
         </Drawer>
       ) : (
         <Modal
