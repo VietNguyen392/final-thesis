@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Typography,
@@ -23,9 +23,11 @@ const { Title, Text } = Typography;
 const DetailRoom = () => {
   const [state, setState] = React.useState({
     open: false,
+    start: "",
+    end: "",
   });
   const [visible, setVisible] = React.useState(false);
-  const { open } = state;
+  const { open, start, end } = state;
   const { slug } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { t } = useTranslation();
@@ -36,7 +38,15 @@ const DetailRoom = () => {
     }
   };
   const { data, isFetching, isError } = useQuery("get-detail", getDetailRoom);
-
+  useEffect(() => {
+    GET(`get-room-booking/${slug}`).then((res) =>
+      setState((p) => ({
+        ...p,
+        start: res.data.booking?.[0].start_date,
+        end: res.data.booking?.[0].end_date,
+      }))
+    );
+  }, [slug]);
   if (isFetching) return <Loading />;
   if (isError) return <Empty />;
   return (
@@ -105,9 +115,15 @@ const DetailRoom = () => {
         <Drawer
           open={open}
           onClose={() => setState((p) => ({ ...p, open: false }))}
-          width={500}
+          placement={"top"}
         >
-          <FormBooking roomID={data._id} roomPrice={data.room_price} />
+          <FormBooking
+            roomID={data._id}
+            roomPrice={data.room_price}
+            success={() => setState((p) => ({ ...p, open: false }))}
+            startOff={start}
+            endOff={end}
+          />
         </Drawer>
       ) : (
         <Modal

@@ -7,7 +7,7 @@ const Profile = () => {
   if (!user) return <Error />;
   return (
     <div>
-      <User userName={user.user.fullName} />
+      <User />
     </div>
   );
 };

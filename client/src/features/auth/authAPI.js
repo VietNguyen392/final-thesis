@@ -28,10 +28,10 @@ const AuthAction = {
     // const expire = await checkToken(token);
     // const new_token = expire ? expire : token;
     try {
+      localStorage.removeItem("user");
       const res = await GET("logout", token);
       if (res.status === 200) {
         message.success("Đăng xuất thành công");
-        localStorage.removeItem("user");
       }
     } catch (error) {
       notification.error({

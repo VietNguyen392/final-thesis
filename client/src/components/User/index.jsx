@@ -9,7 +9,7 @@ const User = () => {
       children: <Info />,
       key: 1,
     },
-    { label: "Thông tin đặt phòng", children: <BookingInfo />, key: 2 },
+    { label: "Lịch sử đặt phòng", children: <BookingInfo />, key: 2 },
   ];
   return (
     <div>

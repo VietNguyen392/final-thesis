@@ -102,13 +102,10 @@ const BookingController = {
                             },
                             {
                                 $lookup: {
-                                    from: 'users',
-                                    let: { user_id: '$user' },
-                                    pipeline: [
-                                        { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
-                                        { $project: { password: 0 } },
-                                    ],
-                                    as: 'user',
+                                    from: 'rooms',
+                                    let: { room_id: '$room' },
+                                    pipeline: [{ $match: { $expr: { $eq: ['$_id', '$$room_id'] } } }],
+                                    as: 'room',
                                 },
                             },
                             { $unwind: '$user' },
@@ -162,16 +159,24 @@ const BookingController = {
                             },
                             {
                                 $lookup: {
-                                    from: 'hotels',
-                                    let: { hotel_id: '$hotel' },
-                                    pipeline: [
-                                        { $match: { $expr: { $eq: ['$_id', '$$hotel_id'] } } },
-                                        // { $project: { password: 0 } },
-                                    ],
-                                    as: 'hotel',
+                                    from: 'rooms',
+                                    let: { room_id: '$room' },
+                                    pipeline: [{ $match: { $expr: { $eq: ['$_id', '$$room_id'] } } }],
+                                    as: 'room',
                                 },
                             },
-                            { $unwind: '$hotel' },
+                            {
+                                $lookup: {
+                                    from: 'users',
+                                    let: { user_id: '$user' },
+                                    pipeline: [
+                                        { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
+                                        { $project: { password: 0 } },
+                                    ],
+                                    as: 'user',
+                                },
+                            },
+                            { $unwind: '$room' },
                             { $sort: { createdAt: -1 } },
                             { $skip: skip },
                             { $limit: limit },

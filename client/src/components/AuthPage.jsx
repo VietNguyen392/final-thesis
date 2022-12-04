@@ -8,7 +8,7 @@ const AuthPage = () => {
   return (
     <div>
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey={"1"}
         centered
         type="card"
         items={[

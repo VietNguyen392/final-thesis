@@ -5,8 +5,9 @@ import { Button, Form, Input, Modal } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { login, reset } from "features/auth/authSlice";
 import Forgot from "./Forgot";
+import FormRegister from "./FormRegister";
 import { useTranslation } from "react-i18next";
-const FormLogin = () => {
+const FormLogin = ({ onChange }) => {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -66,11 +67,18 @@ const FormLogin = () => {
             placeholder={t("common.password")}
           />
         </Form.Item>
-        <Form.Item>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Button onClick={() => setOpen(true)} type="link">
             {t("common.forgot")}
           </Button>
-        </Form.Item>
+          <Button type="link">Chưa có tài khoản ? Hãy đăng ký</Button>
+        </div>
 
         <Form.Item>
           <Button
@@ -90,6 +98,9 @@ const FormLogin = () => {
         title={"Cấp Lại Mật Khẩu"}
       >
         <Forgot success={() => setOpen(false)} />
+      </Modal>
+      <Modal>
+        <FormRegister />
       </Modal>
     </div>
   );
