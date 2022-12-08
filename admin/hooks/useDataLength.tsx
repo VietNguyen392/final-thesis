@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { routes } from 'utils/routes';
-import { getAllUserProfile, getRoomList, GET } from 'utils';
+import { getAllUserProfile, getRoomList } from 'utils/service';
 export const useDataLength = () => {
   const [state, setState] = useState({
     userList: [],
