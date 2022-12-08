@@ -9,16 +9,16 @@ import {
   Stack,
   useMantineTheme,
 } from '@mantine/core';
-import { getUserById } from 'utils';
+import { GET } from 'utils';
 const Home: NextPage = () => {
-  const { userList, hotelList } = useDataLength();
+  const { userList, hotelList, bookingList } = useDataLength();
   return (
     <>
       <Box>
         <Stack>
           <StatCard length={userList} listName="Người dùng" />
           <StatCard length={hotelList} listName="Phòng" />
-          <StatCard length={12} listName="Lịch đặt phòng" />
+          <StatCard length={bookingList} listName="Lịch đặt phòng" />
         </Stack>
       </Box>
     </>

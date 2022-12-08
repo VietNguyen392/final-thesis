@@ -6,15 +6,11 @@ function ManageBooking() {
     <div>
       <Tabs variant="outline" defaultValue={'notpay'}>
         <Tabs.List>
-          <Tabs.Tab value="notpay">Chưa thanh toán</Tabs.Tab>
-          <Tabs.Tab value="haspay">Đã thanh toán</Tabs.Tab>
+          <Tabs.Tab value="notpay">Chưa xác nhận</Tabs.Tab>
           <Tabs.Tab value="confirm">Đă xác nhận</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="notpay">
           <Notpay />
-        </Tabs.Panel>
-        <Tabs.Panel value="haspay">
-          <HasPay />
         </Tabs.Panel>
         <Tabs.Panel value="confirm">
           <Confirm />
