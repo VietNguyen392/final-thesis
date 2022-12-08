@@ -14,5 +14,6 @@ export const routes = {
     room: '/api/room',
     createUser: '/api/create-user',
     service: '/api/service',
+    booking_list: '/api/get-all-booking',
   },
 };

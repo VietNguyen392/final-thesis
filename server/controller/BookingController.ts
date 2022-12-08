@@ -21,20 +21,25 @@ const BookingController = {
         billing,
         adult_quantity,
         children_quantity,
+        room_name,
+        customer_name,
       } = req.body;
       const booking = await Booking.create({
         ...req.body,
       });
-      const active_code = generateActiveToken({ booking });
-      const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-      if (validateEmail(email)) {
-        sendMail(email, url, 'Xác nhận đặt phòng', email);
-        return res.send({ msg: 'Success' });
-      }
+      // const active_code = generateActiveToken({ booking });
+      // const url = `${process.env.APP_URL}/active-booking/${active_code}`;
+      // if (validateEmail(email)) {
+      //   sendMail(email, url, 'Xác nhận đặt phòng', email);
+      //   return res.send({ msg: 'Success' });
+      // }
+      const new_Booking = new Booking(booking);
+
+      await new_Booking.save();
       res.json({
         status: 200,
         msg: 'Success',
-        active_code,
+        // active_code,
       });
     } catch (e: any) {
       res.status(500).send({ msg: 'Error' });

@@ -39,3 +39,14 @@ a {
   text-decoration: none;
   color: blue;
 }
+
+.mt{
+  margin-top:1.2em;
+}
+.invoice-group{
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex: 1;
+}

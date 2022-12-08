@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { routes } from 'utils/routes';
-import { getAllUserProfile, getRoomList } from 'utils/service';
+import { getAllUserProfile, getRoomList, GET } from 'utils';
 export const useDataLength = () => {
   const [state, setState] = useState({
     userList: [],
     hotelList: [],
+    bookingList: [],
   });
-  const { userList, hotelList } = state;
+  const { userList, hotelList, bookingList } = state;
   useEffect(() => {
     getAllUserProfile().then((res) => {
       setState((o) => ({
@@ -33,8 +34,29 @@ export const useDataLength = () => {
       }));
     });
   }, []);
+  useEffect(() => {
+    GET(routes.api.booking_list).then((res) =>
+      setState((p) => ({
+        ...p,
+        bookingList: res?.data?.map(
+          (item: { _id: string; billing: number }) => {
+            return {
+              id: item?._id,
+              invoice: item.billing,
+            };
+          },
+        ),
+      })),
+    );
+  }, []);
+  // const monthInvoice = (bookingList as any)?.invoice?.reduce(
+  //   (a: number, b: number) => a + b,
+  //   0,
+  // );
+  // console.log(monthInvoice);
   return {
     userList: userList.length,
     hotelList: hotelList.length,
+    bookingList: bookingList,
   };
 };

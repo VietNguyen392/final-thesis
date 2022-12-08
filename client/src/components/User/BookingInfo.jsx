@@ -1,8 +1,10 @@
 import React from "react";
 import { GET } from "service";
+import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { message, Table, Tag } from "antd";
+
 import Loading from "../loading";
 import moment from "moment";
 const BookingInfo = () => {
@@ -24,7 +26,7 @@ const BookingInfo = () => {
     adult_quantity: item.adult_quantity,
     children_quantity: item.children_quantity,
     billing: `${item.billing}$`,
-    room: item.room?.[0].room_name,
+    room: item.room?.[0],
     status: item.status,
   }));
   const columns = [
@@ -57,6 +59,11 @@ const BookingInfo = () => {
       title: "Phòng",
       key: "room",
       dataIndex: "room",
+      render:(room)=>(
+        <Link to={`/detail/${room._id}`}>
+        {room.room_name}
+        </Link>
+      )
     },
     {
       title: "Trạng thái",

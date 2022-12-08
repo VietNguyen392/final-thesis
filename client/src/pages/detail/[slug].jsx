@@ -42,8 +42,8 @@ const DetailRoom = () => {
     GET(`get-room-booking/${slug}`).then((res) =>
       setState((p) => ({
         ...p,
-        start: res.data.booking?.[0].start_date,
-        end: res.data.booking?.[0].end_date,
+        start: res.data.booking?.[0]?.start_date,
+        end: res.data.booking?.[0]?.end_date,
       }))
     );
   }, [slug]);
@@ -123,6 +123,7 @@ const DetailRoom = () => {
             success={() => setState((p) => ({ ...p, open: false }))}
             startOff={start}
             endOff={end}
+            roomName={data.room_name}
           />
         </Drawer>
       ) : (

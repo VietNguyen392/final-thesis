@@ -10,6 +10,7 @@ import {
   message,
   Button,
   InputNumber,
+  Divider,
 } from "antd";
 import { useTranslation } from "react-i18next";
 import { timeBetween } from "utils";
@@ -18,7 +19,14 @@ import moment from "moment";
 
 const { Title, Text } = Typography;
 const { RangePicker } = DatePicker;
-const FormBooking = ({ roomID, roomPrice, success, startOff, endOff }) => {
+const FormBooking = ({
+  roomID,
+  roomPrice,
+  success,
+  startOff,
+  endOff,
+  roomName,
+}) => {
   const [state, setState] = useState({
     bill: 0,
     adult: 1,
@@ -41,7 +49,10 @@ const FormBooking = ({ roomID, roomPrice, success, startOff, endOff }) => {
     user: user.user._id,
     email: user.user.email,
     billing: 0,
+    room_name: roomName,
+    customer_name: user.user.fullName,
   };
+
   const disabledDate = (current) => {
     return current && current < moment().endOf("day");
   };
@@ -70,19 +81,21 @@ const FormBooking = ({ roomID, roomPrice, success, startOff, endOff }) => {
     } catch (e) {
       message.error(e.response.data.msg);
     }
-    // console.log(value);
   }
+
   return (
     <Row>
       <Col span={6}>
         <Title level={3}>{t("common.make-booking")}</Title>
         <Title level={4}>Chọn ngày</Title>
+
         <RangePicker
           format="YYYY-MM-DD"
           onChange={onChooseDate}
           disabledDate={disabledDate}
         />
-        {/*<Divider />*/}
+
+        <Divider />
         <Form
           initialValues={initFormValue}
           form={form}
@@ -117,6 +130,12 @@ const FormBooking = ({ roomID, roomPrice, success, startOff, endOff }) => {
             <input type={"hidden"} />
           </Form.Item>
           <Form.Item hidden={true} name={"billing"}>
+            <input type={"hidden"} />
+          </Form.Item>{" "}
+          <Form.Item hidden={true} name={"room_name"}>
+            <input type={"hidden"} />
+          </Form.Item>{" "}
+          <Form.Item hidden={true} name={"customer_name"}>
             <input type={"hidden"} />
           </Form.Item>
           <Button htmlType={"submit"} type={"primary"}>

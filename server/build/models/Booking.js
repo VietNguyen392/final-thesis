@@ -18,5 +18,7 @@ const bookingSchema = new mongoose_1.default.Schema({
     status: { type: String, default: 'pending' },
     adult_quantity: { type: Number, min: 0, max: 4 },
     children_quantity: { type: Number, min: 0, max: 3 },
+    customer_name: { type: String },
+    room_name: { type: String },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('Booking', bookingSchema);

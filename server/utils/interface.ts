@@ -23,15 +23,7 @@ export interface IRoom extends Document {
   desc: string;
   featured: string[];
 }
-export interface IRoom extends Document {
-  title: string;
-  price: number;
-  max: number;
-  desc: string;
-  roomNumbers: number;
-  features: string;
-  hotel: string;
-}
+
 export interface INewUser {
   fullName: string;
   email: string;
@@ -74,7 +66,9 @@ export interface IBooking extends Document {
   billing: number;
   status: string;
   adult_quantity: number;
-  children_quantity:number
+  children_quantity: number;
+  customer_name: string;
+  room_name: string;
   _doc: object;
 }
 export interface INoti extends Document {
