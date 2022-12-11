@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { routes, GET } from 'utils';
 import { getAllUserProfile, getRoomList } from 'utils/service';
+
 export const useDataLength = () => {
   const [state, setState] = useState({
     userList: [],
@@ -38,6 +39,7 @@ export const useDataLength = () => {
     GET(routes.api.booking_list).then((res) =>
       setState((p) => ({
         ...p,
+
         bookingList: res?.data?.map(
           (item: { _id: string; billing: number }) => {
             return {
@@ -58,5 +60,6 @@ export const useDataLength = () => {
     userList: userList.length,
     hotelList: hotelList.length,
     bookingList: bookingList,
+
   };
 };

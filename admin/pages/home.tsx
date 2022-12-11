@@ -6,12 +6,14 @@ import { useDataLength } from 'hooks';
 import { SimpleGrid, Box, Stack, Accordion } from '@mantine/core';
 import { UserList, RoomList, BookingList } from 'components/List';
 const { Item, Control, Panel } = Accordion;
+
 const Home: NextPage = () => {
   const { userList, hotelList, bookingList } = useDataLength();
   return (
     <>
       <Box>
         <Stack>
+
           <Accordion variant={'filled'}>
             <Item value={'user'}>
               <Control>
@@ -43,6 +45,7 @@ const Home: NextPage = () => {
               </Panel>
             </Item>
           </Accordion>
+
         </Stack>
         <div className={'invoice-group mt'}>
           <Invoice
