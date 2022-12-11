@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { routes } from 'utils/routes';
-import { getAllUserProfile, getRoomList, GET } from 'utils';
+import { routes, GET } from 'utils';
+import { getAllUserProfile, getRoomList } from 'utils/service';
+
 export const useDataLength = () => {
   const [state, setState] = useState({
     userList: [],
@@ -38,17 +39,27 @@ export const useDataLength = () => {
     GET(routes.api.booking_list).then((res) =>
       setState((p) => ({
         ...p,
-        bookingList: res?.data?.map((item: any) => {
-          return {
-            id: item?._id,
-          };
-        }),
+
+        bookingList: res?.data?.map(
+          (item: { _id: string; billing: number }) => {
+            return {
+              id: item?._id,
+              invoice: item.billing,
+            };
+          },
+        ),
       })),
     );
   }, []);
+  // const monthInvoice = (bookingList as any)?.invoice?.reduce(
+  //   (a: number, b: number) => a + b,
+  //   0,
+  // );
+  // console.log(monthInvoice);
   return {
     userList: userList.length,
     hotelList: hotelList.length,
-    bookingList: bookingList.length,
+    bookingList: bookingList,
+
   };
 };
