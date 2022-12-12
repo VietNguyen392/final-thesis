@@ -13,7 +13,6 @@ type bookingL = {
   children_quantity: number;
   billing: number;
   status: string;
-
 };
 const Notpay = () => {
   const getListBooking = async () => {
@@ -28,9 +27,7 @@ const Notpay = () => {
         <Table sx={{ minWidth: 800 }} withBorder highlightOnHover>
           <thead>
             <tr>
-
               <th>STT</th>
-
               <th>Tên khách hàng</th>
               <th>Email khách hàng</th>
               <th>Phòng</th>
@@ -43,11 +40,9 @@ const Notpay = () => {
             </tr>
           </thead>
           <tbody>
-
             {data?.map((item: bookingL, index: number) => (
               <tr key={item._id}>
                 <td>{index + 1}</td>
-
                 <td>{item.customer_name}</td>
                 <td>{item.email}</td>
                 <td>{item.room_name}</td>
