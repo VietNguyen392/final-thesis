@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Menu, Avatar, Select } from "antd";
 import {
   HomeOutlined,
-  ShoppingCartOutlined,
   UserOutlined,
   LogoutOutlined,
   LoginOutlined,

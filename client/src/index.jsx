@@ -5,6 +5,7 @@ import { store } from "redux/store";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "antd/dist/antd.min.css";
+import "bulma/css/bulma.min.css";
 import "./styles/Css/index.css";
 import App from "./App";
 import "./i18n";

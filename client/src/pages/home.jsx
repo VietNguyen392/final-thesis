@@ -1,7 +1,9 @@
 import React from "react";
+import { Calendar, DatePicker } from "antd";
 import { Banner, HomeWelComeText } from "components/common";
+
 import HomeList from "components/HomeList";
-import ListItem from "components/List";
+const { RangePicker } = DatePicker;
 const Home = () => {
   return (
     <>
@@ -9,9 +11,10 @@ const Home = () => {
       <div className="container">
         <HomeWelComeText />
         <div style={{ marginTop: "10px" }}>
+         
+
           <HomeList />
         </div>
-        {/* <ListItem/> */}
       </div>
     </>
   );

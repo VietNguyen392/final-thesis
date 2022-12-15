@@ -1,29 +1,20 @@
 import React from "react";
-import {Button, DatePicker, Form} from "antd";
+import {  DatePicker, Empty } from "antd";
+import Title from "antd/lib/typography/Title";
+import HomeList from "components/HomeList";
 const { RangePicker } = DatePicker;
 const About = () => {
-  const [form] = Form.useForm();
+
   return (
-    <Form
-      initialValues={{ date: "" }}
-      onFinish={(value) => console.log(value)}
-      form={form }
-      name={"test"}
-    >
-      <Form.Item name={"date"}>
+    <div className="mx-4">
+      <Title level={3}>Chọn ngày</Title>
+      <div className="my-3 ">
         <RangePicker />
-      </Form.Item>
-      <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-      >
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      </div>
+      <div className="container">
+      <HomeList/>
+      </div>
+    </div>
   );
 };
 

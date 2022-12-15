@@ -116,6 +116,7 @@ const DetailRoom = () => {
           open={open}
           onClose={() => setState((p) => ({ ...p, open: false }))}
           placement={"top"}
+          title='Thông tin đặt phòng'
         >
           <FormBooking
             roomID={data._id}
@@ -129,6 +130,7 @@ const DetailRoom = () => {
       ) : (
         <Modal
           open={open}
+         
           onClose={() => setState((p) => ({ ...p, open: false }))}
           onCancel={() => setState((p) => ({ ...p, open: false }))}
           title={t("common.login")}

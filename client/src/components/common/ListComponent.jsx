@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { HomeItemWrapper } from "styles/components";
 import { useTranslation } from "react-i18next";
 const ListComponent = (props) => {
-  const [visible, setVisible] = React.useState(false);
   const { items } = props;
   const { t } = useTranslation();
   return (

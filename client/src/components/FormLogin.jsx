@@ -15,15 +15,15 @@ const FormLogin = ({ onChange }) => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
   const handleLogin = (value) => {
-    dispatch(login(value)).then(() => form.resetFields());
+    dispatch(login(value));
   };
 
-  React.useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/");
-    }
-    dispatch(reset());
-  }, [user, navigate, dispatch, isSuccess]);
+  // React.useEffect(() => {
+  //   if (user || isSuccess) {
+  //     navigate("/");
+  //   }
+  //   dispatch(reset());
+  // }, [user, navigate, dispatch, isSuccess]);
   return (
     <div>
       <Form

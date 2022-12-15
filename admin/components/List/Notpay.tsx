@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 import { GET, routes } from 'utils';
-import { Table, ScrollArea, Badge } from '@mantine/core';
+import { Table, ScrollArea, Badge, Tooltip, Button } from '@mantine/core';
+import { ButtonGroup } from '@mantine/core/lib/Button/ButtonGroup/ButtonGroup';
+import { IconBallpen, IconTrash } from '@tabler/icons';
 type bookingL = {
   _id: string;
   customer_name: string;
@@ -37,6 +39,7 @@ const Notpay = () => {
               <th>Số lượng trẻ em</th>
               <th>Tổng bill</th>
               <th>Trạng thái</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -58,6 +61,16 @@ const Notpay = () => {
                   >
                     {item.status}
                   </Badge>
+                </td>
+                <td style={{ textAlign: 'center' }}>
+                  <Tooltip label="Sửa" color={'blue'} withArrow>
+                    <Button leftIcon={<IconBallpen />}>xác nhận</Button>
+                  </Tooltip>
+                  <Tooltip label="Xóa" color={'red'} withArrow>
+                    <Button color="red" leftIcon={<IconTrash />}>
+                      từ chối
+                    </Button>
+                  </Tooltip>
                 </td>
               </tr>
             ))}

@@ -14,7 +14,7 @@ const HomeList = () => {
     return res.data;
   }
   const { data, isFetching, isError } = useQuery("get-list", getHotel);
-  const roomList = data?.data;
+  const roomList = data?.data
   if (isFetching) return <Loading />;
   if (isError) return <Empty />;
   return (

@@ -84,9 +84,9 @@ const FormBooking = ({
   }
 
   return (
-    <Row>
-      <Col span={6}>
-        <Title level={3}>{t("common.make-booking")}</Title>
+    <div className="columns">
+        {/* <Title level={3}>{t("common.make-booking")}</Title> */}
+      <div className="column" >
         <Title level={4}>Chọn ngày</Title>
 
         <RangePicker
@@ -95,25 +95,32 @@ const FormBooking = ({
           disabledDate={disabledDate}
         />
 
-        <Divider />
+        {/* <Divider /> */}
         <Form
           initialValues={initFormValue}
           form={form}
           onFinish={postNewBooking}
           layout={"vertical"}
         >
-          <Form.Item name={"adult_quantity"} label={"Người lớn"}>
-            <InputNumber
-              min={1}
-              onChange={(v) => setState((p) => ({ ...p, adult: v }))}
-            />
-          </Form.Item>{" "}
-          <Form.Item name={"children_quantity"} label={"Trẻ em"}>
-            <InputNumber
-              min={1}
-              onChange={(v) => setState((p) => ({ ...p, child: v }))}
-            />
-          </Form.Item>
+          <div className="columns">
+            <div className="column">
+              <Form.Item name={"adult_quantity"} label={"Người lớn"}>
+                <InputNumber
+                  min={1}
+                  onChange={(v) => setState((p) => ({ ...p, adult: v }))}
+                />
+              </Form.Item>
+            </div>
+
+            <div className="column">
+              <Form.Item name={"children_quantity"} label={"Trẻ em"}>
+                <InputNumber
+                  min={1}
+                  onChange={(v) => setState((p) => ({ ...p, child: v }))}
+                />
+              </Form.Item>
+            </div>
+          </div>
           <Form.Item hidden={true} name={"start_date"}>
             <input type={"hidden"} />
           </Form.Item>
@@ -138,12 +145,12 @@ const FormBooking = ({
           <Form.Item hidden={true} name={"customer_name"}>
             <input type={"hidden"} />
           </Form.Item>
-          <Button htmlType={"submit"} type={"primary"}>
+          <Button htmlType={"submit"} type={"primary"} fullWidth>
             Xác nhận
           </Button>
         </Form>
-      </Col>
-      <Col span={6}>
+      </div>
+      <div className="column" >
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
@@ -170,8 +177,8 @@ const FormBooking = ({
             <Text>{bill}$</Text>
           </div>
         </div>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 
