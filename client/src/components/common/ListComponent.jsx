@@ -32,14 +32,14 @@ const ListComponent = (props) => {
                     {item.room_price}$
                   </Typography.Text>
                 </span>
-                <span>
-                  {t("common.feature")}:
-                  <ul>
-                    {item.featured?.map((i, index) => (
-                      <li key={index}>{i}</li>
-                    ))}
-                  </ul>
-                </span>
+                {/*<span>*/}
+                {/*  {t("common.feature")}:*/}
+                {/*  <ul>*/}
+                {/*    {item.featured?.map((i, index) => (*/}
+                {/*      <li key={index}>{i}</li>*/}
+                {/*    ))}*/}
+                {/*  </ul>*/}
+                {/*</span>*/}
               </div>
               <div className="price"></div>
             </div>

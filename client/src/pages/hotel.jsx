@@ -1,15 +1,26 @@
 import React from "react";
-import { Button, Modal, Calendar, Tag, Image } from "antd";
-import { CustomTag } from "styles/components";
-import { timeBetween } from "utils";
-import BookingBar from "components/bookingBar";
+import {
+  Button,
+  Modal,
+  Calendar,
+  Tag,
+  Image,
+  DatePicker,
+  Typography,
+} from "antd";
+
 import HomeList from "components/HomeList";
 
+const { RangePicker } = DatePicker;
+const { Title } = Typography;
 const Hotel = () => {
   return (
-    <div>
-      <div className={"container"}>
-        <BookingBar />
+    <div className="mx-4">
+      <Title level={3}>Chọn ngày</Title>
+      <div className="my-3 ">
+        <RangePicker />
+      </div>
+      <div className="container">
         <HomeList />
       </div>
     </div>
