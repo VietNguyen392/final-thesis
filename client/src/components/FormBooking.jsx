@@ -85,8 +85,8 @@ const FormBooking = ({
 
   return (
     <div className="columns">
-        {/* <Title level={3}>{t("common.make-booking")}</Title> */}
-      <div className="column" >
+      {/* <Title level={3}>{t("common.make-booking")}</Title> */}
+      <div className="column">
         <Title level={4}>Chọn ngày</Title>
 
         <RangePicker
@@ -150,7 +150,7 @@ const FormBooking = ({
           </Button>
         </Form>
       </div>
-      <div className="column" >
+      <div className="column">
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>

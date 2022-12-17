@@ -80,5 +80,21 @@ const RoomController = {
             res.status(500).json({ msg: 'Server error' });
         }
     }),
+    // getRoomByBooking: async (req: Request, res: Response) => {
+    //   try {
+    //    const data=await Room.aggregate([{
+    //     $facet:{
+    //       result:[{
+    //         $match:{
+    //           booking:new mongoose.Types.ObjectId(req.params.id),
+    //           start_date:
+    //         }
+    //       }]
+    //     }
+    //    }])
+    //   } catch (e: any) {
+    //     return res.json({ status: 500, msg: 'Internal Server Error' });
+    //   }
+    // },
 };
 exports.default = RoomController;

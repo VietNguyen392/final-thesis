@@ -36,8 +36,9 @@ export const initWebRoute = (app: any) => {
   routes.get('/get-user-booking/:id', BookingController.getBookingByUser);
   routes.put('/change-booking-status/:id', BookingController.updateBookingStatus);
   routes.get('/get-room-booking/:id', BookingController.getBookingByRoom);
-  routes.delete('/delete-booking/:id', BookingController.deleteBooking),
-    routes.delete('/deleteAll-booking', BookingController.deleteAllBooking);
+  routes.delete('/delete-booking/:id', BookingController.deleteBooking);
+  routes.delete('/deleteAll-booking', BookingController.deleteAllBooking);
+  routes.get('/valid-booking/:start_date&:end_date', BookingController.getBookingByDate);
   //*Service routes
   routes.route('/service').post(ServiceController.createService).get(ServiceController.getService);
   routes

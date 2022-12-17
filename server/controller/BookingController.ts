@@ -3,11 +3,9 @@ import mongoose from 'mongoose';
 import Booking from '../models/Booking';
 import sendMail from '../config/sendEmail';
 import { generateActiveToken } from '../config/genToken';
-import { IBooking, IDecodedToken, validateEmail, IReqAuth } from '../utils';
+import { IDecodedToken, validateEmail, IReqAuth } from '../utils';
 import jwt from 'jsonwebtoken';
 import { Pagination } from '../middleware';
-import Users from '../models/User';
-import { io } from '../index';
 const BookingController = {
   newBooking: async (req: IReqAuth, res: Response) => {
     // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
@@ -24,22 +22,24 @@ const BookingController = {
         room_name,
         customer_name,
       } = req.body;
-      const booking = await Booking.create({
-        ...req.body,
-      });
-      // const active_code = generateActiveToken({ booking });
-      // const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-      // if (validateEmail(email)) {
-      //   sendMail(email, url, 'Xác nhận đặt phòng', email);
-      //   return res.send({ msg: 'Success' });
-      // }
-      const new_Booking = new Booking(booking);
 
-      await new_Booking.save();
+      const newBooking = { ...req.body };
+      const isBooking = await Booking.findOne({
+        room: newBooking.room,
+        start_date: newBooking.start_date,
+        end_date: newBooking.end_date,
+      });
+      if (isBooking) return res.status(400).send({ msg: 'Booking already create' });
+      const active_code = generateActiveToken({ newBooking });
+      const url = `${process.env.APP_URL}/active-booking/${active_code}`;
+      if (validateEmail(email)) {
+        sendMail(email, url, 'Xác nhận đặt phòng', email);
+        return res.send({ msg: 'Success' });
+      }
       res.json({
         status: 200,
         msg: 'Success',
-        // active_code,
+        active_code,
       });
     } catch (e: any) {
       res.status(500).send({ msg: 'Error' });
@@ -50,19 +50,13 @@ const BookingController = {
       const { active_code } = req.body;
       const decoded = <IDecodedToken>jwt.verify(active_code, `${process.env.ACTIVE_TOKEN_SECRET}`);
       const { newBooking } = decoded;
-
       if (!newBooking) return res.status(400).send({ msg: 'Invalid ' });
 
-      /*const isBooking = await Booking.find({
-        start_date: newBooking.start_date,
-        end_date: newBooking.end_date,
-      });
-      if (isBooking) return res.status(400).json({ msg: 'Booking already create' });*/
       const new_Booking = new Booking(newBooking);
 
       await new_Booking.save();
 
-      res.json({ msg: 'Success', data: new_Booking });
+      res.json({ msg: 'Success' });
     } catch (e: any) {
       res.json({
         status: 500,
@@ -231,6 +225,18 @@ const BookingController = {
       res.status(200).send({ msg: 'delete all booking success' });
     } catch (error: any) {
       return res.json({ status: 500, msg: error });
+    }
+  },
+  getBookingByDate: async (req: Request, res: Response) => {
+    try {
+      const booking = await Booking.find({
+        start_date: req.params.start_date,
+        end_date: req.params.end_date,
+      });
+
+      return res.json({ status: 200, booking });
+    } catch (e: any) {
+      return res.json({ status: 500, msg: 'Internal Server Error' });
     }
   },
 };

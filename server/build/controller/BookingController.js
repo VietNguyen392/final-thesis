@@ -14,6 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Booking_1 = __importDefault(require("../models/Booking"));
+const sendEmail_1 = __importDefault(require("../config/sendEmail"));
+const genToken_1 = require("../config/genToken");
+const utils_1 = require("../utils");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const middleware_1 = require("../middleware");
 const BookingController = {
@@ -21,19 +24,24 @@ const BookingController = {
         // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
         try {
             const { start_date, room, email, end_date, user, billing, adult_quantity, children_quantity, room_name, customer_name, } = req.body;
-            const booking = yield Booking_1.default.create(Object.assign({}, req.body));
-            // const active_code = generateActiveToken({ booking });
-            // const url = `${process.env.APP_URL}/active-booking/${active_code}`;
-            // if (validateEmail(email)) {
-            //   sendMail(email, url, 'Xác nhận đặt phòng', email);
-            //   return res.send({ msg: 'Success' });
-            // }
-            const new_Booking = new Booking_1.default(booking);
-            yield new_Booking.save();
+            const newBooking = Object.assign({}, req.body);
+            const isBooking = yield Booking_1.default.findOne({
+                room: newBooking.room,
+                start_date: newBooking.start_date,
+                end_date: newBooking.end_date,
+            });
+            if (isBooking)
+                return res.status(400).send({ msg: 'Booking already create' });
+            const active_code = (0, genToken_1.generateActiveToken)({ newBooking });
+            const url = `${process.env.APP_URL}/active-booking/${active_code}`;
+            if ((0, utils_1.validateEmail)(email)) {
+                (0, sendEmail_1.default)(email, url, 'Xác nhận đặt phòng', email);
+                return res.send({ msg: 'Success' });
+            }
             res.json({
                 status: 200,
                 msg: 'Success',
-                // active_code,
+                active_code,
             });
         }
         catch (e) {
@@ -47,14 +55,9 @@ const BookingController = {
             const { newBooking } = decoded;
             if (!newBooking)
                 return res.status(400).send({ msg: 'Invalid ' });
-            /*const isBooking = await Booking.find({
-              start_date: newBooking.start_date,
-              end_date: newBooking.end_date,
-            });
-            if (isBooking) return res.status(400).json({ msg: 'Booking already create' });*/
             const new_Booking = new Booking_1.default(newBooking);
             yield new_Booking.save();
-            res.json({ msg: 'Success', data: new_Booking });
+            res.json({ msg: 'Success' });
         }
         catch (e) {
             res.json({
@@ -230,6 +233,18 @@ const BookingController = {
         }
         catch (error) {
             return res.json({ status: 500, msg: error });
+        }
+    }),
+    getBookingByDate: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const booking = yield Booking_1.default.find({
+                start_date: req.params.start_date,
+                end_date: req.params.end_date,
+            });
+            return res.json({ status: 200, booking });
+        }
+        catch (e) {
+            return res.json({ status: 500, msg: 'Internal Server Error' });
         }
     }),
 };

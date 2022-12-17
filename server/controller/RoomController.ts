@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import Room from '../models/Room';
 import { IReqAuth } from '../utils';
 import { Pagination } from '../middleware';
+import Booking from '../models/Booking';
+import mongoose from 'mongoose';
 const RoomController = {
   createRoom: async (req: IReqAuth, res: Response) => {
     // if (!req.user) return res.status(400).send({ msg: 'Invalid' });
@@ -69,5 +71,21 @@ const RoomController = {
       res.status(500).json({ msg: 'Server error' });
     }
   },
+  // getRoomByBooking: async (req: Request, res: Response) => {
+  //   try {
+  //    const data=await Room.aggregate([{
+  //     $facet:{
+  //       result:[{
+  //         $match:{
+  //           booking:new mongoose.Types.ObjectId(req.params.id),
+  //           start_date:
+  //         }
+  //       }]
+  //     }
+  //    }])
+  //   } catch (e: any) {
+  //     return res.json({ status: 500, msg: 'Internal Server Error' });
+  //   }
+  // },
 };
 export default RoomController;

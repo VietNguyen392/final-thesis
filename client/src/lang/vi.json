@@ -20,7 +20,7 @@
   },
   "navbar": {
     "home": "Trang chủ",
-    "booking": "Đặt phòng này",
+    "booking": "Đặt phòng ",
     "auth": "Đăng nhập/Đăng ký",
     "info": "Thông tin",
     "logout": "Đăng xuất"

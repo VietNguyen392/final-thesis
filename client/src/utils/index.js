@@ -1,5 +1,6 @@
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import moment from "moment";
 export async function checkToken(token) {
   const decode = jwt_decode(token);
   if (decode.exp > Date.now() / 1000) return;
@@ -15,3 +16,6 @@ export function timeBetween(d1, d2) {
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
 }
+export const disabledDate = (current) => {
+  return current && current + 1 <= moment().endOf("day");
+};

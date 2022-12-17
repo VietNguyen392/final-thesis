@@ -37,5 +37,6 @@ const roomSchema = new mongoose_1.default.Schema({
         type: [String],
         default: false,
     },
+    room: { type: mongoose_1.default.Types.ObjectId, ref: 'Booking' },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('Room', roomSchema);
