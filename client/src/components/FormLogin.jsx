@@ -7,8 +7,9 @@ import { login, reset } from "features/auth/authSlice";
 import Forgot from "./Forgot";
 import FormRegister from "./FormRegister";
 import { useTranslation } from "react-i18next";
-const FormLogin = ({ onChange }) => {
+const FormLogin = () => {
   const [open, setOpen] = React.useState(false);
+  const [register, setRegister] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, isSuccess } = useSelector((state) => state.auth);
@@ -77,7 +78,9 @@ const FormLogin = ({ onChange }) => {
           <Button onClick={() => setOpen(true)} type="link">
             {t("common.forgot")}
           </Button>
-          <Button type="link">Chưa có tài khoản ? Hãy đăng ký</Button>
+          <Button type="link" onClick={() => setRegister(true)}>
+            Chưa có tài khoản ? Hãy đăng ký
+          </Button>
         </div>
 
         <Form.Item>
@@ -99,7 +102,12 @@ const FormLogin = ({ onChange }) => {
       >
         <Forgot success={() => setOpen(false)} />
       </Modal>
-      <Modal>
+      <Modal
+        open={register}
+        onCancel={() => setRegister(false)}
+        footer={null}
+        title={"Đăng ký"}
+      >
         <FormRegister />
       </Modal>
     </div>

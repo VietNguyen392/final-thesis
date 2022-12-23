@@ -102,7 +102,7 @@ const UserController = {
       const active_token = generateActiveToken({ newRegister });
       const url = `${process.env.APP_URL}/active/${active_token}`;
       if (validateEmail(email)) {
-        sendMail(email, url, 'Xác thực tài khoản', fullName);
+        await sendMail(email, url, 'Xác thực tài khoản', fullName);
         return res.send({ msg: 'Success' });
       }
       res.json({

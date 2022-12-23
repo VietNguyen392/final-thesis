@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Avatar, Select } from "antd";
+import { Menu, Avatar, Select, Modal, Button } from "antd";
 import {
   HomeOutlined,
   UserOutlined,
@@ -12,9 +12,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "features/auth/authSlice";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import FormLogin from "./FormLogin";
 
 export default function NavBar() {
   const [select, setSelect] = React.useState("home");
+  const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const onLogout = async () => {
@@ -75,11 +77,10 @@ export default function NavBar() {
         }
       : {
           label: (
-            <Link to={"auth"}>
-              {" "}
+            <Button type={"link"} onClick={() => setOpen(true)}>
               <LoginOutlined style={{ marginRight: 5 }} />
               {t("navbar.auth")}
-            </Link>
+            </Button>
           ),
           key: "auth",
         },
@@ -106,13 +107,20 @@ export default function NavBar() {
   return (
     <>
       <Menu
-        // theme="dark"
         mode="horizontal"
         items={links}
         onClick={(e) => setSelect(e.key)}
         selectedKeys={[select]}
         style={{ position: "sticky" }}
       />
+      <Modal
+        open={open}
+        onCancel={() => setOpen(false)}
+        footer={null}
+        title={"Đăng nhập"}
+      >
+        <FormLogin />
+      </Modal>
     </>
   );
 }

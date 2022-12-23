@@ -9,14 +9,20 @@ export default function Active() {
   });
   const { success, error } = state;
   const { slug } = useParams();
+  const effect = React.useRef(false);
   React.useEffect(() => {
-    if (slug) {
-      POST("active-account", { active_token: slug })
-        .then((res) => setState((o) => ({ ...o, success: res.data.msg })))
-        .catch((errors) =>
-          setState((o) => ({ ...o, error: errors.res.data.msg }))
-        );
+    if (effect.current === true) {
+      if (slug) {
+        POST("active-account", { active_token: slug })
+          .then((res) => setState((o) => ({ ...o, success: res.data.msg })))
+          .catch((errors) =>
+            setState((o) => ({ ...o, error: errors.res.data.msg }))
+          );
+      }
     }
+    return () => {
+      effect.current = true;
+    };
   }, [slug]);
   return (
     <>

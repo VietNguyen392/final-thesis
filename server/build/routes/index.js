@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.initWebRoute = void 0;
 const express_1 = __importDefault(require("express"));
 const controller_1 = require("../controller");
-const ServiceController_1 = __importDefault(require("../controller/ServiceController"));
 const utils_1 = require("../utils");
 const middleware_1 = require("../middleware");
 const routes = express_1.default.Router();
@@ -45,11 +44,11 @@ const initWebRoute = (app) => {
     routes.delete('/deleteAll-booking', controller_1.BookingController.deleteAllBooking);
     routes.get('/valid-booking/:start_date&:end_date', controller_1.BookingController.getBookingByDate);
     //*Service routes
-    routes.route('/service').post(ServiceController_1.default.createService).get(ServiceController_1.default.getService);
+    routes.route('/service').post(controller_1.ServiceController.createService).get(controller_1.ServiceController.getService);
     routes
         .route('/service/:id')
-        .patch(ServiceController_1.default.editService)
-        .delete(ServiceController_1.default.deleteService);
+        .patch(controller_1.ServiceController.editService)
+        .delete(controller_1.ServiceController.deleteService);
     return app.use('/api', routes);
 };
 exports.initWebRoute = initWebRoute;

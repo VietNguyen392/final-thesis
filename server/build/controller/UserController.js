@@ -124,7 +124,7 @@ const UserController = {
             const active_token = (0, genToken_1.generateActiveToken)({ newRegister });
             const url = `${process.env.APP_URL}/active/${active_token}`;
             if ((0, utils_1.validateEmail)(email)) {
-                (0, sendEmail_1.default)(email, url, 'Xác thực tài khoản', fullName);
+                yield (0, sendEmail_1.default)(email, url, 'Xác thực tài khoản', fullName);
                 return res.send({ msg: 'Success' });
             }
             res.json({

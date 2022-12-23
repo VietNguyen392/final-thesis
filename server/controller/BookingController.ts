@@ -31,9 +31,10 @@ const BookingController = {
       });
       if (isBooking) return res.status(400).send({ msg: 'Booking already create' });
       const active_code = generateActiveToken({ newBooking });
+      console.log(active_code);
       const url = `${process.env.APP_URL}/active-booking/${active_code}`;
       if (validateEmail(email)) {
-        sendMail(email, url, 'Xác nhận đặt phòng', email);
+        await sendMail(email, url, 'Xác nhận đặt phòng', email);
         return res.send({ msg: 'Success' });
       }
       res.json({
@@ -51,7 +52,12 @@ const BookingController = {
       const decoded = <IDecodedToken>jwt.verify(active_code, `${process.env.ACTIVE_TOKEN_SECRET}`);
       const { newBooking } = decoded;
       if (!newBooking) return res.status(400).send({ msg: 'Invalid ' });
-
+      const isBooking = await Booking.findOne({
+        room: newBooking.room,
+        start_date: newBooking.start_date,
+        end_date: newBooking.end_date,
+      });
+      if (isBooking) return res.status(400).send({ msg: 'Booking already create' });
       const new_Booking = new Booking(newBooking);
 
       await new_Booking.save();

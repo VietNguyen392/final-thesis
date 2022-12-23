@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Main from "components/layout";
-import Loading from "./components/loading";
+import Loading from "components/loading";
 
 const Render = React.lazy(() => import("./Render"));
 const App = () => {

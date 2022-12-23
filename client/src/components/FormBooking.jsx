@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import {
   Typography,
   DatePicker,
@@ -53,9 +52,6 @@ const FormBooking = ({
     customer_name: user.user.fullName,
   };
 
-  const disabledDate = (current) => {
-    return current && current < moment().endOf("day");
-  };
   const onChooseDate = (_, dateString) => {
     const days = timeBetween(dateString[0], dateString[1]) + 1;
     setState((p) => ({
@@ -84,99 +80,105 @@ const FormBooking = ({
   }
 
   return (
-    <div className="columns">
-      {/* <Title level={3}>{t("common.make-booking")}</Title> */}
-      <div className="column">
+    <div>
+      <div>
         <Title level={4}>Chọn ngày</Title>
-
         <RangePicker
           format="YYYY-MM-DD"
           onChange={onChooseDate}
-          disabledDate={disabledDate}
+          disabledDate={(current) =>
+            current.isBefore(moment().subtract(1, "day"))
+          }
+          size={"large"}
+          style={{ width: 480 }}
         />
-
-        {/* <Divider /> */}
+        <Divider />
         <Form
           initialValues={initFormValue}
           form={form}
           onFinish={postNewBooking}
           layout={"vertical"}
         >
-          <div className="columns">
-            <div className="column">
+          <Row>
+            <Col span={12}>
               <Form.Item name={"adult_quantity"} label={"Người lớn"}>
                 <InputNumber
                   min={1}
                   onChange={(v) => setState((p) => ({ ...p, adult: v }))}
+                  style={{ width: 220 }}
                 />
               </Form.Item>
-            </div>
-
-            <div className="column">
+            </Col>
+            <Col span={12}>
               <Form.Item name={"children_quantity"} label={"Trẻ em"}>
                 <InputNumber
                   min={1}
                   onChange={(v) => setState((p) => ({ ...p, child: v }))}
+                  style={{ width: 240 }}
                 />
               </Form.Item>
+            </Col>
+          </Row>
+          <Divider />
+          <>
+            <Form.Item hidden={true} name={"start_date"}>
+              <input type={"hidden"} />
+            </Form.Item>
+            <Form.Item hidden={true} name={"end_date"}>
+              <input type={"hidden"} />
+            </Form.Item>
+            <Form.Item hidden={true} name={"user"}>
+              <input type={"hidden"} />
+            </Form.Item>
+            <Form.Item hidden={true} name={"email"}>
+              <input type={"hidden"} />
+            </Form.Item>
+            <Form.Item hidden={true} name={"room"}>
+              <input type={"hidden"} />
+            </Form.Item>
+            <Form.Item hidden={true} name={"billing"}>
+              <input type={"hidden"} />
+            </Form.Item>{" "}
+            <Form.Item hidden={true} name={"room_name"}>
+              <input type={"hidden"} />
+            </Form.Item>{" "}
+            <Form.Item hidden={true} name={"customer_name"}>
+              <input type={"hidden"} />
+            </Form.Item>
+          </>
+          <div>
+            <div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>
+                  <Text>Ngày bắt đầu:</Text>
+                  <Text>{begin}</Text>
+                </div>
+                <div>
+                  <Text>Ngày kết thúc:</Text>
+                  <Text>{end}</Text>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "10px 0",
+                }}
+              >
+                <Text>Số lượng người lớn: {adult} </Text>
+                <Text>Số lượng trẻ em: {child} </Text>
+              </div>
+              <div>
+                Tổng tiền:
+                <Text strong>{bill}$</Text>
+              </div>
             </div>
           </div>
-          <Form.Item hidden={true} name={"start_date"}>
-            <input type={"hidden"} />
-          </Form.Item>
-          <Form.Item hidden={true} name={"end_date"}>
-            <input type={"hidden"} />
-          </Form.Item>
-          <Form.Item hidden={true} name={"user"}>
-            <input type={"hidden"} />
-          </Form.Item>
-          <Form.Item hidden={true} name={"email"}>
-            <input type={"hidden"} />
-          </Form.Item>
-          <Form.Item hidden={true} name={"room"}>
-            <input type={"hidden"} />
-          </Form.Item>
-          <Form.Item hidden={true} name={"billing"}>
-            <input type={"hidden"} />
-          </Form.Item>{" "}
-          <Form.Item hidden={true} name={"room_name"}>
-            <input type={"hidden"} />
-          </Form.Item>{" "}
-          <Form.Item hidden={true} name={"customer_name"}>
-            <input type={"hidden"} />
-          </Form.Item>
+          <Divider />
           <Button htmlType={"submit"} type={"primary"} fullWidth>
             Xác nhận
           </Button>
         </Form>
-      </div>
-      <div className="column">
-        <div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div>
-              <Text>Ngày bắt đầu:</Text>
-              <Text>{begin}</Text>
-            </div>
-            <div>
-              <Text>Ngày kết thúc:</Text>
-              <Text>{end}</Text>
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: "10px 0",
-            }}
-          >
-            <Text>Số lượng người lớn: {adult} </Text>
-            <Text>Số lượng trẻ em: {child} </Text>
-          </div>
-          <div>
-            Tổng tiền:
-            <Text>{bill}$</Text>
-          </div>
-        </div>
       </div>
     </div>
   );

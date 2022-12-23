@@ -1,6 +1,10 @@
 import express from 'express';
-import { UserController, RoomController, BookingController } from '../controller';
-import ServiceController from '../controller/ServiceController';
+import {
+  UserController,
+  RoomController,
+  BookingController,
+  ServiceController,
+} from '../controller';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
 

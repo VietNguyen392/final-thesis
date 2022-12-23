@@ -112,11 +112,12 @@ const DetailRoom = () => {
       />
 
       {user ? (
-        <Drawer
+        <Modal
           open={open}
           onClose={() => setState((p) => ({ ...p, open: false }))}
-          placement={"top"}
-          title='Thông tin đặt phòng'
+          onCancel={() => setState((p) => ({ ...p, open: false }))}
+          title="Thông tin đặt phòng"
+          footer={null}
         >
           <FormBooking
             roomID={data._id}
@@ -126,11 +127,10 @@ const DetailRoom = () => {
             endOff={end}
             roomName={data.room_name}
           />
-        </Drawer>
+        </Modal>
       ) : (
         <Modal
           open={open}
-         
           onClose={() => setState((p) => ({ ...p, open: false }))}
           onCancel={() => setState((p) => ({ ...p, open: false }))}
           title={t("common.login")}
