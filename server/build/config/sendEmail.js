@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sendStatusChange = exports.sendConfirmMail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const sendMail = (to, url, txt, userName) => __awaiter(void 0, void 0, void 0, function* () {
+const sendConfirmMail = (to, url, txt, userName) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const tranport = nodemailer_1.default.createTransport({
             service: 'Gmail',
@@ -41,11 +42,41 @@ const sendMail = (to, url, txt, userName) => __awaiter(void 0, void 0, void 0, f
            <a href=${url}>${txt}</a>
            </div>`,
         };
-        const result = yield tranport.sendMail(mailOptions);
-        return result;
+        return yield tranport.sendMail(mailOptions);
     }
     catch (error) {
-        console.log(error);
+        throw error;
     }
 });
-exports.default = sendMail;
+exports.sendConfirmMail = sendConfirmMail;
+function sendStatusChange(to, text, content) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const tranport = nodemailer_1.default.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: `${process.env.MAIL_USER}`,
+                    pass: `${process.env.MAIL_PASS}`,
+                },
+                tls: {
+                    rejectUnauthorized: false,
+                },
+            });
+            const mailOptions = {
+                from: `${process.env.MAIL_USER}`,
+                to: to,
+                subject: `${text}`,
+                html: ` 
+           <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+           <h2 style="text-align: center; text-transform: uppercase;color: black;">Xin Chào ${to}</h2>
+           <p>${content}</p>
+           </div>`,
+            };
+            return yield tranport.sendMail(mailOptions);
+        }
+        catch (error) {
+            throw error;
+        }
+    });
+}
+exports.sendStatusChange = sendStatusChange;

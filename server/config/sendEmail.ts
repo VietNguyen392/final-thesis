@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-const sendMail = async (to: string, url: string, txt: string, userName: string) => {
+export const sendConfirmMail = async (to: string, url: string, txt: string, userName: string) => {
   try {
     const tranport = nodemailer.createTransport({
       service: 'Gmail',
@@ -27,10 +27,35 @@ const sendMail = async (to: string, url: string, txt: string, userName: string) 
            <a href=${url}>${txt}</a>
            </div>`,
     };
-    const result = await tranport.sendMail(mailOptions);
-    return result;
+    return await tranport.sendMail(mailOptions);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
-export default sendMail;
+export async function sendStatusChange(to: string, text: string, content: string) {
+  try {
+    const tranport = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: `${process.env.MAIL_USER}`,
+        pass: `${process.env.MAIL_PASS}`,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+    const mailOptions = {
+      from: `${process.env.MAIL_USER}`,
+      to: to,
+      subject: `${text}`,
+      html: ` 
+           <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+           <h2 style="text-align: center; text-transform: uppercase;color: black;">Xin Chào ${to}</h2>
+           <p>${content}</p>
+           </div>`,
+    };
+    return await tranport.sendMail(mailOptions);
+  } catch (error) {
+    throw error;
+  }
+}

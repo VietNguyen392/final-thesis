@@ -5,7 +5,7 @@ import Users from '../models/User';
 import { generateActiveToken, generateAccessToken, generateRefreshToken } from '../config/genToken';
 import { IDecodedToken, IReqAuth, validateEmail } from '../utils';
 import { handleUserLogin } from '../middleware';
-import sendMail from '../config/sendEmail';
+import { sendConfirmMail } from '../config/sendEmail';
 const UserController = {
   createUser: async (req: Request, res: Response) => {
     try {
@@ -102,7 +102,7 @@ const UserController = {
       const active_token = generateActiveToken({ newRegister });
       const url = `${process.env.APP_URL}/active/${active_token}`;
       if (validateEmail(email)) {
-        await sendMail(email, url, 'Xác thực tài khoản', fullName);
+        await sendConfirmMail(email, url, 'Xác thực tài khoản', fullName);
         return res.send({ msg: 'Success' });
       }
       res.json({

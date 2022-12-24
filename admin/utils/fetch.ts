@@ -11,6 +11,9 @@ export const GET = async (url: string) => {
 export const PATCH = async (url: string, data: object) => {
   return await instance.patch(url, data);
 };
+export const PUT = async (url: string, data: object) => {
+  return await instance.put(url, data);
+};
 export const DELETE = async (url: string) => {
   return await instance.delete(url);
 };

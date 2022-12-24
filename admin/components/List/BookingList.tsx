@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { GET, routes } from 'utils';
+import { GET, routes, PUT } from 'utils';
 import { Table, ScrollArea, Badge, Tooltip, Button } from '@mantine/core';
-import { ButtonGroup } from '@mantine/core/lib/Button/ButtonGroup/ButtonGroup';
-import { IconBallpen, IconTrash } from '@tabler/icons';
+import { showNotification } from '@mantine/notifications';
 type bookingL = {
   _id: string;
   customer_name: string;
@@ -16,7 +15,7 @@ type bookingL = {
   billing: number;
   status: string;
 };
-const Notpay = () => {
+const BookingList = () => {
   const getListBooking = async () => {
     const res = await GET(routes.api.booking_list);
     return res.data;
@@ -39,7 +38,6 @@ const Notpay = () => {
               <th>Số lượng trẻ em</th>
               <th>Tổng bill</th>
               <th>Trạng thái</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -57,20 +55,20 @@ const Notpay = () => {
                 <td>
                   <Badge
                     component={'button'}
-                    color={item.status === 'pending' ? 'yellow' : 'blue'}
+                    color={
+                      item.status === 'pending'
+                        ? 'yellow'
+                        : item.status === 'confirm'
+                        ? 'blue'
+                        : 'red'
+                    }
                   >
-                    {item.status}
+                    {item.status === 'pending'
+                      ? 'Chờ xác nhận'
+                      : item.status === 'confirm'
+                      ? 'Đã xác nhận'
+                      : 'Đã từ chối'}
                   </Badge>
-                </td>
-                <td style={{ textAlign: 'center' }}>
-                  <Tooltip label="Sửa" color={'blue'} withArrow>
-                    <Button leftIcon={<IconBallpen />}>xác nhận</Button>
-                  </Tooltip>
-                  <Tooltip label="Xóa" color={'red'} withArrow>
-                    <Button color="red" leftIcon={<IconTrash />}>
-                      từ chối
-                    </Button>
-                  </Tooltip>
                 </td>
               </tr>
             ))}
@@ -81,4 +79,4 @@ const Notpay = () => {
   );
 };
 
-export default Notpay;
+export default BookingList;

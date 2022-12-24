@@ -1,6 +1,8 @@
 import HotelList from './HotelList';
-import Notpay from './Notpay';
+import Pending from './Pending';
 import HasPay from './HasPay';
 import Confirm from './Confirm';
+import BookingList from './BookingList';
 export * from './GeneralList';
-export { HotelList, Notpay, HasPay, Confirm };
+
+export { HotelList, Pending, HasPay, Confirm, BookingList };

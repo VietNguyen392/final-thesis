@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { Modal, DatePicker, Typography } from "antd";
+import { Modal, DatePicker, Typography, Row } from "antd";
 import { GET } from "service";
 import { disabledDate } from "utils";
 import ListComponent from "components/common/ListComponent";
@@ -13,10 +13,8 @@ const { Title } = Typography;
 const Hotel = () => {
   const [state, setState] = useState({
     haveBooking: {},
-    last: [],
-    isShow: false,
   });
-  const { haveBooking, last, isShow } = state;
+  const { haveBooking } = state;
 
   async function getAll() {
     const res = await GET("room");
@@ -25,12 +23,11 @@ const Hotel = () => {
   const { data } = useQuery("get-room", getAll);
 
   const handleChangeDate = async (_, dateString) => {
-    await GET(`valid-booking/${dateString[0]}&${dateString[1]}`).then(
-      (res) => console.log(res?.data?.booking)
-      // setState((p) => ({
-      //   ...p,
-      //   haveBooking: res.data?.booking,
-      // }))
+    await GET(`valid-booking/${dateString[0]}&${dateString[1]}`).then((res) =>
+      setState((p) => ({
+        ...p,
+        haveBooking: res.data?.booking,
+      }))
     );
   };
 
@@ -38,7 +35,7 @@ const Hotel = () => {
     <div className="container">
       <div>
         <Title level={3}>Chọn ngày</Title>
-        <div className="mb-5 ">
+        <div style={{ marginBottom: ".3rem" }}>
           <RangePicker
             size={"large"}
             disabledDate={(current) =>
@@ -47,7 +44,16 @@ const Hotel = () => {
             onChange={handleChangeDate}
           />
         </div>
-        {/*{isShow && <ListComponent items={data} />}*/}
+        {haveBooking?.length === 0 && (
+          <Row
+            wrap
+            justify="space-between"
+            align="center"
+            gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+          >
+            <ListComponent items={data} />
+          </Row>
+        )}
       </div>
     </div>
   );

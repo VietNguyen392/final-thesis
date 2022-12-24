@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Booking_1 = __importDefault(require("../models/Booking"));
-const sendEmail_1 = __importDefault(require("../config/sendEmail"));
+const sendEmail_1 = require("../config/sendEmail");
 const genToken_1 = require("../config/genToken");
 const utils_1 = require("../utils");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -36,7 +36,7 @@ const BookingController = {
             console.log(active_code);
             const url = `${process.env.APP_URL}/active-booking/${active_code}`;
             if ((0, utils_1.validateEmail)(email)) {
-                yield (0, sendEmail_1.default)(email, url, 'Xác nhận đặt phòng', email);
+                yield (0, sendEmail_1.sendConfirmMail)(email, url, 'Xác nhận đặt phòng', email);
                 return res.send({ msg: 'Success' });
             }
             res.json({
@@ -79,6 +79,8 @@ const BookingController = {
             const newStatus = yield Booking_1.default.updateOne({ _id: req.params.id }, {
                 $set: { status: req.body.status },
             });
+            const userMail = req.body.email;
+            yield (0, sendEmail_1.sendStatusChange)(userMail, `${req.body.content}`, `${req.body.content}`);
             if (newStatus)
                 return res.json({ status: 200, msg: 'Success change booking status' });
         }

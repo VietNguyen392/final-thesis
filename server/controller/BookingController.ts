@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import Booking from '../models/Booking';
-import sendMail from '../config/sendEmail';
+import Users from '../models/User';
+import { sendConfirmMail, sendStatusChange } from '../config/sendEmail';
 import { generateActiveToken } from '../config/genToken';
 import { IDecodedToken, validateEmail, IReqAuth } from '../utils';
 import jwt from 'jsonwebtoken';
@@ -34,7 +35,7 @@ const BookingController = {
       console.log(active_code);
       const url = `${process.env.APP_URL}/active-booking/${active_code}`;
       if (validateEmail(email)) {
-        await sendMail(email, url, 'Xác nhận đặt phòng', email);
+        await sendConfirmMail(email, url, 'Xác nhận đặt phòng', email);
         return res.send({ msg: 'Success' });
       }
       res.json({
@@ -78,6 +79,8 @@ const BookingController = {
           $set: { status: req.body.status },
         },
       );
+      const userMail = req.body.email;
+      await sendStatusChange(userMail, `${req.body.content}`, `${req.body.content}`);
       if (newStatus) return res.json({ status: 200, msg: 'Success change booking status' });
     } catch (e: any) {
       return next(e);

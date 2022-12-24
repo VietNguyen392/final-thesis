@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from '@mantine/core';
-import { Notpay, HasPay, Confirm } from 'components/List';
+import { Pending, HasPay, Confirm } from 'components/List';
 function ManageBooking() {
   return (
     <div>
@@ -10,7 +10,7 @@ function ManageBooking() {
           <Tabs.Tab value="confirm">Đă xác nhận</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="notpay">
-          <Notpay />
+          <Pending />
         </Tabs.Panel>
         <Tabs.Panel value="confirm">
           <Confirm />

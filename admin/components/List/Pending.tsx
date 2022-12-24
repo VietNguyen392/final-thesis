@@ -15,12 +15,30 @@ type bookingL = {
   billing: number;
   status: string;
 };
-const ConfirmList = () => {
+const Pending = () => {
   const getListBooking = async () => {
     const res = await GET(routes.api.booking_list);
     return res.data;
   };
   const { data } = useSWR('list-booking', getListBooking);
+  const changeBookingStatus = async (
+    bookingID: string,
+    value: string,
+    reason: string,
+    mail: string,
+  ) => {
+    const res = await PUT(`/api/change-booking-status/${bookingID}`, {
+      status: value,
+      content: reason,
+      email: mail,
+    });
+    if (res.status === 200)
+      return showNotification({
+        title: 'Thành công',
+        color: 'blue',
+        message: 'Cập nhập trạng thái thành công',
+      });
+  };
 
   return (
     <div className={'mt'}>
@@ -38,11 +56,12 @@ const ConfirmList = () => {
               <th>Số lượng trẻ em</th>
               <th>Tổng bill</th>
               <th>Trạng thái</th>
+              <th>Hành động</th>
             </tr>
           </thead>
           <tbody>
             {data
-              ?.filter((item: bookingL) => item.status === 'confirm')
+              ?.filter((item: bookingL) => item.status === 'pending')
               ?.map((item: bookingL, index: number) => (
                 <tr key={item._id}>
                   <td>{index + 1}</td>
@@ -65,8 +84,41 @@ const ConfirmList = () => {
                           : 'red'
                       }
                     >
-                      {item.status === 'confirm' && 'Đã xác nhận'}
+                      {item.status === 'pending' && 'Chưa xác nhận'}
                     </Badge>
+                  </td>
+
+                  <td style={{ textAlign: 'center' }}>
+                    <div style={{ display: 'flex' }}>
+                      <Button
+                        variant="subtle"
+                        onClick={() =>
+                          changeBookingStatus(
+                            item._id,
+                            'confirm',
+                            'Xác nhận đơn thành công',
+                            item.email,
+                          )
+                        }
+                      >
+                        Xác nhận
+                      </Button>
+
+                      <Button
+                        color="red"
+                        variant="subtle"
+                        onClick={() =>
+                          changeBookingStatus(
+                            item._id,
+                            'reject',
+                            'Đơn bị từ chối',
+                            item.email,
+                          )
+                        }
+                      >
+                        Từ chối
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -77,4 +129,4 @@ const ConfirmList = () => {
   );
 };
 
-export default ConfirmList;
+export default Pending;
