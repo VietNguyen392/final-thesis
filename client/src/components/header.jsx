@@ -6,7 +6,7 @@ import {
   UserOutlined,
   LogoutOutlined,
   LoginOutlined,
-  ShoppingCartOutlined,
+  CalendarOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "features/auth/authSlice";
@@ -39,7 +39,7 @@ export default function NavBar() {
     {
       label: (
         <Link to="hotel">
-          <ShoppingCartOutlined /> {t("navbar.booking")}
+          <CalendarOutlined /> {t("navbar.booking")}
         </Link>
       ),
       key: "hotel",

@@ -12,7 +12,7 @@ const { RangePicker } = DatePicker;
 const { Title } = Typography;
 const Hotel = () => {
   const [state, setState] = useState({
-    haveBooking: {},
+    haveBooking: [],
   });
   const { haveBooking } = state;
 
@@ -26,11 +26,17 @@ const Hotel = () => {
     await GET(`valid-booking/${dateString[0]}&${dateString[1]}`).then((res) =>
       setState((p) => ({
         ...p,
-        haveBooking: res.data?.booking,
+        haveBooking: data?.filter((i) => {
+          return !res?.data?.booking?.find((e) => {
+            return e.room === i._id;
+          });
+        }),
       }))
     );
   };
-
+  // useEffect(() => {
+  //   console.log(haveBooking);
+  // }, []);
   return (
     <div className="container">
       <div>
@@ -44,14 +50,14 @@ const Hotel = () => {
             onChange={handleChangeDate}
           />
         </div>
-        {haveBooking?.length === 0 && (
+        {haveBooking?.length !== 0 && (
           <Row
             wrap
             justify="space-between"
             align="center"
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
           >
-            <ListComponent items={data} />
+            <ListComponent items={haveBooking} />
           </Row>
         )}
       </div>

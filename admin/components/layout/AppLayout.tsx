@@ -9,17 +9,21 @@ import {
   Text,
 } from '@mantine/core';
 import { useRouter } from 'next/router';
+import { useAuth } from 'hooks';
 
-import { IconUserCircle } from '@tabler/icons';
 import { NavbarChild } from './SideBar';
-import { routes } from 'utils';
+
 import ScrollTop from 'components/common/ScrollTop';
 const AppLayout = ({ children }: { children?: ReactNode }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useMantineTheme();
-
+  const { user } = useAuth();
   const router = useRouter();
-
+  useEffect(() => {
+    if (user?.user?.role !== 'admin') {
+      router.push('/login');
+    }
+  }, []);
   return (
     <>
       <AppShell
