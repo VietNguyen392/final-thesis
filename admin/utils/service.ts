@@ -9,7 +9,9 @@ export const Login = async (data: ILogin) => {
   return await instance.post(routes.api.login, data);
 };
 export const Logout = async (token: string | any) => {
-  return await instance.get(routes.api.logout, token);
+  return await instance.get(routes.api.logout,{
+     headers: { Authorization: token },
+  });
 };
 export const refreshToken = async () => {
   return await instance.get(routes.api.refreshToken);

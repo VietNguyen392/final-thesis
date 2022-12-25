@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { GET, routes, PUT } from 'utils';
-import { Table, ScrollArea, Badge, Tooltip, Button } from '@mantine/core';
+import { Table, ScrollArea, Badge, Button } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 type bookingL = {
   _id: string;
@@ -16,34 +16,45 @@ type bookingL = {
   status: string;
 };
 const Pending = () => {
+  const [click, setClick] = useState<boolean>(false);
   const getListBooking = async () => {
     const res = await GET(routes.api.booking_list);
     return res.data;
   };
-  const { data } = useSWR('list-booking', getListBooking);
+  const { data,mutate } = useSWR('list-booking', getListBooking);
   const changeBookingStatus = async (
     bookingID: string,
     value: string,
     reason: string,
     mail: string,
   ) => {
+    setClick(true);
     const res = await PUT(`/api/change-booking-status/${bookingID}`, {
       status: value,
       content: reason,
       email: mail,
     });
-    if (res.status === 200)
-      return showNotification({
+    if (res.status === 200){
+      
+      showNotification({
         title: 'Thành công',
         color: 'blue',
         message: 'Cập nhập trạng thái thành công',
       });
+      mutate('list-booking')
+    }
   };
+ 
 
   return (
     <div className={'mt'}>
       <ScrollArea>
-        <Table sx={{ minWidth: 800 }} withBorder highlightOnHover>
+        <Table
+          sx={{ minWidth: 800 }}
+          withBorder
+          highlightOnHover
+          withColumnBorders
+        >
           <thead>
             <tr>
               <th>STT</th>
@@ -56,7 +67,7 @@ const Pending = () => {
               <th>Số lượng trẻ em</th>
               <th>Tổng bill</th>
               <th>Trạng thái</th>
-              <th>Hành động</th>
+              <th style={{ textAlign: 'center' }}>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -100,6 +111,7 @@ const Pending = () => {
                             item.email,
                           )
                         }
+                      loading={click}
                       >
                         Xác nhận
                       </Button>
@@ -115,6 +127,7 @@ const Pending = () => {
                             item.email,
                           )
                         }
+                       disabled={click}
                       >
                         Từ chối
                       </Button>

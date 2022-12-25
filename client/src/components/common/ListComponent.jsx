@@ -3,9 +3,12 @@ import { Image, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { HomeItemWrapper } from "styles/components";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 const ListComponent = (props) => {
   const { items } = props;
   const { t } = useTranslation();
+  const location=useLocation()
+ 
   return (
     <>
       {items?.map((item) => (
@@ -20,7 +23,12 @@ const ListComponent = (props) => {
                   level={3}
                   style={{ textTransform: "capitalize" }}
                 >
-                  <Link to={`/detail/${item._id}`}>{item.room_name}</Link>
+                 {
+                  location.pathname!=='/hotel'?
+                  <Link to={`/detail/${item._id}`}>{item.room_name}</Link>:<Typography.Text>
+                  {item.room_name}
+                  </Typography.Text>
+                 }
                 </Typography.Title>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>

@@ -20,12 +20,12 @@ const FormLogin = () => {
   const [login, user, auth] = useAuth(
     (state) => [state.login, state.user, state.auth],
     shallow,
-  );
+  ); 
   const onSubmit = (data: ILogin) => {
     login(data);
   };
   useEffect(() => {
-    if (auth) {
+    if (user?.user?.role==='admin') {
       router.push(routes.home);
     }
   }, [auth, router, user]);

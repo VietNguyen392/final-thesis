@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Navbar, Avatar, Text, Group, UnstyledButton } from '@mantine/core';
@@ -45,8 +45,11 @@ type TypeNav = {
 };
 export function NavbarChild({ onClose }: TypeNav) {
   const router = useRouter();
-  const auth = useAuth();
-  const data = auth.user.user;
+const [logout, user] = useAuth(
+    (state) => [state.logout, state.user],
+    shallow,
+  );
+  const token=user?.access_token
   const { classes, cx } = useStyles();
   const links = navigations.map((item) => (
     <span
@@ -64,7 +67,11 @@ export function NavbarChild({ onClose }: TypeNav) {
       <Link href={item.link}>{item.label}</Link>
     </span>
   ));
-
+useEffect(()=>{
+if(user===null){
+  router.push(routes.login)
+}
+},[])
   return (
     <>
       <Navbar.Section grow>{links}</Navbar.Section>
@@ -74,13 +81,13 @@ export function NavbarChild({ onClose }: TypeNav) {
           <Group>
             <Avatar radius="xl" />
             <div style={{ flex: 1 }}>
-              {/* <Text>{data.fullName}</Text>
-              <Text>{data.email}</Text> */}
+              <Text>{user?.user?.fullName}</Text>
+              <Text>{user?.user?.email}</Text>
             </div>
             <IconLogout
               size={15}
               stroke={1.5}
-              onClick={() => auth.logout(auth.user.access_token)}
+              onClick={() => logout(token)}
             />
           </Group>
         </div>

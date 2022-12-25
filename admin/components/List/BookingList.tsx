@@ -25,7 +25,7 @@ const BookingList = () => {
   return (
     <div className={'mt'}>
       <ScrollArea>
-        <Table sx={{ minWidth: 800 }} withBorder highlightOnHover>
+        <Table sx={{ minWidth: 800 }} withBorder highlightOnHover withColumnBorders>
           <thead>
             <tr>
               <th>STT</th>
