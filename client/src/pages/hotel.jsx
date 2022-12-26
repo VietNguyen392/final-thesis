@@ -34,9 +34,6 @@ const Hotel = () => {
       }))
     );
   };
-  // useEffect(() => {
-  //   console.log(haveBooking);
-  // }, []);
   return (
     <div className="container">
       <div>

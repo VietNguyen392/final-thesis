@@ -79,9 +79,9 @@ const FormRegister = () => {
               ]}
             >
               <Radio.Group>
-                <Radio value="male">{t("signup.m")}</Radio>
-                <Radio value="female">{t("signup.f")}</Radio>
-                <Radio value="other">{t("signup.o")}</Radio>
+                <Radio value="nam">{t("signup.m")}</Radio>
+                <Radio value="nữ">{t("signup.f")}</Radio>
+                <Radio value="khác">{t("signup.o")}</Radio>
               </Radio.Group>
             </Form.Item>{" "}
           </Col>
