@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from '@mantine/core';
-import { Pending, HasPay, Confirm } from 'components/List';
+import { Pending, Confirm } from 'components/List';
 function ManageBooking() {
   return (
     <div>

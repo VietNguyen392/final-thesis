@@ -176,7 +176,7 @@ const FormBooking = ({
           </div>
           <Divider />
           <Button htmlType={"submit"} type={"primary"} fullWidth>
-            Xác nhận
+            Xác nhận & Thanh toán
           </Button>
         </Form>
       </div>
