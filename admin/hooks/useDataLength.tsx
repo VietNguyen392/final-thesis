@@ -28,8 +28,8 @@ export const useDataLength = () => {
         ...o,
         hotelList: res?.data?.map((item: any) => {
           return {
-            id: item?.id,
-            name: item?.hotel_name,
+            id: item?._id,
+            name: item?.room_name,
           };
         }),
       }));
@@ -51,15 +51,16 @@ export const useDataLength = () => {
       })),
     );
   }, []);
-  // const monthInvoice = (bookingList as any)?.invoice?.reduce(
-  //   (a: number, b: number) => a + b,
-  //   0,
-  // );
-  // console.log(monthInvoice);
+  const monthInvoice = bookingList?.reduce(
+    (a: number, b:{invoice:number}) => a + b.invoice,
+    0,
+  );
+ 
+  
   return {
     userList: userList.length,
-    hotelList: hotelList.length,
+    hotelList: hotelList,
     bookingList: bookingList,
-
+   totalInvoice:monthInvoice
   };
 };

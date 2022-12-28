@@ -5,10 +5,11 @@ import Invoice from 'components/common/Invoice';
 import { useDataLength } from 'hooks';
 import { SimpleGrid, Box, Stack, Accordion } from '@mantine/core';
 import { UserList, RoomList, Pending, BookingList } from 'components/List';
+import Fakechart from 'components/chart/fakechart';
 const { Item, Control, Panel } = Accordion;
 
 const Home: NextPage = () => {
-  const { userList, hotelList, bookingList } = useDataLength();
+  const { userList, hotelList, bookingList, totalInvoice } = useDataLength();
   return (
     <>
       <Box>
@@ -24,7 +25,7 @@ const Home: NextPage = () => {
             </Item>
             <Item value={'room'}>
               <Control>
-                <StatCard length={hotelList} listName="Phòng" />
+                <StatCard length={hotelList.length} listName="Phòng" />
               </Control>
               <Panel>
                 <RoomList />
@@ -45,14 +46,10 @@ const Home: NextPage = () => {
             </Item>
           </Accordion>
         </Stack>
-        <div className={'invoice-group mt'}>
-          <Invoice
-            count={(bookingList[0] as any)?.invoice}
-            title={'Tổng trong tháng'}
-          />
-          <Invoice count={34} title={'Tổng trong quý'} />
-          <Invoice count={34 * 7} title={'Tổng trong năm'} />
+        <div className="mt">
+          <Invoice count={totalInvoice} title={'Tổng doanh thu'} />
         </div>
+        <Fakechart />
       </Box>
     </>
   );

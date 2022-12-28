@@ -44,11 +44,11 @@ a {
   margin-top:1.2em;
 
 }
-.invoice-group{
+.flex{
   display: flex;
   align-items: start;
   justify-content: space-between;
   flex-wrap: wrap;
   flex: 1;
-
+width: 900px;
 }
