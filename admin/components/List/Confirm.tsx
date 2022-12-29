@@ -25,7 +25,12 @@ const ConfirmList = () => {
   return (
     <div className={'mt'}>
       <ScrollArea>
-        <Table sx={{ minWidth: 800 }} withBorder highlightOnHover withColumnBorders>
+        <Table
+          sx={{ minWidth: 800 }}
+          withBorder
+          highlightOnHover
+          withColumnBorders
+        >
           <thead>
             <tr>
               <th>STT</th>

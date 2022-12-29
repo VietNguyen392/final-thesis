@@ -4,4 +4,4 @@ export * from './service';
 export * from './routes';
 export * from './regex';
 export * from './fetch';
-export * from './validation'
+export * from './validation';

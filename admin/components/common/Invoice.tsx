@@ -11,7 +11,11 @@ const Invoice: React.FC<InvoiceProps> = ({ count, click, title }) => {
   const { classes } = useStyles();
   return (
     <div className={classes.root}>
-      <UnstyledButton className={classes.stat} onClick={click}>
+      <UnstyledButton
+        className={classes.stat}
+        onClick={click}
+        sx={{ width: '100%' }}
+      >
         <Text className={classes.count}>{count}$</Text>
         <Text className={classes.invoice_title}>{title}</Text>
       </UnstyledButton>

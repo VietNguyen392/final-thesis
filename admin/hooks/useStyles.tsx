@@ -154,7 +154,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
       } 0%, ${theme.colors[theme.primaryColor][7]} 100%)`,
       padding: theme.spacing.xl * 1.5,
       borderRadius: theme.radius.md,
-      width: '350px',
+      width: '100%',
+      textAlign: 'center',
       [theme.fn.smallerThan('sm')]: {
         flexDirection: 'column',
       },

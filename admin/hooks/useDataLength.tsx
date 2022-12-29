@@ -52,15 +52,14 @@ export const useDataLength = () => {
     );
   }, []);
   const monthInvoice = bookingList?.reduce(
-    (a: number, b:{invoice:number}) => a + b.invoice,
+    (a: number, b: { invoice: number }) => a + b.invoice,
     0,
   );
- 
-  
+
   return {
     userList: userList.length,
     hotelList: hotelList,
     bookingList: bookingList,
-   totalInvoice:monthInvoice
+    totalInvoice: monthInvoice,
   };
 };

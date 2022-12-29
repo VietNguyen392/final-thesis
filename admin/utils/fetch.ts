@@ -4,9 +4,9 @@ export const POST = async (url: string, data: object) => {
   return await instance.post(url, data);
 };
 
-export const GET = async (url: string,token?:string|any) => {
-  const res = await instance.get(url,{
-     headers: { Authorization: token },
+export const GET = async (url: string, token?: string | any) => {
+  const res = await instance.get(url, {
+    headers: { Authorization: token },
   });
 
   return res.data;

@@ -124,7 +124,7 @@ const FormEditRoom: React.FC<FormProps> = ({ data, closeDawer }) => {
           </Grid.Col>
         </Grid>
         <Box style={{ paddingTop: '10px' }}>
-          <TextEdit {...form.getInputProps('desc')}  />
+          <TextEdit {...form.getInputProps('desc')} />
         </Box>
         <Button style={{ width: '100%', marginTop: '10px' }} type="submit">
           Sửa

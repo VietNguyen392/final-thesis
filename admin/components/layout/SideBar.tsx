@@ -45,11 +45,11 @@ type TypeNav = {
 };
 export function NavbarChild({ onClose }: TypeNav) {
   const router = useRouter();
-const [logout, user] = useAuth(
+  const [logout, user] = useAuth(
     (state) => [state.logout, state.user],
     shallow,
   );
-  const token=user?.access_token
+  const token = user?.access_token;
   const { classes, cx } = useStyles();
   const links = navigations.map((item) => (
     <span
@@ -67,11 +67,11 @@ const [logout, user] = useAuth(
       <Link href={item.link}>{item.label}</Link>
     </span>
   ));
-useEffect(()=>{
-if(user===null){
-  router.push(routes.login)
-}
-},[])
+  useEffect(() => {
+    if (user === null) {
+      router.push(routes.login);
+    }
+  }, []);
   return (
     <>
       <Navbar.Section grow>{links}</Navbar.Section>
@@ -84,11 +84,7 @@ if(user===null){
               <Text>{user?.user?.fullName}</Text>
               <Text>{user?.user?.email}</Text>
             </div>
-            <IconLogout
-              size={15}
-              stroke={1.5}
-              onClick={() => logout(token)}
-            />
+            <IconLogout size={15} stroke={1.5} onClick={() => logout(token)} />
           </Group>
         </div>
       </Navbar.Section>

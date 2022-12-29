@@ -40,15 +40,14 @@ a {
   color: blue;
 }
 
-.mt{
-  margin-top:1.2em;
-
+.mt {
+  margin-top: 1.2em;
 }
-.flex{
+.flex {
   display: flex;
   align-items: start;
   justify-content: space-between;
   flex-wrap: wrap;
   flex: 1;
-width: 900px;
+  width: 900px;
 }
