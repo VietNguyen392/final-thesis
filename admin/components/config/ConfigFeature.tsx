@@ -174,6 +174,7 @@ const ConfigFeature = () => {
                   defaultValue={x.ftPrice}
                   onChange={handleEditValue}
                 />
+                $
               </td>
               <td style={{ width: '350px', textAlign: 'center' }}>
                 <Button

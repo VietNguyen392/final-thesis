@@ -27,6 +27,9 @@ export default function NavBar() {
   const onChangeLanguage = (e) => {
     i18n.changeLanguage(e);
   };
+  React.useEffect(() => {
+    if (user) return setOpen(false);
+  }, [user]);
   const links = [
     {
       label: (

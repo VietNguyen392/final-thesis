@@ -1,46 +1,47 @@
-import { POST, GET } from "service";
-import { checkToken } from "utils";
-import { message, notification } from "antd";
+import { POST, GET } from 'service'
+import { checkToken } from 'utils'
+import { message, notification } from 'antd'
 
 const AuthAction = {
   login: async (data) => {
     try {
-      const res = await POST("login", data);
+      const res = await POST('login', data)
       if (res.status === 200) {
-        localStorage.setItem("user", JSON.stringify(res.data));
-        message.success(res.data.msg);
+        localStorage.setItem('user', JSON.stringify(res.data))
+        message.success(res.data.msg)
       }
-      return res.data;
+      return res.data
     } catch (error) {
-      message.error(error.response.data.msg);
+      message.error(error.response.data.msg)
     }
   },
   refreshToken: async () => {
-    const isLogin = localStorage.getItem("user");
-    if (!isLogin) return;
+    const isLogin = localStorage.getItem('user')
+    if (!isLogin) return
     try {
-      return await GET("rf-token");
+      const res = await GET('rf-token')
+      return res.data
     } catch (error) {
-      console.log(error);
+      message.error(error.response.data.msg)
     }
   },
   logout: async (token) => {
-    // const expire = await checkToken(token);
-    // const new_token = expire ? expire : token;
+    const expire = await checkToken(token)
+    const new_token = expire ? expire : token
     try {
-      localStorage.removeItem("user");
-      const res = await GET("logout", token);
+      localStorage.removeItem('user')
+      const res = await GET('logout', new_token)
       if (res.status === 200) {
-        message.success("Đăng xuất thành công");
+        message.success('Đăng xuất thành công')
       }
     } catch (error) {
       notification.error({
-        message: "Lỗi",
+        message: 'Lỗi',
         description: error.response.data.msg,
-        placement: "topRight",
-      });
+        placement: 'topRight',
+      })
     }
   },
-};
+}
 
-export default AuthAction;
+export default AuthAction

@@ -18,13 +18,9 @@ const FormLogin = () => {
   const handleLogin = (value) => {
     dispatch(login(value));
   };
-
-  // React.useEffect(() => {
-  //   if (user || isSuccess) {
-  //     navigate("/");
-  //   }
-  //   dispatch(reset());
-  // }, [user, navigate, dispatch, isSuccess]);
+  React.useEffect(() => {
+    if (user) return form.resetFields();
+  }, []);
   return (
     <div>
       <Form

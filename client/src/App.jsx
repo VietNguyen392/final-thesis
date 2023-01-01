@@ -1,10 +1,14 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Main from "components/layout";
 import Loading from "components/loading";
+import AuthAction from "features/auth/authAPI";
 
 const Render = React.lazy(() => import("./Render"));
 const App = () => {
+  useEffect(() => {
+    AuthAction.refreshToken();
+  }, []);
   return (
     <>
       <Main>

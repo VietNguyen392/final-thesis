@@ -19,6 +19,11 @@ const genToken_1 = require("../config/genToken");
 const utils_1 = require("../utils");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const middleware_1 = require("../middleware");
+const stripe_1 = __importDefault(require("stripe"));
+// @ts-ignore
+const stripe = new stripe_1.default(process.env.STRIPE_SKEY, {
+    apiVersion: '2022-12-11',
+});
 const BookingController = {
     newBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // if (!req.user) return res.status(400).send({ msg: 'Invalid' });

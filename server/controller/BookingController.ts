@@ -7,6 +7,11 @@ import { generateActiveToken } from '../config/genToken';
 import { IDecodedToken, validateEmail, IReqAuth } from '../utils';
 import jwt from 'jsonwebtoken';
 import { Pagination } from '../middleware';
+import Stripe from 'stripe';
+// @ts-ignore
+const stripe = new Stripe(process.env.STRIPE_SKEY, {
+  apiVersion: '2022-12-11',
+});
 const BookingController = {
   newBooking: async (req: IReqAuth, res: Response) => {
     // if (!req.user) return res.status(400).send({ msg: 'Invalid' });

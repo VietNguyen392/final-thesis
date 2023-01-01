@@ -1,26 +1,26 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
-import { Modal, DatePicker, Typography, Row } from "antd";
-import { GET } from "service";
-import { disabledDate } from "utils";
-import ListComponent from "components/common/ListComponent";
+import React, { useEffect, useState, useMemo, useRef } from 'react'
+import { Modal, DatePicker, Typography, Row } from 'antd'
+import { GET } from 'service'
+import { disabledDate } from 'utils'
+import ListComponent from 'components/common/ListComponent'
 
-import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
-import moment from "moment/moment";
+import { useQuery } from 'react-query'
+import { useLocation } from 'react-router-dom'
+import moment from 'moment/moment'
 
-const { RangePicker } = DatePicker;
-const { Title } = Typography;
+const { RangePicker } = DatePicker
+const { Title } = Typography
 const Hotel = () => {
   const [state, setState] = useState({
     haveBooking: [],
-  });
-  const { haveBooking } = state;
+  })
+  const { haveBooking } = state
 
   async function getAll() {
-    const res = await GET("room");
-    return res.data?.data;
+    const res = await GET('room')
+    return res.data?.data
   }
-  const { data } = useQuery("get-room", getAll);
+  const { data } = useQuery('get-room', getAll)
 
   const handleChangeDate = async (_, dateString) => {
     await GET(`valid-booking/${dateString[0]}&${dateString[1]}`).then((res) =>
@@ -28,22 +28,22 @@ const Hotel = () => {
         ...p,
         haveBooking: data?.filter((i) => {
           return !res?.data?.booking?.find((e) => {
-            return e.room === i._id;
-          });
+            return e.room === i._id
+          })
         }),
-      }))
-    );
-  };
+      })),
+    )
+  }
   return (
     <div className="container">
       <div>
         <Title level={3}>Chọn ngày</Title>
-        <div style={{ marginBottom: ".3rem" }}>
+        <div style={{ marginBottom: '.3rem' }}>
           <RangePicker
-            size={"large"}
-            disabledDate={(current) =>
-              current.isBefore(moment().subtract(1, "day"))
-            }
+            size={'large'}
+            // disabledDate={(current) =>
+            //   current.isBefore(moment().subtract(1, "day"))
+            // }
             onChange={handleChangeDate}
           />
         </div>
@@ -59,7 +59,7 @@ const Hotel = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Hotel;
+export default Hotel
