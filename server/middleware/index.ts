@@ -48,8 +48,8 @@ export const handleUserLogin = async (user: IUser, password: string, res: Respon
   });
 };
 export function Pagination(req: Request) {
-  let page = Number(req.query.page) * 1 || 1;
-  let limit = Number(req.query.limit) * 1 || 4;
+  let page = Number(req.query.page) || 1;
+  let limit = Number(req.query.limit) || 4;
   let skip = (page - 1) * limit;
   return { page, limit, skip };
 }

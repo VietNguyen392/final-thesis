@@ -4,6 +4,7 @@ import {
   RoomController,
   BookingController,
   ServiceController,
+  CommentController,
 } from '../controller';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
@@ -49,7 +50,14 @@ export const initWebRoute = (app: any) => {
     .route('/service/:id')
     .patch(ServiceController.editService)
     .delete(ServiceController.deleteService);
-
+  //*Comment routes
+  routes.post('/comment', authenticate, CommentController.createComment);
+  routes.post('/reply', authenticate, CommentController.replyComment);
+  routes
+    .route('/comment/:id')
+    .patch(authenticate, CommentController.updateComment)
+    .delete(authenticate, CommentController.deleteComment)
+    .get(CommentController.getComment);
   return app.use('/api', routes);
 };
 //validRegister,

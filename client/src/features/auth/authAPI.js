@@ -1,7 +1,7 @@
 import { POST, GET } from 'service'
 import { checkToken } from 'utils'
 import { message, notification } from 'antd'
-
+import jwt_decode from 'jwt-decode'
 const AuthAction = {
   login: async (data) => {
     try {

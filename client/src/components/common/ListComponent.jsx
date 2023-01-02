@@ -1,22 +1,23 @@
-import React from "react";
-import { Button, Image, Typography, Modal } from "antd";
-import { Link } from "react-router-dom";
-import { HomeItemWrapper } from "styles/components";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import React from 'react'
+import { Button, Image, Typography, Modal } from 'antd'
+import { Link } from 'react-router-dom'
+import { HomeItemWrapper } from 'styles/components'
+import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
+import DisplayComment from '../Comment/DisplayComment'
 const ListComponent = (props) => {
-  const { items } = props;
+  const { items } = props
   const [state, setState] = React.useState({
-    desc: "",
+    desc: '',
     open: false,
-  });
-  const { desc, open } = state;
-  const { t } = useTranslation();
-  const location = useLocation();
+  })
+  const { desc, open } = state
+  const { t } = useTranslation()
+  const location = useLocation()
   function selectID(rId) {
-    const specific = items?.filter((it) => it._id === rId);
-    console.log(specific);
-    setState((p) => ({ ...p, open: true, desc: specific[0].desc }));
+    const specific = items?.filter((it) => it._id === rId)
+
+    setState((p) => ({ ...p, open: true, desc: specific[0] }))
   }
   return (
     <>
@@ -30,34 +31,34 @@ const ListComponent = (props) => {
               <div
                 className="title"
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  justifyContent: 'space-between',
                   margin: 5,
                 }}
               >
                 <Typography.Title
                   level={3}
-                  style={{ textTransform: "capitalize" }}
+                  style={{ textTransform: 'capitalize' }}
                 >
-                  {location.pathname === "/hotel" ? (
+                  {location.pathname === '/hotel' ? (
                     <Link to={`/detail/${item._id}`}>{item.room_name}</Link>
                   ) : (
                     <Typography.Text>{item.room_name}</Typography.Text>
                   )}
                 </Typography.Title>
-                {location.pathname === "/hotel" ? (
-                  ""
+                {location.pathname === '/hotel' ? (
+                  ''
                 ) : (
                   <Button onClick={() => selectID(item._id)}>
                     Xem Thông Tin
                   </Button>
                 )}
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>
-                  {t("common.price")}:
+                  {t('common.price')}:
                   <Typography.Text
-                    style={{ fontSize: "25px", fontWeight: 700 }}
+                    style={{ fontSize: '25px', fontWeight: 700 }}
                   >
                     {item.room_price}$
                   </Typography.Text>
@@ -72,16 +73,17 @@ const ListComponent = (props) => {
         open={open}
         onCancel={() => setState((p) => ({ ...p, open: false }))}
         footer={null}
-        width={"auto"}
+        width={'auto'}
       >
         <div
           dangerouslySetInnerHTML={{
-            __html: desc,
+            __html: desc.desc,
           }}
         />
+        <DisplayComment roomID={desc._id} />
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default ListComponent;
+export default ListComponent

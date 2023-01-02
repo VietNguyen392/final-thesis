@@ -60,8 +60,8 @@ const handleUserLogin = (user, password, res) => __awaiter(void 0, void 0, void 
 });
 exports.handleUserLogin = handleUserLogin;
 function Pagination(req) {
-    let page = Number(req.query.page) * 1 || 1;
-    let limit = Number(req.query.limit) * 1 || 4;
+    let page = Number(req.query.page) || 1;
+    let limit = Number(req.query.limit) || 4;
     let skip = (page - 1) * limit;
     return { page, limit, skip };
 }

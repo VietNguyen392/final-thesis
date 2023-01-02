@@ -49,6 +49,14 @@ const initWebRoute = (app) => {
         .route('/service/:id')
         .patch(controller_1.ServiceController.editService)
         .delete(controller_1.ServiceController.deleteService);
+    //*Comment routes
+    routes.post('/comment', middleware_1.authenticate, controller_1.CommentController.createComment);
+    routes.post('/reply', middleware_1.authenticate, controller_1.CommentController.replyComment);
+    routes
+        .route('/comment/:id')
+        .patch(middleware_1.authenticate, controller_1.CommentController.updateComment)
+        .delete(middleware_1.authenticate, controller_1.CommentController.deleteComment)
+        .get(controller_1.CommentController.getComment);
     return app.use('/api', routes);
 };
 exports.initWebRoute = initWebRoute;

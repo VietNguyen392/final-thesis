@@ -41,9 +41,9 @@ const Hotel = () => {
         <div style={{ marginBottom: '.3rem' }}>
           <RangePicker
             size={'large'}
-            // disabledDate={(current) =>
-            //   current.isBefore(moment().subtract(1, "day"))
-            // }
+            disabledDate={(current) =>
+              current.isBefore(moment().subtract(1, "day"))
+            }
             onChange={handleChangeDate}
           />
         </div>
