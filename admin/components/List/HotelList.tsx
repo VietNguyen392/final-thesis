@@ -42,7 +42,7 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
   }
   const list = listData?.map((item: ListType, index: number) => (
     <>
-      <tr key={item.roomID}>
+      <tr key={index}>
         <td>{index + 1}</td>
         <td>{item.roomName}</td>
         <td>{item.roomType}</td>

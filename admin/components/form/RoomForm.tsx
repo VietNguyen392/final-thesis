@@ -62,6 +62,7 @@ const RoomForm = () => {
       <Image
         key={index}
         src={imageUrl}
+        alt='room_img'
         imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
       />
     );

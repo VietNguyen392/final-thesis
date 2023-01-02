@@ -1,36 +1,36 @@
-import React, { useRef } from 'react';
-import useSWR from 'swr';
-import { useRouter } from 'next/router';
-import { GET, routes, PUT, DELETE } from 'utils';
-import { useDataLength } from 'hooks';
-import { Table, ScrollArea, Badge, Tooltip, Button } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
-import { useReactToPrint } from 'react-to-print';
-import { IconPrinter } from '@tabler/icons';
+import React, { useRef } from 'react'
+import useSWR from 'swr'
+import { useRouter } from 'next/router'
+import { GET, routes, PUT, DELETE,getBookingList } from 'utils'
+import { useDataLength } from 'hooks'
+import { Table, ScrollArea, Badge, Tooltip, Button } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
+import { useReactToPrint } from 'react-to-print'
+import { IconPrinter } from '@tabler/icons'
+
 type bookingL = {
-  _id: string;
-  customer_name: string;
-  email: string;
-  room_name: string;
-  start_date: string | Date;
-  end_date: string | Date;
-  adult_quantity: number;
-  children_quantity: number;
-  billing: number;
-  status: string;
-};
+  _id: string
+  customer_name: string
+  email: string
+  room_name: string
+  start_date: string | Date
+  end_date: string | Date
+  adult_quantity: number
+  children_quantity: number
+  billing: number
+  status: string
+}
 const BookingList = () => {
-  const getListBooking = async () => {
-    const res = await GET(routes.api.booking_list);
-    return res.data;
-  };
-  const { data, mutate } = useSWR('list-booking', getListBooking);
-  const { pathname } = useRouter();
-  const { totalInvoice } = useDataLength();
-  const tableRef = useRef(null);
+ 
+  const { data, mutate } = useSWR('list-booking', getBookingList)
+  
+  
+  const { pathname } = useRouter()
+  const { totalInvoice } = useDataLength()
+  const tableRef = useRef(null)
   const print = useReactToPrint({
     content: () => tableRef.current,
-  });
+  })
   const confirmBooking = async (
     bookingID: string,
     value: string,
@@ -41,16 +41,16 @@ const BookingList = () => {
       status: value,
       content: reason,
       email: mail,
-    });
+    })
     if (res.status === 200) {
       showNotification({
         title: 'Thành công',
         color: 'blue',
         message: 'Cập nhập trạng thái thành công',
-      });
-      await mutate('list-booking');
+      })
+      await mutate('list-booking')
     }
-  };
+  }
   const deleteBooking = async (
     id: string,
     value: string,
@@ -61,17 +61,36 @@ const BookingList = () => {
       status: value,
       content: reason,
       email: mail,
-    });
-    const res = await DELETE(`/api/delete-booking/${id}`);
+    })
+    const res = await DELETE(`/api/delete-booking/${id}`)
     if (res) {
       showNotification({
         title: 'Thành công',
         color: 'blue',
         message: 'Xóa thành công',
-      });
-      await mutate('list-booking');
+      })
+      await mutate('list-booking')
     }
-  };
+  }
+  const deleteAfterConfirm = async (id: string) => {
+    try {
+      const res = await DELETE(`/api/delete-booking/${id}`)
+      if (res) {
+        showNotification({
+          title: 'Thành công',
+          color: 'blue',
+          message: 'Xóa thành công',
+        })
+        await mutate('list-booking')
+      }
+    } catch (error: any) {
+      showNotification({
+        title: 'Lỗi',
+        color: 'red',
+        message: error,
+      })
+    }
+  }
 
   return (
     <>
@@ -105,8 +124,8 @@ const BookingList = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.length !== 0 &&
-                data?.map((item: bookingL, index: number) => (
+              {
+                data?.data?.map((item: bookingL, index: number) => (
                   <tr key={item._id}>
                     <td>{index + 1}</td>
                     <td>{item.customer_name}</td>
@@ -145,7 +164,7 @@ const BookingList = () => {
                                 confirmBooking(
                                   item._id,
                                   'confirm',
-                                  `Xin chào ${item.email}, lịch đặt phỏng của bạn từ ngày ${item.start_date}tới ${item.end_date} đã được xác nhận`,
+                                  `Xin chào ${item.email}, lịch đặt phỏng của bạn từ ngày ${new Date(item.start_date).toLocaleDateString()}tới ${new Date(item.end_date).toLocaleDateString()} đã được xác nhận`,
                                   item.email,
                                 )
                               }
@@ -153,27 +172,27 @@ const BookingList = () => {
                               Xác nhận
                             </Button>
                           )}
-                          <Button
+                   
+                          {item.status === 'confirm' ? (
+                            <Button color="red" variant="subtle" onClick={()=>deleteAfterConfirm(item._id)}>
+                              Xóa
+                            </Button>
+                          ): <Button
                             color="red"
                             variant="subtle"
                             onClick={() =>
                               deleteBooking(
                                 item._id,
                                 'reject',
-                                `Xin chào ${item.email}, lịch đặt phỏng của bạn từ ngày ${item.start_date}tới ${item.end_date} đã bị từ chối`,
+                                `Xin chào ${item.email}, lịch đặt phỏng của bạn từ ngày ${new Date(item.start_date).toLocaleDateString()}tới ${new Date(item.end_date).toLocaleDateString()} đã bị từ chối`,
                                 item.email,
                               )
                             }
                           >
                             Từ chối
-                          </Button>{' '}
-                          {/*<Button*/}
-                          {/*  color="red"*/}
-                          {/*  variant="subtle"*/}
-                          {/*  onClick={() => deleteBooking(item._id)}*/}
-                          {/*>*/}
-                          {/*  Xóa*/}
-                          {/*</Button>*/}
+                          </Button>
+                          
+                          }
                         </div>
                       </td>
                     )}
@@ -181,11 +200,10 @@ const BookingList = () => {
                 ))}
             </tbody>
           </Table>
-          {/*<p>{totalInvoice}</p>*/}
         </ScrollArea>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default BookingList;
+export default BookingList

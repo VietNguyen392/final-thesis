@@ -18,7 +18,8 @@ import FormBooking from 'components/FormBooking'
 import { useTranslation } from 'react-i18next'
 import Comment from 'components/Comment/CreateComment'
 import Loading from 'components/loading'
-import DisplayComment from '../../components/Comment/DisplayComment'
+import DisplayComment from 'components/Comment/DisplayComment'
+import DemoBooking from 'components/common/DemoBooking'
 const { Title, Text } = Typography
 const DetailRoom = () => {
   const [state, setState] = React.useState({
@@ -139,7 +140,10 @@ const DetailRoom = () => {
           title={t('common.login')}
           footer={null}
         >
-          <FormLogin />
+          <DemoBooking
+            roomPrice={data.room_price}
+          
+          />
         </Modal>
       )}
     </div>

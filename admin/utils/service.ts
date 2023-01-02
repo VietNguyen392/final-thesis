@@ -27,6 +27,10 @@ export const getRoomList = async () => {
   const res = await instance.get(routes.api.room);
   return res.data;
 };
+export const getBookingList=async()=>{
+  const res=await instance.get(routes.api.booking_list)
+  return res.data
+}
 export async function deleteRoom(id: string) {
   return await instance.delete(routes.api.room + '/' + id);
 }

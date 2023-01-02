@@ -40,19 +40,11 @@ const ListComponent = (props) => {
                   level={3}
                   style={{ textTransform: 'capitalize' }}
                 >
-                  {location.pathname === '/hotel' ? (
+                  
                     <Link to={`/detail/${item._id}`}>{item.room_name}</Link>
-                  ) : (
-                    <Typography.Text>{item.room_name}</Typography.Text>
-                  )}
+                  
                 </Typography.Title>
-                {location.pathname === '/hotel' ? (
-                  ''
-                ) : (
-                  <Button onClick={() => selectID(item._id)}>
-                    Xem Thông Tin
-                  </Button>
-                )}
+              
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>
