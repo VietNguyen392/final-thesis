@@ -10,7 +10,13 @@ const CommentController = {
     try {
       const { content, room_id, rating } = req.body;
       const newComment = new Comment({ user_id: req.user._id, ...req.body });
-      await newComment.save()
+      const data = {
+        ...newComment._doc,
+        user: req.user,
+        createdAt: new Date().toISOString(),
+      };
+      io.to(`${room_id}`).emit('createComment', data);
+      await newComment.save();
       return res.json({ status: 200, data: newComment });
     } catch (error: any) {
       return res.status(500).send(error);

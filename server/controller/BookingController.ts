@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import Booking from '../models/Booking';
-import Users from '../models/User';
 import { sendConfirmMail, sendStatusChange } from '../config/sendEmail';
 import { generateActiveToken } from '../config/genToken';
 import { IDecodedToken, validateEmail, IReqAuth } from '../utils';
 import jwt from 'jsonwebtoken';
 import { Pagination } from '../middleware';
 import Stripe from 'stripe';
+
 // @ts-ignore
 const stripe = new Stripe(process.env.STRIPE_SKEY, {
   apiVersion: '2022-12-11',
@@ -227,6 +227,7 @@ const BookingController = {
   deleteBooking: async (req: Request, res: Response) => {
     try {
       const booking = await Booking.findByIdAndDelete(req.params.id);
+
       if (!booking) return res.status(404).send({ msg: 'Not Found' });
       res.json({ msg: 'delete success' });
     } catch (error: any) {

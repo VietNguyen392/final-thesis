@@ -1,13 +1,15 @@
 import mongoose from 'mongoose';
-import { INoti } from '../utils';
+type Noti = {
+  content: string;
+};
 const notificationSchema = new mongoose.Schema({
-  user: { type: mongoose.Types.ObjectId, ref: 'User' },
+  // user: { type: mongoose.Types.ObjectId, ref: 'User' },
   content: {
     type: String,
     default: 'Bạn không có thông báo nào !',
   },
-  state: {
-    type: Boolean,
-  },
+  // state: {
+  //   type: Boolean,
+  // },
 });
-export default mongoose.model<INoti>('Noti', notificationSchema);
+export default mongoose.model<Noti>('Notification', notificationSchema);

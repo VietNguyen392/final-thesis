@@ -57,6 +57,9 @@ const initWebRoute = (app) => {
         .patch(middleware_1.authenticate, controller_1.CommentController.updateComment)
         .delete(middleware_1.authenticate, controller_1.CommentController.deleteComment)
         .get(controller_1.CommentController.getComment);
+    //*Notification route
+    routes.route('/notification').post(controller_1.NotiController.createNoti).get(controller_1.NotiController.getNoti);
+    routes.delete('notification/:id', controller_1.NotiController.deleteNoti);
     return app.use('/api', routes);
 };
 exports.initWebRoute = initWebRoute;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Rate, Input, Divider, Button, Form, message } from 'antd'
-import { POST } from 'service'
+import { GET, POST } from 'service'
 import { useSelector } from 'react-redux'
 import { checkToken } from 'utils'
 const { TextArea } = Input
@@ -14,11 +14,14 @@ const CreateComment = (props) => {
     rating: 0,
   }
   async function postComment(value) {
-    const expire=await checkToken(user?.access_token)
-    const new_token=expire?expire:user?.access_token
+    const expire = await checkToken(user?.access_token)
+    const new_token = expire ? expire : user?.access_token
     try {
       const res = await POST('comment', value, new_token)
-      if (res) message.success('Thành công')
+      if (res) {
+        message.success('Thành công')
+        await GET(`comment/${roomID}`)
+      }
     } catch (error) {
       message.error(error)
     }

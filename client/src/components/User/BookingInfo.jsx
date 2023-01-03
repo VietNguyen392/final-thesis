@@ -1,14 +1,16 @@
 import React from 'react'
-import { GET } from 'service'
+import { GET, POST, DELETE } from 'service'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useQuery } from 'react-query'
-import { message, Table, Tag } from 'antd'
+import { Button, message, Table, Tag, Modal, Tooltip, Row, Col } from 'antd'
 
 import Loading from '../loading'
 import moment from 'moment'
 
 const BookingInfo = () => {
+  const [open, setOpen] = React.useState(false)
+  const [row, setRow] = React.useState({})
   const { user } = useSelector((state) => state.auth)
 
   async function getBookingList() {
@@ -29,6 +31,23 @@ const BookingInfo = () => {
     room: item.room?.[0],
     status: item.status,
   }))
+  function getRow(id) {
+    const specificRow = list?.filter((item) => item.key === id)
+    console.log(list)
+    setRow(specificRow[0])
+    setOpen(true)
+  }
+  const cancelBooking = async () => {
+    try {
+      await POST('notification', {
+        content: `${user.user.fullName} đã hủy lịch đặt phòng`,
+      })
+      const res = await DELETE(`delete-booking/${row._id}`)
+      if (res) message.success('Hủy thành công')
+    } catch (e) {
+      message.error(e)
+    }
+  }
   const columns = [
     {
       title: 'Ngày bắt đầu',
@@ -67,18 +86,27 @@ const BookingInfo = () => {
       title: 'Trạng thái',
       key: 'status',
       dataIndex: 'status',
-      render: (status) => (
-        <Tag
-          color={
-            status === 'pending'
-              ? 'yellow'
-              : status === 'confirm'
-              ? 'blue'
-              : 'red'
-          }
-        >
-          {status.toUpperCase()}
-        </Tag>
+      render: (status, key) => (
+        <>
+          <Tag
+            color={
+              status === 'pending'
+                ? 'yellow'
+                : status === 'confirm'
+                ? 'blue'
+                : 'red'
+            }
+          >
+            {status === 'pending' ? 'Chờ xác nhận' : 'Đã Xác nhận'}
+          </Tag>
+          {status !== 'confirm' && (
+            <Tooltip title={'Bạn có thể hủy lịch đặt phòng trong 24h'}>
+              <Button type={'primary'} danger onClick={() => getRow(key)}>
+                Hủy
+              </Button>
+            </Tooltip>
+          )}
+        </>
       ),
     },
   ]
@@ -86,6 +114,25 @@ const BookingInfo = () => {
   return (
     <>
       <Table columns={columns} dataSource={list} />
+      <Modal
+        open={open}
+        onCancel={() => setOpen(false)}
+        footer={null}
+        title={'Bạn có chắc muôn hủy ?'}
+      >
+        <Row justify={'space-between'} align={'center'}>
+          <Col>
+            <Button type={'ghost'} onClick={() => setOpen(false)}>
+              Không Hủy
+            </Button>
+          </Col>
+          <Col>
+            <Button danger type={'primary'}>
+              Hủy
+            </Button>
+          </Col>
+        </Row>
+      </Modal>
     </>
   )
 }

@@ -22,6 +22,8 @@ const CommentController = {
         try {
             const { content, room_id, rating } = req.body;
             const newComment = new Comment_1.default(Object.assign({ user_id: req.user._id }, req.body));
+            const data = Object.assign(Object.assign({}, newComment._doc), { user: req.user, createdAt: new Date().toISOString() });
+            index_1.io.to(`${room_id}`).emit('createComment', data);
             yield newComment.save();
             return res.json({ status: 200, data: newComment });
         }

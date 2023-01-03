@@ -47,7 +47,7 @@ export interface IUserParams {
   avatar?: string;
 }
 
-export interface  IReqAuth extends Request {
+export interface IReqAuth extends Request {
   user?: IUser;
 }
 export interface IHistory extends Document {
@@ -72,17 +72,17 @@ export interface IBooking extends Document {
   _doc: object;
 }
 export interface INoti extends Document {
-  user: string;
+  // user: string;
   content: string;
   state: boolean;
 }
-export interface IComment extends Document{
-  user_id:string
-  room_id:string
-  content:string
-  reply:string[]
-  reply_user:string
-  root:string
-  rating:number
-  _doc:Object
+export interface IComment extends Document {
+  user_id: string;
+  room_id: string;
+  content: string;
+  reply: string[];
+  reply_user: string;
+  root: string;
+  rating: number;
+  _doc: Object;
 }

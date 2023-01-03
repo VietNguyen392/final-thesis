@@ -5,6 +5,7 @@ import {
   BookingController,
   ServiceController,
   CommentController,
+  NotiController,
 } from '../controller';
 import { validRegister } from '../utils';
 import { authenticate } from '../middleware';
@@ -58,6 +59,9 @@ export const initWebRoute = (app: any) => {
     .patch(authenticate, CommentController.updateComment)
     .delete(authenticate, CommentController.deleteComment)
     .get(CommentController.getComment);
+  //*Notification route
+  routes.route('/notification').post(NotiController.createNoti).get(NotiController.getNoti);
+  routes.delete('notification/:id', NotiController.deleteNoti);
   return app.use('/api', routes);
 };
 //validRegister,
