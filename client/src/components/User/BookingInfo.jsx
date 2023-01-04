@@ -7,6 +7,7 @@ import { Button, message, Table, Tag, Modal, Tooltip, Row, Col } from 'antd'
 
 import Loading from '../loading'
 import moment from 'moment'
+import { DeleteOutlined } from '@ant-design/icons'
 
 const BookingInfo = () => {
   const [open, setOpen] = React.useState(false)
@@ -20,7 +21,7 @@ const BookingInfo = () => {
       message.error(e)
     }
   }
-  const { data, isFetching } = useQuery('booking-list', getBookingList)
+  const { data, isFetching, refetch } = useQuery('booking-list', getBookingList)
   const list = data?.data?.booking.map((item) => ({
     key: item._id,
     start_date: moment(item.start_date).format('dddd, MMMM Do YYYY'),
@@ -32,18 +33,25 @@ const BookingInfo = () => {
     status: item.status,
   }))
   function getRow(id) {
-    const specificRow = list?.filter((item) => item.key === id)
-    console.log(list)
+    const specificRow = list?.filter((item) => item.key === id.key)
     setRow(specificRow[0])
     setOpen(true)
   }
   const cancelBooking = async () => {
     try {
       await POST('notification', {
-        content: `${user.user.fullName} đã hủy lịch đặt phòng`,
+        content: `${
+          user.user.fullName
+        } đã hủy lịch đặt phòng từ ngày ${new Date(
+          row.start_date,
+        ).toISOString()}tới ${new Date(row.end_date).toISOString()}`,
       })
-      const res = await DELETE(`delete-booking/${row._id}`)
-      if (res) message.success('Hủy thành công')
+      const res = await DELETE(`delete-booking/${row.key}`)
+      if (res) {
+        message.success('Hủy thành công')
+        setOpen(false)
+        await refetch()
+      }
     } catch (e) {
       message.error(e)
     }
@@ -101,7 +109,12 @@ const BookingInfo = () => {
           </Tag>
           {status !== 'confirm' && (
             <Tooltip title={'Bạn có thể hủy lịch đặt phòng trong 24h'}>
-              <Button type={'primary'} danger onClick={() => getRow(key)}>
+              <Button
+                type={'primary'}
+                danger
+                onClick={() => getRow(key)}
+                icon={<DeleteOutlined />}
+              >
                 Hủy
               </Button>
             </Tooltip>
@@ -127,7 +140,7 @@ const BookingInfo = () => {
             </Button>
           </Col>
           <Col>
-            <Button danger type={'primary'}>
+            <Button danger type={'primary'} onClick={cancelBooking}>
               Hủy
             </Button>
           </Col>

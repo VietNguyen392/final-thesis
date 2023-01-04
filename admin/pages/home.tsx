@@ -1,19 +1,21 @@
-import React from 'react';
-import type { NextPage } from 'next';
-import StatCard from 'components/common/StatCard';
-import Invoice from 'components/common/Invoice';
-import { useDataLength } from 'hooks';
-import { SimpleGrid, Box, Stack, Accordion } from '@mantine/core';
-import { UserList, RoomList, Pending, BookingList } from 'components/List';
-import Fakechart from 'components/chart/fakechart';
-const { Item, Control, Panel } = Accordion;
+import React from 'react'
+import type { NextPage } from 'next'
+import StatCard from 'components/common/StatCard'
+import Invoice from 'components/common/Invoice'
+import { useDataLength } from 'hooks'
+import { SimpleGrid, Box, Stack, Accordion } from '@mantine/core'
+import { UserList, RoomList, BookingList } from 'components/List'
+import Fakechart from 'components/chart/fakechart'
+import Notifications from '../components/Noti'
+const { Item, Control, Panel } = Accordion
 
 const Home: NextPage = () => {
-  const { userList, hotelList, bookingList, totalInvoice } = useDataLength();
+  const { userList, hotelList, bookingList, totalInvoice } = useDataLength()
   return (
     <>
       <Box>
         <Stack>
+          <Notifications />
           <Accordion variant={'filled'}>
             <Item value={'user'}>
               <Control>
@@ -52,7 +54,7 @@ const Home: NextPage = () => {
         <Fakechart />
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

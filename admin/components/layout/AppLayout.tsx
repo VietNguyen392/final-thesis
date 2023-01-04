@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react'
 import {
   AppShell,
   Header,
@@ -7,23 +7,22 @@ import {
   MediaQuery,
   Navbar,
   Text,
-} from '@mantine/core';
-import { useRouter } from 'next/router';
-import { useAuth } from 'hooks';
+} from '@mantine/core'
+import { useRouter } from 'next/router'
+import { useAuth } from 'hooks'
+import { NavbarChild } from './SideBar'
 
-import { NavbarChild } from './SideBar';
-
-import ScrollTop from 'components/common/ScrollTop';
+import ScrollTop from 'components/common/ScrollTop'
 const AppLayout = ({ children }: { children?: ReactNode }) => {
-  const [open, setOpen] = React.useState(false);
-  const theme = useMantineTheme();
-  const { user } = useAuth();
-  const router = useRouter();
+  const [open, setOpen] = React.useState(false)
+  const theme = useMantineTheme()
+  const { user } = useAuth()
+  const router = useRouter()
   useEffect(() => {
     if (user?.user?.role !== 'admin') {
-      router.push('/login');
+      router.push('/login')
     }
-  }, []);
+  }, [])
   return (
     <>
       <AppShell
@@ -58,7 +57,9 @@ const AppLayout = ({ children }: { children?: ReactNode }) => {
                   mr="xl"
                 />
               </MediaQuery>
-              <Text size="lg">Trang Quản Trị Viên </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Text size="lg">Trang Quản Trị Viên </Text>
+              </div>
             </section>
           </Header>
         }
@@ -67,7 +68,7 @@ const AppLayout = ({ children }: { children?: ReactNode }) => {
         <ScrollTop />
       </AppShell>
     </>
-  );
-};
+  )
+}
 
-export default AppLayout;
+export default AppLayout

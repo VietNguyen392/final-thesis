@@ -15,5 +15,6 @@ export const routes = {
     createUser: '/api/create-user',
     service: '/api/service',
     booking_list: '/api/get-all-booking',
+    notification: '/api/notification',
   },
-};
+}

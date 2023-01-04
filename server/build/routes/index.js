@@ -59,7 +59,7 @@ const initWebRoute = (app) => {
         .get(controller_1.CommentController.getComment);
     //*Notification route
     routes.route('/notification').post(controller_1.NotiController.createNoti).get(controller_1.NotiController.getNoti);
-    routes.delete('notification/:id', controller_1.NotiController.deleteNoti);
+    routes.delete('/notification/:id', controller_1.NotiController.deleteNoti);
     return app.use('/api', routes);
 };
 exports.initWebRoute = initWebRoute;
