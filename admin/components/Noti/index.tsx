@@ -20,7 +20,7 @@ const Notifications = () => {
         title: 'Thông báo',
         color: 'bule',
       })
-      // await mutate('get-noti')
+      await mutate('get-noti')
     }
   }
   return (
@@ -36,7 +36,7 @@ const Notifications = () => {
           </ThemeIcon>
         }
       >
-        {data?.map((item: { content: string; _id: string }) => (
+        {data&&data?.map((item: { content: string; _id: string }) => (
           <Item key={item._id}>
             {item.content}
             <Button

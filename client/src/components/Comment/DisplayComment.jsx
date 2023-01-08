@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Comment, List, Rate, Divider } from 'antd'
+import { Comment, List, Rate } from 'antd'
 import { GET } from 'service'
 import moment from 'moment'
 

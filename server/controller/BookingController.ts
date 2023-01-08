@@ -10,7 +10,8 @@ import Stripe from 'stripe';
 
 // @ts-ignore
 const stripe = new Stripe(process.env.STRIPE_SKEY, {
-  apiVersion: '2022-12-11',
+  apiVersion: '2022-11-15',
+  typescript:true
 });
 const BookingController = {
   newBooking: async (req: IReqAuth, res: Response) => {

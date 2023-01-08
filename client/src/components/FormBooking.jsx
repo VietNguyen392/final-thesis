@@ -73,12 +73,12 @@ const FormBooking = ({
       ...p,
       begin: dateString[0],
       end: dateString[1],
-      bill: days * roomPrice,
+      bill: days*roomPrice,
     }))
     form.setFieldsValue({
       start_date: dateString[0],
       end_date: dateString[1],
-      billing: days * roomPrice,
+      billing: days*roomPrice,
     })
   }
   async function postNewBooking(value) {
