@@ -102,11 +102,7 @@ dist
 # TernJS port file
 .tern-port
 #env file
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+
 #map file
 *.map
 *.js.map
