@@ -1,13 +1,9 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react'
-import { Modal, DatePicker, Typography, Row } from 'antd'
+import React, { useState} from 'react'
+import { DatePicker, Typography, Row } from 'antd'
 import { GET } from 'service'
-import { disabledDate } from 'utils'
 import ListComponent from 'components/common/ListComponent'
-
 import { useQuery } from 'react-query'
-import { useLocation } from 'react-router-dom'
 import moment from 'moment/moment'
-
 const { RangePicker } = DatePicker
 const { Title } = Typography
 const Hotel = () => {

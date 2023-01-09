@@ -78,7 +78,7 @@ export let RoomList = () => {
       <td>{index + 1}</td>
       <td>{item.room_name}</td>
       <td>{item.room_type}</td>
-      <td>{item.room_price}</td>
+      <td>{item.room_price}$</td>
       <td>{item.location}</td>
       <td>{item.featured.join(',')}</td>
       <td>

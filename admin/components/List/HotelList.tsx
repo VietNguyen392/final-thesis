@@ -46,7 +46,7 @@ const HotelList: React.FC<ListProps> = ({ listData, onGetId }) => {
         <td>{index + 1}</td>
         <td>{item.roomName}</td>
         <td>{item.roomType}</td>
-        <td>{item.roomPrice}</td>
+        <td>{item.roomPrice}$</td>
         <td>{item.roomLocate}</td>
         <td>{item.roomFeature.join(',')}</td>
         <td>

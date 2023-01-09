@@ -14,6 +14,7 @@ const ListComponent = (props) => {
   const { desc, open } = state
   const { t } = useTranslation()
   const location = useLocation()
+  
   function selectID(rId) {
     const specific = items?.filter((it) => it._id === rId)
 
@@ -40,8 +41,12 @@ const ListComponent = (props) => {
                   level={3}
                   style={{ textTransform: 'capitalize' }}
                 >
-                  
                     <Link to={`/detail/${item._id}`}>{item.room_name}</Link>
+                  {/* {
+                    !location.pathname==='/hotel'?
+                    {t('common.detail')}
+                    </Button>
+                  } */}
                   
                 </Typography.Title>
               

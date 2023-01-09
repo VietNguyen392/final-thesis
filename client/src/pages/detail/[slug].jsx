@@ -63,7 +63,7 @@ const DetailRoom = () => {
           {data.room_name}
         </Title>
         <Button onClick={() => setState((p) => ({ ...p, open: true }))}>
-          {t('navbar.booking')}
+          {t('common.booking')}
         </Button>
       </div>
 

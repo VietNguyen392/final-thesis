@@ -51,7 +51,7 @@ const Home: NextPage = () => {
         <div className="mt">
           <Invoice count={totalInvoice} title={'Tổng doanh thu'} />
         </div>
-        <Fakechart />
+        {/* <Fakechart /> */}
       </Box>
     </>
   )

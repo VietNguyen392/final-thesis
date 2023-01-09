@@ -22,7 +22,8 @@ const middleware_1 = require("../middleware");
 const stripe_1 = __importDefault(require("stripe"));
 // @ts-ignore
 const stripe = new stripe_1.default(process.env.STRIPE_SKEY, {
-    apiVersion: '2022-12-11',
+    apiVersion: '2022-11-15',
+    typescript: true
 });
 const BookingController = {
     newBooking: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

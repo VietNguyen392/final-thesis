@@ -16,7 +16,9 @@
     "byPrice": "Theo giá",
     "byService": "Theo dịch vụ",
     "byLocate": "Theo vị trí",
-    "make-booking": "Thông tin đặt phòng"
+    "make-booking": "Thông tin đặt phòng",
+    "detail":"xem chi tiết",
+    "booking":"Đặt phòng"
   },
   "navbar": {
     "home": "Trang chủ",

@@ -173,8 +173,9 @@ const ConfigFeature = () => {
                   name="ftPrice"
                   defaultValue={x.ftPrice}
                   onChange={handleEditValue}
+                  placeholder={`${x.ftPrice} $`}
                 />
-                $
+                
               </td>
               <td style={{ width: '350px', textAlign: 'center' }}>
                 <Button

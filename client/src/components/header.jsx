@@ -39,14 +39,14 @@ export default function NavBar() {
       ),
       key: "home",
     },
-    {
+   /*  {
       label: (
         <Link to="hotel">
           <CalendarOutlined /> {t("navbar.booking")}
         </Link>
       ),
       key: "hotel",
-    },
+    }, */
     user
       ? {
           label: (
